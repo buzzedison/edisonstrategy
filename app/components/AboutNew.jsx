@@ -33,7 +33,7 @@ function AboutSection() {
               With an enthusiastic belief in human potential, Edison equips change agents with the tools to make their mark.
             </p>
             <div className="mt-8">
-              <Link href="#contact" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-light hover:text-black">
+              <Link href="https://airtable.com/appyQ1Xz7zt3o456g/shrrb6Nwgw8ERvBff" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-light hover:text-black">
                 Let's Connect
               </Link>
             </div>
