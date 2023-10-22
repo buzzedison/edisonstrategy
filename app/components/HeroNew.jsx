@@ -30,13 +30,13 @@ function HeroSection() {
           <div className="min-w-full">
             {/* Replaced subscribe input and button with Beehiiv iframe embed */}
             <iframe 
-  src="https://embeds.beehiiv.com/fdde57ec-365b-42cc-a7e9-8a898a7b9c53?slim=true" 
-  data-test-id="beehiiv-embed" 
-  height="52" 
-  width="500"
-  frameBorder="0" 
-  style={{ margin: 0, borderRadius: '0px', backgroundColor: 'transparent', overflow: 'auto' }}
-></iframe>
+              src="https://embeds.beehiiv.com/fdde57ec-365b-42cc-a7e9-8a898a7b9c53?slim=true" 
+              data-test-id="beehiiv-embed" 
+              height="52" 
+              width="100%"  // Changed from fixed 500px to 100%
+              frameBorder="0" 
+              style={{ margin: 0, borderRadius: '0px', backgroundColor: 'transparent', overflow: 'auto' }}
+            ></iframe>
           </div>
         </div>
       </div>
