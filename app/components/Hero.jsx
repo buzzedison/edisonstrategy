@@ -13,7 +13,7 @@ export default function Hero() {
           <div className="w-full md:w-1/2 px-4">
             <Image src="/image/logo.png" alt="Edison Ade" width={500} height={500} 
             objectFit="cover" 
-            position="bottom" />
+            className="absolute bottom-0" />
           </div>
         </div>
       </div>
