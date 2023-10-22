@@ -25,6 +25,6 @@
       "@/*": ["app/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Hero.jsx", "app/components/Navbar.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Hero.jsx", "app/components/Navbar.jsx", "app/pricingcalculator/page.jsx"],
   "exclude": ["node_modules"]
 }
