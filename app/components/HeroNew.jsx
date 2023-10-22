@@ -34,7 +34,7 @@ function HeroSection() {
   data-test-id="beehiiv-embed" 
   height="52" 
   width="500"
-  frameborder="0" 
+  frameBorder="0" 
   style={{ margin: 0, borderRadius: '0px', backgroundColor: 'transparent', overflow: 'auto' }}
 ></iframe>
           </div>
