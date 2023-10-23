@@ -10,12 +10,13 @@ const Navbar = () => {
           
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <Image 
+            <Link href="/"> <Image 
                 src="/image/logo.svg" 
                 alt="Company Logo"
                 width={120}
                 height={90} 
               />
+              </Link> 
             </div>
 
             <div className="hidden md:block">
@@ -36,31 +37,26 @@ const Navbar = () => {
                 </Link>
 
                 <Link
-                  href="/books"
+                  href="/coaching"
                   className="hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                 Coaching  
                 </Link>
                 <Link
-                  href="/books"
+                  href="/courses"
                   className="hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
             Courses
                 </Link>
 
                 <Link
-                  href="/books"
+                  href="/resources"
                   className="hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                 Resources 
                 </Link>
 
-                <Link
-                  href="/books"
-                  className="hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                 Insight  
-                </Link>
+              
                 {/* other links */}
 
               </div>
