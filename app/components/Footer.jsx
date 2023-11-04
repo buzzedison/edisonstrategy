@@ -17,18 +17,18 @@ export default function Footer (){
       </div>
 
       <nav className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-        <Link href="/about" className="text-sm font-medium hover:text-gray-100">
-          About
+        <Link href="/books" className="text-sm font-medium hover:text-gray-100">
+      Books
         </Link>
         
-        <Link href="/blog" className="text-sm font-medium hover:text-gray-100">
+        <Link href="https://www.blog.buzzedison.com" className="text-sm font-medium hover:text-gray-100">
        Insight
         </Link>
         
-        <Link href="/blog" className="text-sm font-medium hover:text-gray-100">
+        <Link href="/resources" className="text-sm font-medium hover:text-gray-100">
        Resources
         </Link>
-        <Link href="/blog" className="text-sm font-medium hover:text-gray-100">
+        <Link href="/coaching" className="text-sm font-medium hover:text-gray-100">
    Coaching
         </Link>
       </nav>

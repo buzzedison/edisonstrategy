@@ -26,9 +26,14 @@ function BooksPage() {
             alt="Book Cover 1" className="mx-auto"/>
           </div>
           <div className="md:w-1/2 container mx-auto">
-            <h2 className="text-3xl font-bold mx-auto mt-5 md:mt-24">Pricing Strategy to Help You Win in Business</h2>
+            <h2 className="text-3xl font-bold mx-auto mt-5 md:mt-24 ">Pricing Strategy to Help You Win in Business</h2>
             <p className="mb-8">Learn how to build a pricing strategy that works. Learn different pricing models and strategies. Learn how to communicate your price to your customers. Understand the Psychology of your customer.</p>
-           <Link href="https://buzzedison.gumroad.com/l/pricingstrategy "> <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Get the Book</button></Link>
+           <Link href="/books/pricing "> 
+           <button className="bg-blue-700 mr-0 md:mr-4 text-white py-2 px-4 rounded hover:bg-blue-600">
+            Learn More</button></Link>
+
+            <Link href="https://buzzedison.gumroad.com/l/pricingstrategy "> <button className="bg-secondary text-white py-2 px-4 rounded hover:bg-blue-600">
+              Get the Book</button></Link>
           </div>
         </div>
 
