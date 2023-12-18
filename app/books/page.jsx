@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Inversion from "../books/components/Inversion";
 // Define the BooksPage component
 function BooksPage() {
   return (
@@ -36,7 +37,7 @@ function BooksPage() {
               Get the Book</button></Link>
           </div>
         </div>
-
+<Inversion/>
         {/* Add more books in a similar format */}
       </div>
     </div>
