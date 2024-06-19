@@ -2,8 +2,10 @@ import React from 'react';
 
 const ProblemSection: React.FC = () => {
   return (
+    <>
+    <div className="">
     <section className="bg-gradient-to-r from-purple-800 to-blue-800 py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center">
           <h2 className="text-4xl font-bold text-white sm:text-5xl tracking-tight">
             The Challenges of Founding a Company
@@ -44,6 +46,8 @@ const ProblemSection: React.FC = () => {
         </div>
       </div>
     </section>
+    </div>
+    </>
   );
 };
 
