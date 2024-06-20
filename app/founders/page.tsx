@@ -20,12 +20,12 @@ export default function Home() {
       </p>
       <div className="mt-8 sm:flex sm:justify-center lg:justify-start">
         <div className="rounded-md shadow">
-          <Link href="/join" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-purple-900 bg-white hover:bg-purple-50 md:py-4 md:text-lg md:px-10">
+          <Link href="https://airtable.com/app6sLDmnMh84vOP4/pagUnNFYcByTVbday/form" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-purple-900 bg-white hover:bg-purple-50 md:py-4 md:text-lg md:px-10">
             Join the Circle
           </Link>
         </div>
         <div className="mt-3 sm:mt-0 sm:ml-3">
-          <Link href="/about" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-800 hover:bg-purple-700 md:py-4 md:text-lg md:px-10">
+          <Link href="#what-we-offer" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-800 hover:bg-purple-700 md:py-4 md:text-lg md:px-10">
             Learn More
           </Link>
         </div>
@@ -47,7 +47,7 @@ export default function Home() {
      
 
        {/* What We Offer Section */}
-       <section className="py-24 pb-0 bg-white">
+       <section id="what-we-offer" className="py-24 pb-0 bg-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="lg:text-center">
       <h2 className="text-base text-purple-600 font-semibold tracking-wide uppercase">What We Offer</h2>
@@ -134,7 +134,7 @@ export default function Home() {
           </h2>
           <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
             <div className="inline-flex rounded-md shadow">
-              <Link href="/join" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-purple-600 bg-white hover:bg-purple-50">
+              <Link href="https://airtable.com/app6sLDmnMh84vOP4/pagUnNFYcByTVbday/form" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-purple-600 bg-white hover:bg-purple-50">
                 Become a Member
               </Link>
             </div>
