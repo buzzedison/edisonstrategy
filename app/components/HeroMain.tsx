@@ -80,8 +80,8 @@ const HeroMain: React.FC = () => {
               <Image
                 src="/image/edisonnew.jpg"
                 alt="Founders collaborating"
-                layout="fill"
-                objectFit="cover"
+                fill
+    style={{ objectFit: 'cover' }}
                 className="rounded-[30px]"
               />
               <motion.div
