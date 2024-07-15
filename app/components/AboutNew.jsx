@@ -1,49 +1,78 @@
+"use client"
 import Link from "next/link"
 import Image from "next/image"
-// Define the AboutSection component
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
+
 function AboutSection() {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  })
+
   return (
-    <div className="bg-white py-16 sm:py-24">
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-16">
-          
+        <motion.div 
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="lg:flex lg:items-center lg:justify-between"
+        >
           {/* Image Section */}
-          <div className="lg:mt-0 lg:flex-shrink-0 relative w-full" style={{ paddingBottom: '120%' , paddingTop:'30%'}}>
-            <Image className="rounded-lg shadow-lg object-cover w-full h-96 sm:h-96" 
-            src="/image/edisonnew.png"
-         fill={true}
-             alt="Edison Ade" />
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:w-1/2 lg:pr-12 mb-10 lg:mb-0"
+          >
+            <div className="relative w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+              <Image 
+                src="/image/edisonabout.jpg"
+                layout="fill"
+                objectFit="cover"
+                alt="Edison Ade" 
+                className="rounded-2xl transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+          </motion.div>
           
           {/* Text Section */}
-          <div className="mt-12 lg:mt-0">
-            <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mt-2 md:mt-24">
-              About Edison Ade
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="lg:w-1/2"
+          >
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-8">
+              About Edison. Empowering Leaders to Build Profitable Businesses with Purpose
             </h2>
-            <p className="mt-6 text-lg text-gray-500">
-              Edison Ade is a startup growth strategist who empowers founders to rapidly scale their companies. With proven systems and mindset coaching, he provides startups with a blueprint for sustainable growth.
-            </p>
-            <p className="mt-4 text-lg text-gray-500">
-              Beyond startups, Edison is passionate about developing leaders and helping people maximize their potential through communication, emotional intelligence and self-management training.
-            </p>
-            <p className="mt-4 text-lg text-gray-500">
-              He also builds custom web and mobile applications for startups. Get in touch if you need an app to accelerate your business.
-            </p>
-            <p className="mt-4 text-lg text-gray-500">
-              With an enthusiastic belief in human potential, Edison equips change agents with the tools to make their mark.
-            </p>
-            <div className="mt-8">
-              <Link href="https://airtable.com/appyQ1Xz7zt3o456g/shrrb6Nwgw8ERvBff" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-light hover:text-black">
-                Let's Connect
-              </Link>
+            <div className="space-y-6 text-lg text-gray-600">
+              <p>
+                Edison is a leadership coach on a mission: to help founders and creators like you build businesses that are both profitable and impactful. He believes that success isn't just about the bottom line, but also about creating a legacy you can be proud of.
+              </p>
+              <p>
+                With over 15 years of experience building and scaling companies, Edison brings a wealth of practical knowledge to the table. He's helped countless founders secure funding, dominate new markets, and build teams that thrive. But more importantly, he helps leaders prioritize their own well-being, so they can lead with passion and purpose for the long haul.
+              </p>
+              <p>
+                Ready to build a business that lights you up and makes a real difference in the world?
+              </p>
             </div>
-          </div>
-          
-        </div>
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-10"
+            >
+              <Link href="https://airtable.com/appyQ1Xz7zt3o456g/shrrb6Nwgw8ERvBff" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-md">
+                Learn More About Edison
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
-  );
+  )
 }
 
-// Export the AboutSection component
-export default AboutSection;
+export default AboutSection

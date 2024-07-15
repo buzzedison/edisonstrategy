@@ -10,7 +10,7 @@ function HeroSection() {
   return (
     <div className="relative bg-blue-200 overflow-hidden">
       <div className="max-w-7xl mx-auto my-12 md:my-24 p-4 sm:p-0">
-        <div className="text-center">
+        <div className="text-center pt-0 lg:pt-12">
           <motion.h1 
             initial={{ opacity: 0, y: -50 }} 
             animate={{ opacity: 1, y: 0 }} 

@@ -4,7 +4,7 @@ import React from 'react'; // Import React
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Navbar from './components/Navbar';
+import NavbarNew from './components/MyNav';
 import Footer from './components/Footer';
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
           <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
         )}
-        <Navbar/>
+        <NavbarNew/>
         {children}
         <Footer/>
       </body>
