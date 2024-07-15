@@ -29,7 +29,7 @@ function AboutSection() {
           >
             <div className="relative w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl">
               <Image 
-                src="/image/edisonabout.jpg"
+                src="/image/edisonaboutnew.jpg"
                 layout="fill"
                 objectFit="cover"
                 alt="Edison Ade" 
