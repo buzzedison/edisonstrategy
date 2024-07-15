@@ -1,8 +1,10 @@
 "use client"
 import  { useState, useEffect } from 'react';
-import Image from 'next/image';
+
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import dynamic from 'next/dynamic'
+const Image = dynamic(() => import('next/image'), { ssr: false })
 
 const HeroMain: React.FC = () => {
   const [text1, setText1] = useState('');
