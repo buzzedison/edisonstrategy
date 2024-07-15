@@ -80,7 +80,7 @@ const HeroMain: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <Image
-                src="/image/edisonnew.jpg"
+                src="/image/edisonnewb.jpg"
                 alt="Founders collaborating"
                 fill={true}
     style={{ objectFit: 'cover' }}
