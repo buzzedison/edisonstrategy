@@ -64,7 +64,7 @@ function AboutSection() {
               whileTap={{ scale: 0.95 }}
               className="mt-10"
             >
-              <Link href="https://airtable.com/appyQ1Xz7zt3o456g/shrrb6Nwgw8ERvBff" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-md">
+              <Link href="/about" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-md">
                 Learn More About Edison
               </Link>
             </motion.div>

@@ -1,6 +1,7 @@
 "use client"
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const MastermindSection = () => {
   return (
@@ -62,12 +63,12 @@ const MastermindSection = () => {
           className="text-center"
         >
           <p className="text-2xl font-bold mb-6">Ready to turn your business dreams into a reality?</p>
-          <a 
-            href="#application-form" 
+          <Link 
+            href="https://airtable.com/appSFdtBZ0mhEzlyF/pag9uDaL9FhNYGYNP/formm" 
             className="inline-block bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-full hover:bg-yellow-300 transition duration-300"
           >
             Claim Your Free Spot! Only 100 Available!
-          </a>
+          </Link>
         </motion.div>
       </div>
     </div>
