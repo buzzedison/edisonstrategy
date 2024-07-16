@@ -31,8 +31,8 @@ const AboutPage = () => {
             <Image
               src="/image/edisonslide2.jpg"
               alt="Edison speaking at a conference"
-              layout="fill"
-              objectFit="cover"
+              fill={true}
+              style={{ objectFit: 'cover' }}
               className="rounded-lg"
             />
           </motion.div>
