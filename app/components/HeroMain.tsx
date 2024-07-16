@@ -75,7 +75,7 @@ const HeroMain: React.FC = () => {
             className="md:w-1/2 relative"
           >
             <motion.div 
-              className="relative w-full h-96 md:h-[500px] rounded-[30px] overflow-hidden shadow-xl"
+              className="relative w-full h-46 md:h-[500px] rounded-[30px] overflow-hidden shadow-xl"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
