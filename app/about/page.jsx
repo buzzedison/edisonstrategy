@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+
 import { motion } from 'framer-motion';
+const Image = dynamic(() => import('next/image'), { ssr: false })
 
 const AboutPage = () => {
   const [activeTab, setActiveTab] = useState('mission');
