@@ -33,7 +33,7 @@ const HeroMain: React.FC = () => {
 
   return (
     <div className="bg-gradient-to-br from-gray-100 to-blue-100 text-blue-900 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32  md:py-32">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
