@@ -29,7 +29,7 @@ const AboutPage = () => {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <motion.div {...fadeIn} className="relative h-[600px] rounded-lg overflow-hidden shadow-2xl">
             <Image
-              src="/image/edisonslide2.jpg"
+              src="/image/edisonnew.jpg"
               alt="Edison speaking at a conference"
               fill={true}
               style={{ objectFit: 'cover' }}
