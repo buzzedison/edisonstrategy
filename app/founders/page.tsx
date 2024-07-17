@@ -43,83 +43,75 @@ export default function Home() {
   </div>
 </section>
     </div>
-    <div className="w-full flex pb-24  flex-col items-center justify-between px-24">
-     
+    <div className="w-full flex pb-12 sm:pb-24 flex-col items-center justify-between px-4 sm:px-24">
+  {/* What We Offer Section */}
+  <section id="what-we-offer" className="py-12 sm:py-24 pb-0 bg-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center">
+        <h2 className="text-base text-purple-600 font-semibold tracking-wide uppercase">What We Offer</h2>
+        <p className="mt-2 text-2xl  leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          A Better Way to Grow Your Startup
+        </p>
+      </div>
 
-       {/* What We Offer Section */}
-       <section id="what-we-offer" className="py-24 pb-0 bg-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="lg:text-center">
-      <h2 className="text-base text-purple-600 font-semibold tracking-wide uppercase">What We Offer</h2>
-      <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-        A Better Way to Grow Your Startup
-      </p>
+      <div className="mt-8">
+        <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-x-8 md:gap-y-10">
+          {/* Feature items */}
+          {[
+            {
+              title: "Curated Community",
+              description: "We hand-select members based on their experience, ambition, and commitment to supporting fellow founders. This ensures a high-quality network of like-minded individuals.",
+              icon: (
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              ),
+            },
+            {
+              title: "Peer-to-Peer Learning",
+              description: "Regular events, workshops, and online forums provide opportunities for founders to share their expertise, learn from each other's experiences, and gain valuable insights.",
+              icon: (
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+              ),
+            },
+            {
+              title: "Expert Guidance",
+              description: "Access experienced mentors, investors, and industry leaders who offer guidance, feedback, and support to help you navigate your entrepreneurial journey.",
+              icon: (
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                </svg>
+              ),
+            },
+            {
+              title: "Exclusive Events",
+              description: "Attend private gatherings, workshops, and retreats designed to foster deep connections and facilitate collaboration with fellow founders and industry leaders.",
+              icon: (
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              ),
+            },
+          ].map((feature, index) => (
+            <div key={index} className="relative">
+              <dt>
+                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                  {feature.icon}
+                </div>
+                <p className="ml-16 text-lg leading-6 font-medium text-gray-900">{feature.title}</p>
+              </dt>
+              <dd className="mt-2 ml-16 text-base text-gray-500">
+                {feature.description}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </div>
-
-    <div className="mt-8">
-      <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-        {/* Feature items */}
-        <div className="relative">
-          <dt>
-            <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Curated Community</p>
-          </dt>
-          <dd className="mt-2 ml-16 text-base text-gray-500">
-            We hand-select members based on their experience, ambition, and commitment to supporting fellow founders. This ensures a high-quality network of like-minded individuals.
-          </dd>
-        </div>
-
-        <div className="relative">
-          <dt>
-            <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-              </svg>
-            </div>
-            <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Peer-to-Peer Learning</p>
-          </dt>
-          <dd className="mt-2 ml-16 text-base text-gray-500">
-            Regular events, workshops, and online forums provide opportunities for founders to share their expertise, learn from each other's experiences, and gain valuable insights.
-          </dd>
-        </div>
-
-        <div className="relative">
-          <dt>
-            <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-              </svg>
-            </div>
-            <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Expert Guidance</p>
-          </dt>
-          <dd className="mt-2 ml-16 text-base text-gray-500">
-            Access experienced mentors, investors, and industry leaders who offer guidance, feedback, and support to help you navigate your entrepreneurial journey.
-          </dd>
-        </div>
-
-        <div className="relative">
-          <dt>
-            <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Exclusive Events</p>
-          </dt>
-          <dd className="mt-2 ml-16 text-base text-gray-500">
-            Attend private gatherings, workshops, and retreats designed to foster deep connections and facilitate collaboration with fellow founders and industry leaders.
-          </dd>
-        </div>
-      </dl>
-    </div>
-  </div>
-</section>
-
-    </div>
+  </section>
+</div>
     <section>
 <ProblemSection/>
 </section>
