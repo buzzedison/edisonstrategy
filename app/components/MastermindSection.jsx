@@ -64,7 +64,7 @@ const MastermindSection = () => {
         >
           <p className="text-2xl font-bold mb-6">Ready to turn your business dreams into a reality?</p>
           <Link 
-            href="https://airtable.com/appSFdtBZ0mhEzlyF/pag9uDaL9FhNYGYNP/formm" 
+            href="https://airtable.com/appSFdtBZ0mhEzlyF/pag9uDaL9FhNYGYNP/form" 
             className="inline-block bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-full hover:bg-yellow-300 transition duration-300"
           >
             Claim Your Free Spot! Only 100 Available!
