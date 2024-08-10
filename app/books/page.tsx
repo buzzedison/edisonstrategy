@@ -1,38 +1,40 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from 'framer-motion';
-import { FaBook, FaStar, FaCalendarAlt } from 'react-icons/fa';
+import { motion } from "framer-motion";
+import { FaBook, FaStar, FaCalendarAlt } from "react-icons/fa";
 
-type BookCategory = 'All Books' | 'Best Sellers' | 'New Arrivals';
+type BookCategory = "All Books" | "Best Sellers" | "New Arrivals";
 
-const tabs: BookCategory[] = ['All Books', 'Best Sellers', 'New Arrivals'];
+const tabs: BookCategory[] = ["All Books", "Best Sellers", "New Arrivals"];
 
 const books = {
-  'All Books': [
+  "All Books": [
     {
       title: "Pricing Strategy to Help You Win in Business",
-      description: "Master the art of pricing to boost your business success. Dive into various pricing models, strategies, and customer psychology.",
+      description:
+        "Master the art of pricing to boost your business success. Dive into various pricing models, strategies, and customer psychology.",
       image: "/image/pricingbook.webp",
       link: "/books/pricing",
-      buyLink: "https://buzzedison.gumroad.com/l/pricingstrategy"
+      buyLink: "https://buzzedison.gumroad.com/l/pricingstrategy",
     },
     {
       title: "The Art of Inversion",
-      description: "Discover how to solve problems by approaching them backwards. Learn to think differently and find innovative solutions.",
+      description:
+        "Discover how to solve problems by approaching them backwards. Learn to think differently and find innovative solutions.",
       image: "/image/inversion.png",
       link: "/books/inversion",
-      buyLink: "https://buzzedison.gumroad.com/l/inversion"
+      buyLink: "https://buzzedison.gumroad.com/l/inversion",
     },
   ],
-  'Best Sellers': [
+  "Best Sellers": [
     // Add best sellers here
   ],
-  'New Arrivals': [
+  "New Arrivals": [
     // Add new arrivals here
-  ]
+  ],
 };
 
 type Book = {
@@ -45,44 +47,40 @@ type Book = {
 
 const BookCard = ({ book }: { book: Book }) => (
   <motion.div
-    whileHover={{ scale: 1.05 }}
+    whileHover={{ scale: 1.02 }}
     transition={{ type: "spring", stiffness: 300 }}
-    className="bg-white rounded-3xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl flex flex-col h-full"
+    className="bg-white rounded-3xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl"
   >
-    <div className="relative h-64 md:h-80">
-      <Image 
-        src={book.image} 
-        layout="fill"
-        objectFit="cover"
-        alt={`Cover of ${book.title}`} 
-        className="transition-transform duration-300 hover:scale-105"
+    <div className="relative h-[400px] md:h-[500px]">
+      <Image
+        src={book.image}
+        fill
+        alt={`Cover of ${book.title}`}
+        className="object-cover transition-transform duration-300 hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
     </div>
-    <div className="p-6 md:p-8 flex-grow flex flex-col justify-between">
-      <div>
-        <h3 className="text-2xl font-bold mb-3 text-gray-800 line-clamp-2">{book.title}</h3>
-        <p className="text-gray-600 mb-6 line-clamp-3">{book.description}</p>
-      </div>
-      <div className="flex flex-col space-y-3">
-        <Link href={book.link} className="w-full">
-          <motion.button 
+    <div className="p-8 md:p-10">
+      <h3 className="text-3xl font-bold mb-4 text-gray-800">{book.title}</h3>
+      <p className="text-gray-600 mb-8 text-lg">{book.description}</p>
+      <div className="flex space-x-4">
+        <Link href={book.link}>
+          <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-4 rounded-full hover:from-blue-600 hover:to-indigo-700 transition duration-300 flex items-center justify-center space-x-2 group"
+            className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-6 rounded-full hover:from-blue-600 hover:to-indigo-700 transition duration-300 flex items-center space-x-2 text-lg"
           >
-            <FaBook className="text-lg transition-transform duration-300 group-hover:rotate-12" />
-            <span className="font-semibold">Explore Book</span>
+            <FaBook className="text-xl" />
+            <span>Explore</span>
           </motion.button>
         </Link>
-        <Link href={book.buyLink} className="w-full">
-          <motion.button 
+        <Link href={book.buyLink}>
+          <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 px-4 rounded-full hover:from-emerald-600 hover:to-green-700 transition duration-300 flex items-center justify-center space-x-2 group"
+            className="bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 px-6 rounded-full hover:from-emerald-600 hover:to-green-700 transition duration-300 flex items-center space-x-2 text-lg"
           >
-            <FaStar className="text-lg transition-transform duration-300 group-hover:rotate-45" />
-            <span className="font-semibold">Purchase Now</span>
+            <FaStar className="text-xl" />
+            <span>Purchase</span>
           </motion.button>
         </Link>
       </div>
@@ -93,55 +91,87 @@ const BookCard = ({ book }: { book: Book }) => (
 const BooksPage = () => {
   const [selectedTab, setSelectedTab] = useState<BookCategory>(tabs[0]);
 
+  const handleExploreClick = () => {
+    const bookCardsSection = document.getElementById("bookCards");
+    if (bookCardsSection) {
+      bookCardsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="bg-gray-100 h-screen">
-      <header className="relative bg-gradient-to-r from-blue-500 to-blue-700 text-white py-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 opacity-80 animate-gradient"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-6xl font-extrabold mb-4">Transform Your Business</h1>
-          <h2 className="text-4xl mb-6">with Expert Insights</h2>
-          <p className="text-xl max-w-3xl mx-auto mb-8">
-            Unlock your potential with Edison's bestselling guides. Gain actionable insights on strategy, branding, and digital transformation to elevate your business and leadership skills.
-          </p>
-          <Link href="/#books" passHref>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-8 rounded-full text-lg font-semibold hover:from-green-500 hover:to-green-700 transition duration-300"
-            >
-              Browse Books
-            </motion.button>
-          </Link>
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300">
+      <header className="bg-gradient-to-r from-blue-800 to-blue-900 text-white py-32">
+        <div className="container mx-auto px-4 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-6xl md:text-7xl font-extrabold mb-8"
+          >
+            Elevate Your Business
+          </motion.h1>
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-4xl md:text-5xl mb-12"
+          >
+            with Proven Strategies
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-xl md:text-2xl max-w-4xl mx-auto mb-16"
+          >
+            Discover the secrets to business success with Edison's expert guides. Gain insights on pricing, problem-solving, and more to take your business to new heights.
+          </motion.p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-white text-gray-800 py-4 px-10 rounded-full text-xl font-semibold shadow-lg hover:bg-gray-200 transition duration-300"
+            onClick={handleExploreClick}
+          >
+            Explore Books
+          </motion.button>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-12" id="books">
-        <div className="flex justify-center space-x-4 mb-12">
+      <main className="container mx-auto px-4 py-16" id="books">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex justify-center mb-12"
+        >
           {tabs.map((tab) => (
             <motion.button
               key={tab}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className={`py-2 px-6 rounded-full ${
-                selectedTab === tab 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-white text-blue-600 hover:bg-blue-100'
-              } transition-colors duration-300 ease-in-out shadow-md`}
+                selectedTab === tab
+                  ? "bg-gray-800 text-white shadow-lg"
+                  : "bg-white text-gray-800 hover:bg-gray-200 shadow-md"
+              } transition-colors duration-300 ease-in-out mr-4 last:mr-0`}
               onClick={() => setSelectedTab(tab)}
             >
-              {tab === 'All Books' && <FaBook className="inline mr-2" />}
-              {tab === 'Best Sellers' && <FaStar className="inline mr-2" />}
-              {tab === 'New Arrivals' && <FaCalendarAlt className="inline mr-2" />}
+              {tab === "All Books" && <FaBook className="inline mr-2" />}
+              {tab === "Best Sellers" && <FaStar className="inline mr-2" />}
+              {tab === "New Arrivals" && (
+                <FaCalendarAlt className="inline mr-2" />
+              )}
               {tab}
             </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          id="bookCards"
         >
           {books[selectedTab].map((book, index) => (
             <BookCard key={index} book={book} />
