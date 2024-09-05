@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google';
 import NavbarNew from './components/MyNav';
 import Footer from './components/Footer';
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { AuthProvider } from '../lib/authContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -72,9 +73,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
           <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
         )}
-        <NavbarNew/>
-        {children}
-        <Footer/>
+        <AuthProvider>
+          <NavbarNew/>
+          {children}
+          <Footer/>
+        </AuthProvider>
       </body>
     </html>
   );
