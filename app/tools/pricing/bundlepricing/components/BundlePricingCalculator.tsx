@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { createClient } from "../../../../../../lib/supabaseClient";
+import { createClient } from "../../../../../lib/supabaseClient";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 

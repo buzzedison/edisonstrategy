@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { Chart, registerables } from "chart.js";
-import { createClient } from "../../../../../../lib/supabaseClient";
+import { createClient } from "../../../../../lib/supabaseClient";
 
 Chart.register(...registerables);
 

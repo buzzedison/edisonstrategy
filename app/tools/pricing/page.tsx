@@ -53,27 +53,27 @@ const pricingTools = [
   {
     name: "Cost-Plus Pricing",
     description: "Calculate prices based on product cost and desired markup.",
-    link: "/dashboard/tools/pricing/costpricing"
+    link: "/tools/pricing/costpricing"
   },
   {
     name: "Target Return Pricing",
     description: "Set prices to achieve a specific ROI based on costs and sales volume.",
-    link: "/dashboard/tools/pricing/targetreturn"
+    link: "/tools/pricing/targetreturn"
   },
   {
     name: "Value-Based Pricing",
     description: "Determine prices based on perceived product value to customers.",
-    link: "/dashboard/tools/pricing/valuebased"
+    link: "/tools/pricing/valuebased"
   },
   {
     name: "Dynamic Pricing",
     description: "Adjust prices in real-time based on demand, supply, and other factors.",
-    link: "/dashboard/tools/pricing/dynamicpricing"
+    link: "/tools/pricing/dynamicpricing"
   },
   {
     name: "Bundle Pricing",
     description: "Calculate optimal prices for product bundles and apply discounts.",
-    link: "/dashboard/tools/pricing/bundlepricing"
+    link: "/tools/pricing/bundlepricing"
   }
 ];
 
