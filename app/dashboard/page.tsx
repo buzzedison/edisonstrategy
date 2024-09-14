@@ -6,9 +6,10 @@ import { useAuth } from '../../lib/authContext';
 import { FaChartLine, FaBook, FaMobileAlt, FaLightbulb, FaCalculator } from 'react-icons/fa';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import SignOutButton from '../components/SignOutButton'; // Import the SignupButton component
 
 export default function Dashboard() {
-  const { user, session } = useAuth();
+  const { user, session, signOut } = useAuth(); // Extract signOut function from useAuth
   const router = useRouter();
 
   useEffect(() => {
@@ -61,7 +62,12 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
-
+        <div className="mt-8">
+          <button onClick={signOut} className="px-6 py-3 bg-red-600 text-white rounded-full font-medium hover:bg-red-700 transition-colors duration-300 shadow-md hover:shadow-lg">Sign Out</button> {/* Display the SignupButton component */}
+        </div>
+<div>
+  <Link href="/admin/blog/new"> New Blog</Link>
+</div>
        
       </div>
     </div>

@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
-import { createClient } from './supabaseClient';
+import { supabase } from './supabaseClient';  // Import the existing supabase client
 
+// Define the structure of the context
 const AuthContext = createContext<{
   user: User | null;
   session: Session | null;
@@ -21,48 +22,57 @@ const AuthContext = createContext<{
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const supabase = createClient();
 
   useEffect(() => {
-    const setData = async () => {
+    const getSession = async () => {
       const { data: { session }, error } = await supabase.auth.getSession();
       if (error) throw error;
       setSession(session);
       setUser(session?.user ?? null);
     };
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    // Subscribe to changes in authentication state
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
     });
 
-    setData();
+    getSession();
 
+    // Clean up the subscription on unmount
     return () => {
-      subscription.unsubscribe();
+      authListener?.subscription?.unsubscribe();
     };
   }, []);
 
+  const signIn = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+  };
+
+  const signUp = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) throw error;
+  };
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+  };
+
+  // Provide the authentication values and functions to the context
   const value = {
     session,
     user,
-    signIn: async (email: string, password: string) => {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-    },
-    signUp: async (email: string, password: string) => {
-      const { error } = await supabase.auth.signUp({ email, password });
-      if (error) throw error;
-    },
-    signOut: async () => {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-    },
+    signIn,
+    signUp,
+    signOut,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
+// Hook to use the authentication context
 export const useAuth = () => {
   return useContext(AuthContext);
 };

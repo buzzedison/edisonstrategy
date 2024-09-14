@@ -1,61 +1,26 @@
-import { createServerClient } from '@supabase/ssr'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import { supabase } from './lib/supabaseClient';
+import { getSupabaseSession } from './lib/authHelper';
 
-export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  })
+export async function middleware(req: Request) {
+  const { session } = await getSupabaseSession(req);
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value
-        },
-        set(name: string, value: string, options: any) {
-          request.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          })
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-        },
-        remove(name: string, options: any) {
-          request.cookies.set({
-            name,
-            value: '',
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          })
-          response.cookies.set({
-            name,
-            value: '',
-            ...options,
-          })
-        },
-      },
-    }
-  )
+  // If no session exists, redirect to login
+  if (!session || !session.user) {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
 
-  await supabase.auth.getSession()
+  // Check if the user has an admin role
+  const userRole = session.user.user_metadata?.role;
+  
+  if (userRole !== 'admin') {
+    return NextResponse.redirect(new URL('/dashboard', req.url));
+  }
 
-  return response
+  // Continue if user is an admin
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/admin'],
+};
