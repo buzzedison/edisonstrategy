@@ -1,5 +1,7 @@
 // app/component/SubscribeForm.tsx
 
+"use client"
+
 import React from 'react';
 
 const SubscribeForm = () => {
