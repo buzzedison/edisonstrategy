@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { createClient } from "../../../../../lib/supabaseClient";
+import { supabase } from "../../../../../lib/supabaseClient";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 
@@ -12,7 +12,6 @@ const BundlePricingCalculator = () => {
   const [bundlePrice, setBundlePrice] = useState<number>(0);
   const [user, setUser] = useState<{ id: string } | null>(null);
   const [savedBundles, setSavedBundles] = useState<any[]>([]);
-  const supabase = createClient();
 
   useEffect(() => {
     const fetchSession = async () => {

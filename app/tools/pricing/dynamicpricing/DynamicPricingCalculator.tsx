@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Chart, registerables } from "chart.js";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import { createClient } from "../../../../lib/supabaseClient";
+import { supabase } from "../../../../lib/supabaseClient";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from 'next/navigation';
 
@@ -23,7 +23,6 @@ const DynamicPricingCalculator = () => {
   const [calculationName, setCalculationName] = useState("");
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstance = useRef<Chart | null>(null);
-  const supabase = createClient();
   const router = useRouter();
 
   useEffect(() => {

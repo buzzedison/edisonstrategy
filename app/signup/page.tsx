@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../lib/authContext';
 import Link from 'next/link';
-import { createClient } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 
 const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState('');

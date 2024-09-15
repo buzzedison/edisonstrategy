@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { Chart, registerables } from "chart.js";
-import { createClient } from "../../../../../lib/supabaseClient";
+import { supabase } from "../../../../../lib/supabaseClient";
 
 Chart.register(...registerables);
 
@@ -22,7 +22,6 @@ const ValueBasedPricing = () => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const graphRef = useRef<HTMLDivElement>(null);
-  const supabase = createClient();
 
   useEffect(() => {
     const fetchSession = async () => {

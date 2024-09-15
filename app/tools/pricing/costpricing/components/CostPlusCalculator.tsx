@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import { createClient } from "../../../../../lib/supabaseClient";
+import { supabase } from "../../../../../lib/supabaseClient";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from 'next/navigation';
 
@@ -19,7 +19,6 @@ const CostPlusCalculator = () => {
   const [savedCalculations, setSavedCalculations] = useState<any[]>([]);
   const [statusMessage, setStatusMessage] = useState("");
   const resultsRef = useRef<HTMLDivElement>(null);
-  const supabase = createClient();
   const router = useRouter();
 
   useEffect(() => {

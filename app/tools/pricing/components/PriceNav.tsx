@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { createClient } from '../../../../lib/supabaseClient';
+import { supabase } from '../../../../lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import { User } from '@supabase/supabase-js';
 import { motion } from 'framer-motion';
@@ -9,7 +9,6 @@ import { motion } from 'framer-motion';
 const PriceNav = () => {
   const [user, setUser] = useState<User | null>(null);
   const [activeLink, setActiveLink] = useState('');
-  const supabase = createClient();
   const router = useRouter();
 
   useEffect(() => {
