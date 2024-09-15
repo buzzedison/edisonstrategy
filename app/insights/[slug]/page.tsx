@@ -1,56 +1,13 @@
+// app/insights/[slug]/page.tsx
+
 import { notFound } from 'next/navigation'; // To handle 404 errors
 import { supabase } from '../../../lib/supabaseClient'; // Use the shared Supabase client
 import Image from 'next/image'; // Use next/image for optimized image loading
+import Script from 'next/script'; // Use next/script for adding scripts to the document head
 
 interface PostPageProps {
   params: {
     slug: string;
-  };
-}
-
-// Generate dynamic metadata
-export async function generateMetadata({ params }: PostPageProps) {
-  const { slug } = params;
-
-  // Fetch post data from Supabase
-  const { data: post, error } = await supabase
-    .from('posts')
-    .select('title, meta_description, cover_image')
-    .eq('slug', slug)
-    .single();
-
-  if (error || !post) {
-    return {
-      title: 'Post Not Found',
-      description: 'The post you are looking for does not exist.',
-    };
-  }
-
-  const coverImageUrl = post.cover_image
-    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/cover-images/${post.cover_image}`
-    : '/default-image.jpg'; // Fallback image URL
-
-  return {
-    title: post.title,
-    description: post.meta_description || 'An insightful post from our blog.',
-    openGraph: {
-      title: post.title,
-      description: post.meta_description || 'An insightful post from our blog.',
-      images: [
-        {
-          url: coverImageUrl,
-          width: 800,
-          height: 600,
-          alt: post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.meta_description || 'An insightful post from our blog.',
-      images: [coverImageUrl],
-    },
   };
 }
 
@@ -69,19 +26,24 @@ export default async function PostPage({ params }: PostPageProps) {
     return notFound(); // Display a 404 page if the post is not found
   }
 
-  const coverImageUrl = post.cover_image
-    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/cover-images/${post.cover_image}`
-    : '/default-image.jpg'; // Fallback image
-
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 bg-white shadow-lg rounded-lg">
-      {coverImageUrl && (
+      <Script>
+        {`
+          document.title = "${post.title}";
+          document.querySelector('meta[name="description"]').setAttribute('content', "${post.meta_description}");
+          document.querySelector('meta[property="og:title"]').setAttribute('content', "${post.title}");
+          document.querySelector('meta[property="og:description"]').setAttribute('content', "${post.meta_description}");
+          document.querySelector('meta[property="og:image"]').setAttribute('content', "${post.cover_image}");
+        `}
+      </Script>
+      {post.cover_image && (
         <div className="relative w-full h-64 mb-8">
           <Image
-            src={coverImageUrl}
+            src={post.cover_image}
             alt={post.title}
-            fill
-            style={{ objectFit: 'cover' }}
+            fill 
+            style={{ objectFit: 'cover' }} 
             className="rounded-lg"
           />
         </div>
