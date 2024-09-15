@@ -38,26 +38,27 @@ export default async function InsightsPage({ searchParams }: any) {
 
   // Separate the featured post and latest posts
   const [featuredPost, ...latestPosts] = signedPosts;
+  const twoMainPosts = latestPosts.slice(0, 2); // Pick the two main posts
+  const remainingPosts = latestPosts.slice(2); // The rest will be on the right column
 
   // Use the meta description for the excerpt
   const excerpt = featuredPost.meta_description ? featuredPost.meta_description : 'No description available';
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-20"> {/* Increased top padding */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
-        {/* Left Column - Featured Article */}
-        <div className="lg:col-span-2">
+        {/* Left Column - Featured Article and two main articles */}
+        <div className="lg:col-span-3">
           {featuredPost && (
-            <div className="border-b pb-6">
+            <div className="mb-8">
               <img
                 src={featuredPost.cover_image}
                 alt={featuredPost.title}
                 className="object-cover w-full h-96 mb-4 rounded-lg shadow-lg transition-shadow duration-300"
               />
-              <Link href={`/insights/${featuredPost.slug}`}className="text-3xl font-bold mb-2 hover:text-blue-600">
+              <Link href={`/insights/${featuredPost.slug}`} className="text-3xl font-bold mb-2 hover:text-blue-600">
                   {featuredPost.title}
-                
               </Link>
               <div dangerouslySetInnerHTML={{ __html: excerpt }}></div>
               <Link href={`/insights/${featuredPost.slug}`} className="text-blue-600 hover:underline">
@@ -65,13 +66,20 @@ export default async function InsightsPage({ searchParams }: any) {
               </Link>
             </div>
           )}
+
+          {/* Two Cards under the featured post */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            {twoMainPosts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
         </div>
 
         {/* Right Column - Latest Articles */}
         <div className="lg:col-span-1">
           <h3 className="text-2xl font-bold mb-6">The Latest</h3>
           <div className="space-y-6">
-            {latestPosts.map((post) => (
+            {remainingPosts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </div>
@@ -87,7 +95,7 @@ export default async function InsightsPage({ searchParams }: any) {
             </a>
           </Link>
         )}
-        {latestPosts.length === 5 && (
+        {remainingPosts.length === 5 && (
           <Link href={`?page=${page + 1}`}>
             <a className="px-4 py-2 bg-blue-600 text-white rounded mx-1 hover:bg-blue-700 transition-colors duration-300">
               Next
