@@ -26,7 +26,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-8 bg-white shadow-lg rounded-lg">
+    <div className="max-w-4xl mx-auto px-4 py-8 bg-white shadow-lg rounded-lg">
       {post.cover_image && (
         <div className="relative w-full h-64 mb-8">
           <Image
@@ -38,19 +38,19 @@ export default async function PostPage({ params }: PostPageProps) {
           />
         </div>
       )}
-      <h1 className="text-5xl font-bold mb-6">{post.title}</h1>
+      <h1 className="text-3xl font-bold mb-6">{post.title}</h1>
       <div className="prose max-w-none">
         <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
       </div>
 
       {post.tags && (
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">Tags</h2>
+          <h2 className="text-xl font-semibold mb-4">Tags</h2>
           <div className="flex flex-wrap">
             {post.tags.map((tag: string) => (
               <span
                 key={tag}
-                className="inline-block bg-gray-200 rounded-full px-4 py-2 text-base font-semibold text-gray-700 mr-4 mb-4"
+                className="inline-block bg-gray-200 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 mr-4 mb-4"
               >
                 #{tag}
               </span>
