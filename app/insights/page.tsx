@@ -38,8 +38,8 @@ export default async function InsightsPage({ searchParams }: any) {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
-      <h1 className="text-3xl font-bold mb-6">Insights</h1>
+    <div className="max-w-7xl mx-auto px-4 py-6 bg-white shadow-lg rounded-lg">
+      <h1 className="text-4xl font-bold mb-6 text-gray-800">Insights</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {signedPosts.map((post) => (
           <PostCard key={post.id} post={post} />
@@ -50,13 +50,13 @@ export default async function InsightsPage({ searchParams }: any) {
       <div className="flex justify-center mt-8">
         <a
           href={`?page=${page - 1}`}
-          className={`px-4 py-2 mx-1 ${page === 1 ? 'opacity-50 cursor-not-allowed' : 'bg-blue-600 text-white rounded hover:bg-blue-700'}`}
+          className={`px-4 py-2 mx-1 ${page === 1 ? 'opacity-50 cursor-not-allowed' : 'bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300'}`}
         >
           Previous
         </a>
         <a
           href={`?page=${page + 1}`}
-          className="px-4 py-2 mx-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="px-4 py-2 mx-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300"
         >
           Next
         </a>
