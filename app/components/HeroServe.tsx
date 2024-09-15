@@ -83,7 +83,7 @@ export default function Hero() {
                             Transform ideas into global impact. Practical solutions for creators and founders.
                         </p>
                         <Link
-                            href="/contact"
+                            href="/subscribe"
                             className="group relative inline-flex items-center overflow-hidden rounded-full bg-indigo-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
                         >
                             <span className="absolute -end-full transition-all group-hover:end-4">

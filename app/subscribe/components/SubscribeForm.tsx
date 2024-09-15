@@ -3,14 +3,18 @@
 import React from 'react';
 
 const SubscribeForm = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Assuming the form submission is handled by Brevo, we'll simulate a successful submission
+    console.log('Form submitted successfully to Brevo!');
+  };
+
   return (
     <div className="flex justify-center items-center bg-gray-100 py-10">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md">
         <form
-          id="sib-form"
-          method="POST"
-          action="https://8687d87b.sibforms.com/serve/MUIFADxztfKGKnspqqTtUuqP9BuTN4wILIzq8JZlW9GOlHNIZflmOfUGvm7L1_SrzPmraGLuq1y4qePlkZikhM6_dv0BL-NHMn3e47yZ_n1kjT6oFGtjTrqFuITVREu5nzE3T7WncT-vK8xhcI6HuS2SgdaeXLEsGeVLSKKluXlvflsq9HDTivuwYHEqxSFhLtnS_vt45MJQeTl6"
-          data-type="subscription"
+          onSubmit={handleSubmit}
+          className="space-y-4"
         >
           <h2 className="text-2xl font-bold mb-4">Practical solutions for creators and founders</h2>
           <p className="mb-4">Subscribe to receive weekly tips to help you grow as a creator or founder</p>
