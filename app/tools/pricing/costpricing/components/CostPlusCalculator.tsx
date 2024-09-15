@@ -55,7 +55,7 @@ const CostPlusCalculator = () => {
 
   const downloadPDF = () => {
     if (resultsRef.current) {
-      html2canvas(resultsRef.current).then((canvas) => {
+      html2canvas(resultsRef.current, { scrollY: -window.scrollY }).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF();
         const imgProps = pdf.getImageProperties(imgData);
@@ -75,7 +75,7 @@ const CostPlusCalculator = () => {
       setTimeout(() => setStatusMessage(""), 3000);
       return;
     }
-
+  
     setStatusMessage("Saving calculation...");
 
     const { data, error } = await supabase.from("pricing_calculations").insert([
@@ -94,16 +94,16 @@ const CostPlusCalculator = () => {
     ]);
 
     if (error) {
-      console.error("Error saving calculation:", error);
-      setStatusMessage("Error saving calculation. Please try again.");
+      console.error("Error saving calculation:", error.message);
+      setStatusMessage(`Error: ${error.message}`);
     } else {
-      console.log("Calculation saved:", data);
       setStatusMessage("Calculation saved successfully!");
       fetchSavedCalculations();
     }
-
+  
     setTimeout(() => setStatusMessage(""), 3000);
   };
+  
 
   const fetchSavedCalculations = async () => {
     if (!user) return;

@@ -47,7 +47,7 @@ export default function Dashboard() {
           <p className="text-xl text-gray-600 mb-6">
           I've been there - struggling to figure out if I was charging too much or too little. That's why I created these tools.  No more guesswork, just strategic pricing that boosts your bottom line.
           </p>
-          <Link href="/dashboard/tools/pricing" className="inline-block px-6 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors duration-300 shadow-md hover:shadow-lg">
+          <Link href="/tools/pricing" className="inline-block px-6 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors duration-300 shadow-md hover:shadow-lg">
             Explore Pricing Tools
           </Link>
         </motion.div>
@@ -65,9 +65,7 @@ export default function Dashboard() {
         <div className="mt-8">
           <button onClick={signOut} className="px-6 py-3 bg-red-600 text-white rounded-full font-medium hover:bg-red-700 transition-colors duration-300 shadow-md hover:shadow-lg">Sign Out</button> {/* Display the SignupButton component */}
         </div>
-<div>
-  <Link href="/admin/blog/new"> New Blog</Link>
-</div>
+
        
       </div>
     </div>
