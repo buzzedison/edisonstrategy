@@ -30,8 +30,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <Image
             src={coverImageUrl}
             alt={post.title}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: 'cover' }}
             className="rounded-t-lg"
           />
         </div>
