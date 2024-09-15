@@ -3,6 +3,7 @@
 import { notFound } from 'next/navigation'; // To handle 404 errors
 import { supabase } from '../../../lib/supabaseClient'; // Use the shared Supabase client
 import Image from 'next/image'; // Use next/image for optimized image loading
+import Script from 'next/script'; // Use next/script for adding scripts to the document head
 
 interface PostPageProps {
   params: {
@@ -16,7 +17,7 @@ export default async function PostPage({ params }: PostPageProps) {
   // Fetch the post data from Supabase based on the slug
   const { data: post, error } = await supabase
     .from('posts')
-    .select('id, title, content, cover_image, tags')
+    .select('id, title, content, cover_image, tags, meta_description')
     .eq('slug', slug)
     .single();
 
@@ -27,6 +28,15 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 bg-white shadow-lg rounded-lg">
+      <Script>
+        {`
+          document.title = "${post.title}";
+          document.querySelector('meta[name="description"]').setAttribute('content', "${post.meta_description}");
+          document.querySelector('meta[property="og:title"]').setAttribute('content', "${post.title}");
+          document.querySelector('meta[property="og:description"]').setAttribute('content', "${post.meta_description}");
+          document.querySelector('meta[property="og:image"]').setAttribute('content', "${post.cover_image}");
+        `}
+      </Script>
       {post.cover_image && (
         <div className="relative w-full h-64 mb-8">
           <Image
