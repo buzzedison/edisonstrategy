@@ -1,9 +1,7 @@
-// app/insights/[slug]/page.tsx
-
-import { notFound } from 'next/navigation'; // To handle 404 errors
-import { supabase } from '../../../lib/supabaseClient'; // Use the shared Supabase client
-import Image from 'next/image'; // Use next/image for optimized image loading
-import Script from 'next/script'; // Use next/script for adding scripts to the document head
+import { notFound } from 'next/navigation';
+import { supabase } from '../../../lib/supabaseClient';
+import Image from 'next/image';
+import Script from 'next/script';
 
 interface PostPageProps {
   params: {
@@ -14,7 +12,6 @@ interface PostPageProps {
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = params;
 
-  // Fetch the post data from Supabase based on the slug
   const { data: post, error } = await supabase
     .from('posts')
     .select('id, title, content, cover_image, tags, meta_description')
@@ -23,51 +20,54 @@ export default async function PostPage({ params }: PostPageProps) {
 
   if (error || !post) {
     console.error(error);
-    return notFound(); // Display a 404 page if the post is not found
+    return notFound();
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 bg-white shadow-lg rounded-lg">
-      <Script>
-        {`
-          document.title = "${post.title}";
-          document.querySelector('meta[name="description"]').setAttribute('content', "${post.meta_description}");
-          document.querySelector('meta[property="og:title"]').setAttribute('content', "${post.title}");
-          document.querySelector('meta[property="og:description"]').setAttribute('content', "${post.meta_description}");
-          document.querySelector('meta[property="og:image"]').setAttribute('content', "${post.cover_image}");
-        `}
-      </Script>
-      {post.cover_image && (
-        <div className="relative w-full h-64 mb-8">
-          <Image
-            src={post.cover_image}
-            alt={post.title}
-            fill 
-            style={{ objectFit: 'cover' }} 
-            className="rounded-lg"
-          />
-        </div>
-      )}
-      <h1 className="text-3xl font-bold mb-6">{post.title}</h1>
-      <div className="prose max-w-none">
-        <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
-      </div>
-
-      {post.tags && (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Tags</h2>
-          <div className="flex flex-wrap">
-            {post.tags.map((tag: string) => (
+    <article className="min-h-screen bg-gray-50">
+      <Script>{`
+        document.title = "${post.title}";
+        document.querySelector('meta[name="description"]').setAttribute('content', "${post.meta_description}");
+        document.querySelector('meta[property="og:title"]').setAttribute('content', "${post.title}");
+        document.querySelector('meta[property="og:description"]').setAttribute('content', "${post.meta_description}");
+        document.querySelector('meta[property="og:image"]').setAttribute('content', "${post.cover_image}");
+      `}</Script>
+      
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <header className="mb-12 pt-24">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900 leading-tight">
+            {post.title}
+          </h1>
+          <div className="flex flex-wrap gap-3 mb-8">
+            {post.tags && post.tags.map((tag: string) => (
               <span
                 key={tag}
-                className="inline-block bg-gray-200 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 mr-4 mb-4"
+                className="inline-block bg-blue-500 text-white rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-blue-600 hover:shadow-md"
               >
                 #{tag}
               </span>
             ))}
           </div>
-        </div>
-      )}
-    </div>
+        </header>
+
+        {post.cover_image && (
+          <div className="relative aspect-video mb-12 rounded-lg overflow-hidden shadow-xl">
+            <Image
+              src={post.cover_image}
+              alt={post.title}
+              fill
+              style={{ objectFit: 'cover' }}
+              className="transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+        )}
+
+        <main>
+          <div className="prose prose-lg max-w-none">
+            <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+          </div>
+        </main>
+      </div>
+    </article>
   );
 }
