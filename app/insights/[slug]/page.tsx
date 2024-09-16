@@ -22,16 +22,6 @@ export async function generateMetadata({ params }: PostPageProps) {
     return {
       title: 'Post Not Found',
       description: 'This post does not exist.',
-      openGraph: {
-        title: 'Post Not Found',
-        description: 'This post does not exist.',
-        images: [],
-      },
-      twitter: {
-        card: 'summary',
-        title: 'Post Not Found',
-        description: 'This post does not exist.',
-      },
     };
   }
 
@@ -39,12 +29,6 @@ export async function generateMetadata({ params }: PostPageProps) {
     title: post.title,
     description: post.meta_description,
     openGraph: {
-      title: post.title,
-      description: post.meta_description,
-      images: [post.cover_image],
-    },
-    twitter: {
-      card: 'summary_large_image',
       title: post.title,
       description: post.meta_description,
       images: [post.cover_image],
