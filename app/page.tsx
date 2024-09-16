@@ -61,13 +61,7 @@ export default function Home() {
         >
           Unconventional Insights on Business, Faith, and the Human Experience
         </motion.h2>
-        <Suspense fallback={
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-indigo-500"></div>
-          </div>
-        }>
-          <PostsGrid />
-        </Suspense>
+        <PostsGrid />
       </section>
 
       <AboutSection />
