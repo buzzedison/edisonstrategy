@@ -9,12 +9,39 @@ interface PostPageProps {
   };
 }
 
+export async function generateMetadata({ params }: PostPageProps) {
+  const { slug } = params;
+
+  const { data: post, error } = await supabase
+    .from('posts')
+    .select('title, meta_description, cover_image')
+    .eq('slug', slug)
+    .single();
+
+  if (error || !post) {
+    return {
+      title: 'Post Not Found',
+      description: 'This post does not exist.',
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.meta_description,
+    openGraph: {
+      title: post.title,
+      description: post.meta_description,
+      images: [post.cover_image],
+    },
+  };
+}
+
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = params;
 
   const { data: post, error } = await supabase
     .from('posts')
-    .select('id, title, content, cover_image, tags, meta_description')
+    .select('id, title, content, cover_image, tags')
     .eq('slug', slug)
     .single();
 
@@ -27,10 +54,6 @@ export default async function PostPage({ params }: PostPageProps) {
     <article className="min-h-screen bg-gray-50">
       <Script>{`
         document.title = "${post.title}";
-        document.querySelector('meta[name="description"]').setAttribute('content', "${post.meta_description}");
-        document.querySelector('meta[property="og:title"]').setAttribute('content', "${post.title}");
-        document.querySelector('meta[property="og:description"]').setAttribute('content', "${post.meta_description}");
-        document.querySelector('meta[property="og:image"]').setAttribute('content', "${post.cover_image}");
       `}</Script>
       
       <div className="max-w-4xl mx-auto px-4 py-12">

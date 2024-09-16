@@ -39,42 +39,42 @@ const HeroPostCard: React.FC<HeroPostCardProps> = ({ post }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative w-full h-64">
-        <Image
-          src={coverImageUrl}
-          alt={post.title}
-          fill
-          style={{ objectFit: 'cover' }}
-          className="rounded-t-xl"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <h2 className="text-xl font-bold text-white mb-2 line-clamp-2">
-            {post.title}
-          </h2>
-          <div className="flex items-center text-xs text-gray-300">
-            <Clock size={14} className="mr-1" />
-            <span>{formatDate(post.created_at)}</span>
+      <Link href={`/insights/${post.slug}`}>
+        <div className="block">
+          <div className="relative w-full h-64">
+            <Image
+              src={coverImageUrl}
+              alt={post.title}
+              fill
+              style={{ objectFit: 'cover' }}
+              className="rounded-t-xl"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <h2 className="text-xl font-bold text-white mb-2 line-clamp-2">
+                {post.title}
+              </h2>
+              <div className="flex items-center text-xs text-gray-300">
+                <Clock size={14} className="mr-1" />
+                <span>{formatDate(post.created_at)}</span>
+              </div>
+            </div>
+          </div>
+          <div className="p-6">
+            <p className="text-gray-600 mb-4 line-clamp-3">
+              {post.content.replace(/<[^>]+>/g, '').substring(0, 150)}...
+            </p>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {post.tags.slice(0, 3).map((tag) => (
+                <span key={tag} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <Tag size={12} className="mr-1" />
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="p-6">
-        <p className="text-gray-600 mb-4 line-clamp-3">
-          {post.content.replace(/<[^>]+>/g, '').substring(0, 150)}...
-        </p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.tags.slice(0, 3).map((tag) => (
-            <span key={tag} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              <Tag size={12} className="mr-1" />
-              {tag}
-            </span>
-          ))}
-        </div>
-        <Link href={`/insights/${post.slug}`} className="group inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200">
-          Read More
-          <ArrowRight size={16} className="ml-2 transform group-hover:translate-x-1 transition-transform duration-200" />
-        </Link>
-      </div>
+      </Link>
     </motion.div>
   );
 };
