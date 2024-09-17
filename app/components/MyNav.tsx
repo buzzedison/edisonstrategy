@@ -23,10 +23,10 @@ const navItems = [
     name: 'Insights', 
     path: '/insights',
     submenu: [
-      { name: 'Blog', path: '/insights/blog' },
-      { name: 'Podcast', path: '/insights/podcast' },
+  
+
       { name: 'Books', path: '/books' },
-      { name: 'Resources', path: '/insights/resources' },
+      { name: 'Resources', path: '/tools/pricing' },
     ]
   },
   { name: 'Speaking', path: '/speaking' },
