@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { supabase } from '../../../lib/supabaseClient';
 import Image from 'next/image';
 import Script from 'next/script';
+import { Metadata } from 'next';
 
 interface PostPageProps {
   params: {
@@ -9,7 +10,7 @@ interface PostPageProps {
   };
 }
 
-export async function generateMetadata({ params }: PostPageProps) {
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = params;
 
   const { data: post, error } = await supabase
@@ -31,6 +32,19 @@ export async function generateMetadata({ params }: PostPageProps) {
     openGraph: {
       title: post.title,
       description: post.meta_description,
+      images: [
+        {
+          url: post.cover_image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.meta_description,
       images: [post.cover_image],
     },
   };
@@ -41,7 +55,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const { data: post, error } = await supabase
     .from('posts')
-    .select('id, title, content, cover_image, tags')
+    .select('id, title, content, cover_image, tags, meta_description')
     .eq('slug', slug)
     .single();
 
@@ -87,7 +101,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
         <main>
           <div className="prose prose-lg max-w-none">
-            <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+            <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
           </div>
         </main>
       </div>
