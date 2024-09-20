@@ -1,17 +1,18 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion'; // Import motion from 'framer-motion' for animations
 export default function Inversion() {
   return (
     <>
       <Head>
-        <title>Inversion.The Crucial Thinking Skill Nobody Ever Taught You</title>
+        <title>Inversion: The Crucial Thinking Skill Nobody Ever Taught You</title>
         <meta name="description" content="Unlock your creativity with Inversion thinking" />
       </Head>
       <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
         <div className="bg-white shadow-lg rounded-lg max-w-2xl p-8 m-4">
           <h1 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">
-            Inversion. The Crucial Thinking Skill Nobody Ever Taught You
+            Inversion: The Crucial Thinking Skill Nobody Ever Taught You
           </h1>
           <p className="text-gray-600 text-lg text-center">
             Discover the art of inversion with Edison Ade.

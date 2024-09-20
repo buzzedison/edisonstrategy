@@ -1,5 +1,5 @@
 "use client"
-import { Suspense } from 'react';
+
 import { supabase } from '../lib/supabaseClient';
 import MastermindSection from './components/MastermindSection';
 import AboutSection from './components/AboutNew';
