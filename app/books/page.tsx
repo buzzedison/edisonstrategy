@@ -26,7 +26,7 @@ const books = {
       image: "/image/inversion.png",
       link: "/books/inversion",
       buyLink: "https://buzzedison.gumroad.com/l/inversion",
-      price: "$1.99",
+      price: "$0.99",
       rating: 4.6,
     },
   ],
