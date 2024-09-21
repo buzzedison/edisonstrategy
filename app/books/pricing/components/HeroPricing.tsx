@@ -36,9 +36,9 @@ const HeroPricing = () => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight"
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight mt-24"
           >
-            Unlock Your{" "}
+        Claim Your{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-blue-400">
               Pricing Power
             </span>
