@@ -39,9 +39,9 @@ function AboutSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:w-1/2 lg:pr-12 mb-10 lg:mb-0"
           >
-            <div className="relative w-full h-[600px] rounded-3xl overflow-hidden shadow-2xl transform hover:rotate-2 transition-all duration-300">
+            <div className="relative w-full h-[950px] rounded-3xl overflow-hidden shadow-2xl transform hover:rotate-2 transition-all duration-300">
               <Image 
-                src="/image/edisonaboutnew.jpg"
+                src="/image/edisonabout.jpg"
                 layout="fill"
                 objectFit="cover"
                 alt="Edison Ade" 

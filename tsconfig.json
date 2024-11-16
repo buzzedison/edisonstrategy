@@ -22,7 +22,10 @@
       }
     ],
     "paths": {
-      "@/*": ["app/*"]
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],  // Example for components
+      "@/lib/*": ["./lib/*"],  // Example for lib
+      "@/styles/*": ["./styles/*"]  
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Hero.jsx", "app/components/Navbar.jsx", "app/pricingcalculator/page.jsx"],
