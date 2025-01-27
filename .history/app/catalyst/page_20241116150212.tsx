@@ -145,7 +145,7 @@ export default function StartupCatalystLanding() {
       <section className="py-16 bg-gradient-to-b from-blue-900 to-blue-800 text-white">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-8">Ready to Catalyze Your Startup?</h2>
-          <p className="text-xl mb-8">Applications opens January 27, 2024. Program starts in February 22, 2025.</p>
+          <p className="text-xl mb-8">Applications opens November 20, 2024. Program starts in January 2025.</p>
           <Link href="https://airtable.com/appSFdtBZ0mhEzlyF/pag9uDaL9FhNYGYNP/form">
           <Button className="text-lg px-8 py-3 rounded-full bg-white text-blue-900 hover:bg-blue-100 transition duration-300">
            Apply Now <ArrowRight className="ml-2" />
