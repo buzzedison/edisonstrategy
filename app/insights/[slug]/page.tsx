@@ -4,53 +4,8 @@ import Image from 'next/image';
 import Script from 'next/script';
 import { Metadata } from 'next';
 
-interface PostPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const { slug } = params;
-
-  const { data: post, error } = await supabase
-    .from('posts')
-    .select('title, meta_description, cover_image')
-    .eq('slug', slug)
-    .single();
-
-  if (error || !post) {
-    return {
-      title: 'Post Not Found',
-      description: 'This post does not exist.',
-    };
-  }
-
-  return {
-    title: post.title,
-    description: post.meta_description,
-    openGraph: {
-      title: post.title,
-      description: post.meta_description,
-      images: [
-        {
-          url: post.cover_image,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.meta_description,
-      images: [post.cover_image],
-    },
-  };
-}
-
-export default async function PostPage({ params }: PostPageProps) {
+// @ts-ignore
+export default async function PostPage({ params }) {
   const { slug } = params;
 
   const { data: post, error } = await supabase
@@ -107,4 +62,45 @@ export default async function PostPage({ params }: PostPageProps) {
       </div>
     </article>
   );
+}
+
+// @ts-ignore
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+
+  const { data: post, error } = await supabase
+    .from('posts')
+    .select('title, meta_description, cover_image')
+    .eq('slug', slug)
+    .single();
+
+  if (error || !post) {
+    return {
+      title: 'Post Not Found',
+      description: 'This post does not exist.',
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.meta_description,
+    openGraph: {
+      title: post.title,
+      description: post.meta_description,
+      images: [
+        {
+          url: post.cover_image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.meta_description,
+      images: [post.cover_image],
+    },
+  };
 }
