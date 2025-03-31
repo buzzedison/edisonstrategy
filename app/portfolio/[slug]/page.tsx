@@ -54,8 +54,8 @@ const ptComponents = {
 }
 
 // Generate static metadata
-export async function generateMetadata(props: any): Promise<Metadata> {
-  const slug = props.params.slug;
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const { slug } = params
   
   try {
     const portfolio = await client.fetch(
@@ -127,9 +127,8 @@ function formatDate(dateString: string) {
   })
 }
 
-export default async function PortfolioItem(props: any) {
-  const slug = props.params.slug;
-  const portfolio = await getPortfolio(slug);
+export default async function PortfolioItem({ params }: { params: { slug: string } }) {
+  const portfolio = await getPortfolio(params.slug)
   
   if (!portfolio) {
     notFound()

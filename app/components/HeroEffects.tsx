@@ -1,10 +1,14 @@
-// @ts-nocheck
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 export default function HeroEffects() {
   const particlesRef = useRef<HTMLDivElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
+  const parallaxRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   
   // Initialize counter animations
   useEffect(() => {
@@ -33,62 +37,46 @@ export default function HeroEffects() {
   
   // Parallax tilt effect
   useEffect(() => {
-    const tiltElement = document.querySelector('.tilt-element');
+    const tiltElement = tiltRef.current;
     
     if (!tiltElement) return;
     
-    // Simplify handlers with type casting
-    const handleMouseMove = (e: Event) => {
-      const event = e as MouseEvent;
-      const el = tiltElement as HTMLElement;
-      const rect = el.getBoundingClientRect();
-      
-      // Get position of mouse relative to the element
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      
-      // Calculate rotation based on mouse position
-      const xRotation = (y - rect.height / 2) / 20;
-      const yRotation = -(x - rect.width / 2) / 20;
-      
-      // Apply the transformation
-      el.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = tiltElement.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 20;
+      const rotateY = (centerX - x) / 20;
+
+      tiltElement.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     };
     
     const handleMouseLeave = () => {
-      const el = tiltElement as HTMLElement;
-      el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      tiltElement.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
     };
     
-    tiltElement.addEventListener('mousemove', handleMouseMove);
-    tiltElement.addEventListener('mouseleave', handleMouseLeave);
+    tiltElement.addEventListener('mousemove', handleMouseMove as EventListener);
+    tiltElement.addEventListener('mouseleave', handleMouseLeave as EventListener);
     
     // Parallax elements movement
-    const parallaxElements = document.querySelectorAll('.parallax-element');
-    const handleParallax = (e: Event) => {
-      const event = e as MouseEvent;
-      const x = event.clientX / window.innerWidth;
-      const y = event.clientY / window.innerHeight;
-      
-      parallaxElements.forEach(el => {
-        const element = el as HTMLElement;
-        const speedX = parseInt(element.dataset.speedX || '10', 10);
-        const speedY = parseInt(element.dataset.speedY || '10', 10);
-        
-        // Calculate the offset
-        const offsetX = (x - 0.5) * speedX;
-        const offsetY = (y - 0.5) * speedY;
-        
-        element.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${element.style.rotate || '0deg'})`;
+    const handleScroll = () => {
+      parallaxRefs.current.forEach((element) => {
+        if (!element) return;
+        const speed = parseFloat(element.getAttribute('data-speed') || '0.5');
+        const yPos = -(window.scrollY * speed);
+        element.style.transform = `translateY(${yPos}px)`;
       });
     };
-    
-    document.addEventListener('mousemove', handleParallax);
-    
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial position
+
     return () => {
-      tiltElement.removeEventListener('mousemove', handleMouseMove);
-      tiltElement.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mousemove', handleParallax);
+      tiltElement.removeEventListener('mousemove', handleMouseMove as EventListener);
+      tiltElement.removeEventListener('mouseleave', handleMouseLeave as EventListener);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
   
@@ -97,9 +85,11 @@ export default function HeroEffects() {
     if (!particlesRef.current) return;
     
     const canvas = document.createElement('canvas');
+    canvasRef.current = canvas;
     const ctx = canvas.getContext('2d');
     
     if (!ctx) return;
+    ctxRef.current = ctx;
     
     particlesRef.current.appendChild(canvas);
     
@@ -119,51 +109,39 @@ export default function HeroEffects() {
       size: number;
       speedX: number;
       speedY: number;
-      color: string;
       opacity: number;
     }
     
-    // Create particles
+    // Initialize particles
     for (let i = 0; i < particleCount; i++) {
-      const size = Math.random() * 3 + 1;
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size,
+        size: Math.random() * 2 + 1,
         speedX: Math.random() * 0.5 - 0.25,
         speedY: Math.random() * 0.5 - 0.25,
-        color: getRandomColor(),
-        opacity: Math.random() * 0.5
+        opacity: Math.random() * 0.5 + 0.2,
       });
     }
     
-    function getRandomColor() {
-      const colors = ['#3b82f6', '#6366f1', '#8b5cf6', '#d1d5db'];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-    
     function animate() {
-      // Safety check for context
-      if (!ctx) return;
+      if (!ctxRef.current || !canvasRef.current) return;
+      ctxRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+      particles.forEach((particle) => {
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
         
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.opacity;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
+        if (particle.x < 0) particle.x = canvasRef.current!.width;
+        if (particle.x > canvasRef.current!.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvasRef.current!.height;
+        if (particle.y > canvasRef.current!.height) particle.y = 0;
         
-        p.x += p.speedX;
-        p.y += p.speedY;
-        
-        // Boundary check
-        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-      }
+        ctxRef.current!.beginPath();
+        ctxRef.current!.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctxRef.current!.fillStyle = `rgba(79, 70, 229, ${particle.opacity})`;
+        ctxRef.current!.fill();
+      });
       
       requestAnimationFrame(animate);
     }
@@ -186,5 +164,44 @@ export default function HeroEffects() {
     };
   }, []);
   
-  return <div ref={particlesRef} id="particles-canvas" className="absolute inset-0 z-0" />;
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <div
+        ref={tiltRef}
+        className="absolute inset-0 transition-transform duration-200 ease-out"
+      >
+        {/* Background gradient */}
+        <div
+          ref={(el) => (parallaxRefs.current[0] = el)}
+          data-speed="0.3"
+          className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20"
+        />
+
+        {/* Animated circles */}
+        <div
+          ref={(el) => (parallaxRefs.current[1] = el)}
+          data-speed="0.5"
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"
+        />
+        <div
+          ref={(el) => (parallaxRefs.current[2] = el)}
+          data-speed="0.7"
+          className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"
+        />
+        <div
+          ref={(el) => (parallaxRefs.current[3] = el)}
+          data-speed="0.4"
+          className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-2000"
+        />
+
+        {/* Grid pattern */}
+        <div
+          ref={(el) => (parallaxRefs.current[4] = el)}
+          data-speed="0.2"
+          className="absolute inset-0 bg-[linear-gradient(to_right,#4f46e5_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparentparent_110%)]"
+        />
+      </div>
+      <div ref={particlesRef} id="particles-canvas" className="absolute inset-0 z-0" />
+    </div>
+  );
 } 

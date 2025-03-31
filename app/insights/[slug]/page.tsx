@@ -1,22 +1,52 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { supabase } from '../../../lib/supabaseClient';
+import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
 import Script from 'next/script';
-import { Metadata } from 'next';
 
-// @ts-ignore
-export default async function PostPage({ params }) {
-  const { slug } = params;
+type Props = {
+  params: {
+    slug: string;
+  };
+};
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: post, error } = await supabase
     .from('posts')
-    .select('id, title, content, cover_image, tags, meta_description')
-    .eq('slug', slug)
+    .select('*')
+    .eq('slug', params.slug)
     .single();
 
   if (error || !post) {
-    console.error(error);
-    return notFound();
+    return {
+      title: 'Post Not Found',
+      description: 'The requested post could not be found.'
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.content?.replace(/<[^>]*>/g, '').substring(0, 160),
+    openGraph: {
+      title: post.title,
+      description: post.content?.replace(/<[^>]*>/g, '').substring(0, 160),
+      images: post.cover_image ? [post.cover_image] : [],
+    },
+  };
+}
+
+export default async function PostPage({ params }: Props) {
+  const { data: post, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('slug', params.slug)
+    .single();
+
+  if (error || !post) {
+    notFound();
   }
 
   return (
@@ -62,45 +92,4 @@ export default async function PostPage({ params }) {
       </div>
     </article>
   );
-}
-
-// @ts-ignore
-export async function generateMetadata({ params }) {
-  const { slug } = params;
-
-  const { data: post, error } = await supabase
-    .from('posts')
-    .select('title, meta_description, cover_image')
-    .eq('slug', slug)
-    .single();
-
-  if (error || !post) {
-    return {
-      title: 'Post Not Found',
-      description: 'This post does not exist.',
-    };
-  }
-
-  return {
-    title: post.title,
-    description: post.meta_description,
-    openGraph: {
-      title: post.title,
-      description: post.meta_description,
-      images: [
-        {
-          url: post.cover_image,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.meta_description,
-      images: [post.cover_image],
-    },
-  };
 }

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { defineType, defineArrayMember } from 'sanity'
 
 /**
@@ -11,64 +10,53 @@ export default defineType({
   name: 'blockContent',
   type: 'array',
   of: [
-    defineArrayMember({
-      title: 'Block',
+    {
       type: 'block',
-      // Define block styles and options
-      options: {
-        // Styles let you set what your user can mark up blocks with
-        styles: [
-          {title: 'Normal', value: 'normal'},
-          {title: 'H1', value: 'h1'},
-          {title: 'H2', value: 'h2'},
-          {title: 'H3', value: 'h3'},
-          {title: 'H4', value: 'h4'},
-          {title: 'Quote', value: 'blockquote'},
+      title: 'Block',
+      // Styles let you define what blocks can be marked up as. The default
+      // set includes 'normal', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'quote'
+      styles: [
+        { title: 'Normal', value: 'normal' },
+        { title: 'H1', value: 'h1' },
+        { title: 'H2', value: 'h2' },
+        { title: 'H3', value: 'h3' },
+        { title: 'H4', value: 'h4' },
+        { title: 'Quote', value: 'blockquote' }
+      ],
+      lists: [
+        { title: 'Bullet', value: 'bullet' },
+        { title: 'Number', value: 'number' }
+      ],
+      // Marks let you mark up inline text in the block editor
+      marks: {
+        // Decorators usually describe a single property – e.g. a typographic
+        // preference or highlighting
+        decorators: [
+          { title: 'Strong', value: 'strong' },
+          { title: 'Emphasis', value: 'em' },
+          { title: 'Code', value: 'code' }
         ],
-        // Lists for bullet points and numbered lists
-        lists: [
-          {title: 'Bullet', value: 'bullet'},
-          {title: 'Number', value: 'number'},
-        ],
-        // Marks for inline formatting
-        marks: {
-          // Decorators for basic formatting
-          decorators: [
-            {title: 'Strong', value: 'strong'},
-            {title: 'Emphasis', value: 'em'},
-            {title: 'Code', value: 'code'},
-            {title: 'Underline', value: 'underline'},
-            {title: 'Strike', value: 'strike-through'},
-          ],
-          // Annotations for advanced formatting (like links)
-          annotations: [
-            {
-              title: 'URL',
-              name: 'link',
-              type: 'object',
-              fields: [
-                {
-                  title: 'URL',
-                  name: 'href',
-                  type: 'url',
-                  validation: Rule => Rule.uri({
-                    scheme: ['http', 'https', 'mailto', 'tel']
-                  })
-                },
-                {
-                  title: 'Open in new tab',
-                  name: 'blank',
-                  description: 'Read https://css-tricks.com/use-target_blank/',
-                  type: 'boolean'
-                }
-              ]
-            },
-          ],
-        },
-      },
-    }),
-    // You can add additional types here. Example:
-    defineArrayMember({
+        // Annotations can be any object structure – e.g. a link or a footnote.
+        annotations: [
+          {
+            name: 'link',
+            type: 'object',
+            title: 'URL',
+            fields: [
+              {
+                title: 'URL',
+                name: 'href',
+                type: 'url'
+              }
+            ]
+          }
+        ]
+      }
+    },
+    // You can add additional types here. Note that you can't use
+    // primitive types such as 'string' and 'number' in the same array
+    // as a block type.
+    {
       type: 'image',
       options: { hotspot: true },
       fields: [
@@ -76,65 +64,16 @@ export default defineType({
           name: 'alt',
           type: 'string',
           title: 'Alternative text',
-          description: 'Important for SEO and accessibility',
-        },
-        {
-          name: 'caption',
-          type: 'string',
-          title: 'Caption',
-          options: {
-            isHighlighted: true,
-          },
-        },
-      ],
-    }),
-    defineArrayMember({
+          description: 'Important for SEO and accessibility.',
+          validation: Rule => Rule.required(),
+        }
+      ]
+    },
+    {
       type: 'code',
-      name: 'code',
-      title: 'Code Block',
       options: {
-        language: 'javascript',
         withFilename: true,
       },
-    }),
-    defineArrayMember({
-      name: 'callout',
-      title: 'Callout',
-      type: 'object',
-      fields: [
-        {
-          name: 'content',
-          title: 'Content',
-          type: 'text',
-        },
-        {
-          name: 'type',
-          title: 'Type',
-          type: 'string',
-          options: {
-            list: [
-              { title: 'Info', value: 'info' },
-              { title: 'Warning', value: 'warning' },
-              { title: 'Success', value: 'success' },
-              { title: 'Error', value: 'error' },
-            ],
-            layout: 'radio',
-          },
-          initialValue: 'info',
-        },
-      ],
-      preview: {
-        select: {
-          content: 'content',
-          type: 'type',
-        },
-        prepare({ content, type }) {
-          return {
-            title: `${type.charAt(0).toUpperCase() + type.slice(1)} Callout`,
-            subtitle: content,
-          }
-        },
-      },
-    }),
-  ],
+    }
+  ]
 }) 
