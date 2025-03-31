@@ -11,6 +11,12 @@ const nextConfig = {
         port: '',
         pathname: '/storage/v1/object/public/cover-images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+        pathname: '/images/**',
+      },
     ],
   },
 };
