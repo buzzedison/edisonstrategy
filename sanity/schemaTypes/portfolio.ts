@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType, defineArrayMember } from 'sanity'
 
 export default defineType({
   name: 'portfolio',
@@ -55,6 +55,18 @@ export default defineType({
         ],
       },
     }),
+    {
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'category'}]
+        }
+      ],
+      description: 'Legacy field - use the Category field instead',
+    },
     defineField({
       name: 'projectDate',
       title: 'Project Date',
@@ -62,6 +74,12 @@ export default defineType({
       options: {
         dateFormat: 'YYYY-MM-DD',
       },
+    }),
+    defineField({
+      name: 'projectURL',
+      title: 'Project URL',
+      type: 'url',
+      description: 'The URL to the live project (if applicable)',
     }),
     defineField({
       name: 'body',
@@ -75,6 +93,36 @@ export default defineType({
       description: 'Set to true to feature this project on the homepage',
       initialValue: false,
     }),
+    {
+      name: 'results',
+      title: 'Results',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'result',
+          title: 'Result',
+          fields: [
+            {
+              name: 'metric',
+              type: 'string',
+              title: 'Metric'
+            },
+            {
+              name: 'value',
+              type: 'string',
+              title: 'Value'
+            },
+            {
+              name: 'description',
+              type: 'text',
+              title: 'Description'
+            }
+          ]
+        }
+      ],
+      description: 'Key results and metrics from the project'
+    },
   ],
   preview: {
     select: {

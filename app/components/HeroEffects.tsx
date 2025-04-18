@@ -1,7 +1,15 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+
+interface Particle {
+  x: number;
+  y: number;
+  size: number;
+  speedX: number;
+  speedY: number;
+  opacity: number;
+}
 
 export default function HeroEffects() {
   const particlesRef = useRef<HTMLDivElement>(null);
@@ -103,16 +111,6 @@ export default function HeroEffects() {
     const particles: Particle[] = [];
     const particleCount = 50;
     
-    interface Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-    }
-    
-    // Initialize particles
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -198,7 +196,7 @@ export default function HeroEffects() {
         <div
           ref={(el) => (parallaxRefs.current[4] = el)}
           data-speed="0.2"
-          className="absolute inset-0 bg-[linear-gradient(to_right,#4f46e5_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparentparent_110%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,#4f46e5_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"
         />
       </div>
       <div ref={particlesRef} id="particles-canvas" className="absolute inset-0 z-0" />

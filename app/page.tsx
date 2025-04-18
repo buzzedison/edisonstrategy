@@ -44,7 +44,7 @@ export default async function Home() {
             {/* Content column with advanced typography and animations */}
             <div className="space-y-10 backdrop-blur-sm p-8 rounded-2xl border border-white/10 bg-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               {/* Animated badge */}
-              <div className="inline-flex items-center pl-1 pr-4 py-2 bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border border-blue-100/50 backdrop-blur-md rounded-full text-blue-600 font-medium mb-2 text-sm shadow-sm animate-pulse-subtle group relative overflow-hidden">
+              <div className="mt-14 inline-flex items-center pl-1 pr-4 py-2 bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border border-blue-100/50 backdrop-blur-md rounded-full text-blue-600 font-medium mb-2 text-sm shadow-sm animate-pulse-subtle group relative overflow-hidden">
                 <span className="flex h-6 w-6 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full items-center justify-center mr-2">
                   <span className="text-white text-xs">✦</span>
                 </span>
@@ -89,13 +89,10 @@ export default async function Home() {
                   </Button>
                 </Link>
                 
-                <Link href="/call" passHref>
+                <Link href="/contact" passHref>
                   <Button variant="outline" className="relative w-full sm:w-auto px-10 py-6 text-lg overflow-hidden rounded-xl group bg-white backdrop-filter backdrop-blur-sm bg-opacity-10 border-2 border-white/30 hover:bg-opacity-20 transform hover:translate-y-[-4px] hover:scale-[1.02] active:translate-y-[2px] transition-all duration-300">
                     {/* Animated gradient border on hover */}
                     <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-400 to-indigo-500 opacity-0 group-hover:opacity-20 transition-opacity duration-500"></span>
-                    
-                    {/* Background spotlight effect */}
-                    <span className="absolute -inset-full bg-gradient-to-r from-blue-100 via-blue-200 to-indigo-100 rounded-full opacity-0 group-hover:opacity-20 group-hover:blur-md transition-all duration-500 animate-spotlight"></span>
                     
                     <span className="relative text-blue-600">Book a Free Strategy Call</span>
                   </Button>
@@ -624,7 +621,7 @@ export default async function Home() {
                 </Button>
               </Link>
               
-              <Link href="/call" passHref className="w-full block">
+              <Link href="/contact" passHref className="w-full block">
                 <Button variant="outline" className="w-full py-4 text-lg border border-white text-white hover:bg-white/10 rounded-lg flex items-center justify-center bg-blue-600/30">
                   Book a Free Strategy Call
                 </Button>

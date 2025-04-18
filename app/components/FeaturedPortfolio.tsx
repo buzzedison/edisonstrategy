@@ -9,14 +9,6 @@ import { client } from '@/lib/sanity'
 import { urlFor } from '@/lib/sanity'
 import { Button } from "@/components/ui/button"
 
-interface Category {
-  _id: string
-  name: string
-  slug: {
-    current: string
-  }
-}
-
 interface PortfolioItem {
   _id: string
   title: string
@@ -31,7 +23,7 @@ interface PortfolioItem {
       _type: string
     }
   }
-  categories: Category[]
+  category: string
   projectDate: string
   featured: boolean
 }
@@ -50,11 +42,7 @@ export default function FeaturedPortfolio() {
           client,
           excerpt,
           mainImage,
-          categories[]-> {
-            _id,
-            name,
-            slug
-          },
+          category,
           projectDate,
           featured
         }`
@@ -126,14 +114,11 @@ export default function FeaturedPortfolio() {
                 <p className="text-gray-600 mb-4 line-clamp-2">{item.excerpt}</p>
                 <div className="flex items-center justify-between">
                   <div className="flex flex-wrap gap-2">
-                    {item.categories.map((category) => (
-                      <span
-                        key={category._id}
-                        className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
-                      >
-                        {category.name}
-                      </span>
-                    ))}
+                    <span
+                      className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
+                    >
+                      {item.category}
+                    </span>
                   </div>
                   <ArrowRight className="w-5 h-5 text-blue-600 transition-transform group-hover:translate-x-1" />
                 </div>

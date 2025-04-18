@@ -1,174 +1,255 @@
 "use client";
 
-import { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '../../../lib/supabaseClient';  // Import Supabase client
+import { supabase } from '../../../lib/supabaseClient';
 import { useForm } from 'react-hook-form';
-import { FaSpinner } from 'react-icons/fa';
-import { v4 as uuidv4 } from 'uuid';  // Import uuid for generating unique file names
-import dynamic from 'next/dynamic';  // Import dynamic for RichTextEditor
+import { v4 as uuidv4 } from 'uuid';
+import dynamic from 'next/dynamic';
+import { Loader2, UploadCloud, CheckCircle, AlertCircle } from 'lucide-react';
+import Image from 'next/image';
 
-// Dynamically import RichTextEditor to prevent SSR issues if needed
-const RichTextEditor = dynamic(() => import('../components/RichTextEditor'), { ssr: false });
+// Import Shadcn UI components
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+// Dynamically import RichTextEditor
+const RichTextEditor = dynamic(() => import('../components/RichTextEditor'), { 
+  ssr: false,
+  loading: () => <div className="flex items-center justify-center h-64 border rounded-md"><Loader2 className="h-8 w-8 animate-spin text-muted-foreground" /></div>
+});
+
+interface FormData {
+  title: string;
+  slug: string;
+  content: string;
+  tags: string;
+  metaDescription: string;
+  coverImage?: FileList;
+}
 
 export default function AdminPage() {
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm<FormData>();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [coverImageFile, setCoverImageFile] = useState<File | null>(null); // State for the cover image file
+  const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
-  // Auto-generate slug
+  const titleValue = watch('title');
+
+  useEffect(() => {
+    if (titleValue) {
+      setValue('slug', generateSlug(titleValue));
+    }
+  }, [titleValue, setValue]);
+
   const generateSlug = (title: string) =>
-    title?.toLowerCase().trim().replace(/[\s\W-]+/g, '-');
+    title?.toLowerCase().trim().replace(/[\s\W-]+/g, '-') || '';
 
-  // Handle file input change
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setCoverImageFile(file);  // Store the selected file in the state
+      setCoverImageFile(file);
+      setStatusMessage(null); 
+      setUploadProgress(0);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviewUrl(reader.result as string);
+      }
+      reader.readAsDataURL(file);
+    } else {
+      setCoverImageFile(null);
+      setImagePreviewUrl(null);
     }
   };
 
-  const onSubmit = async (data: any) => {
-    setLoading(true);
+  const fileInputRegistration = register('coverImage');
 
+  const onSubmit = async (data: FormData) => {
+    setLoading(true);
+    setStatusMessage(null);
+    setUploadProgress(0);
     let coverImageUrl = '';
 
-    // Upload file to Supabase Storage if a file was selected
-    if (coverImageFile) {
-      const uniqueFileName = `${uuidv4()}-${coverImageFile.name}`;
-      const { data: fileData, error: fileError } = await supabase.storage
-        .from('cover-images')
-        .upload(uniqueFileName, coverImageFile);
+    try {
+      if (coverImageFile) {
+        const uniqueFileName = `${uuidv4()}-${coverImageFile.name}`;
+        const { data: fileData, error: fileError } = await supabase.storage
+          .from('cover-images') 
+          .upload(uniqueFileName, coverImageFile, { cacheControl: '3600', upsert: false });
+        setUploadProgress(50); 
 
-      if (fileError) {
-        console.error(fileError);
-        alert('Error uploading cover image');
-        setLoading(false);
-        return;
+        if (fileError) throw new Error(`Image upload failed: ${fileError.message}`);
+        
+        const { data: urlData } = supabase.storage.from('cover-images').getPublicUrl(uniqueFileName);
+        coverImageUrl = urlData?.publicUrl || '';
+        setUploadProgress(100);
       }
 
-      // Get the public URL for the uploaded image
-      coverImageUrl = supabase.storage.from('cover-images').getPublicUrl(uniqueFileName).data.publicUrl;
-    }
-
-    try {
-      // Insert the post into Supabase with the cover image URL
-      const { error } = await supabase.from('posts').insert([
+      const { error: insertError } = await supabase.from('posts').insert([
         {
           title: data.title,
           slug: data.slug,
           content: data.content,
-          tags: data.tags.split(',').map((tag: string) => tag.trim()),
-          cover_image: coverImageUrl,
-          meta_description: data.metaDescription,
+          tags: data.tags.split(',').map((tag: string) => tag.trim()).filter(tag => tag),
+          cover_image: coverImageUrl || null,
+          meta_description: data.metaDescription || null,
         },
       ]);
 
-      if (error) {
-        console.error(error);
-        alert('Error creating post');
-      } else {
-        alert('Post created successfully!');
-        router.push('/insights');
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Error creating post');
+      if (insertError) throw new Error(`Post creation failed: ${insertError.message}`);
+
+      setStatusMessage({ type: 'success', message: 'Post created successfully! Redirecting...' });
+      reset(); 
+      setCoverImageFile(null);
+      setImagePreviewUrl(null);
+      setTimeout(() => router.push('/insights'), 2000); 
+
+    } catch (error: any) {
+      console.error("Error during post creation:", error);
+      setStatusMessage({ type: 'error', message: error.message || 'An unexpected error occurred.' });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8 mt-10">
-      <h1 className="text-4xl font-extrabold mb-8 text-gray-900 text-center">Create New Post</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    <div className="container mx-auto max-w-4xl py-12 px-4">
+      <Card className="overflow-hidden">
+        <CardHeader className="bg-muted/30">
+          <CardTitle className="text-2xl font-bold tracking-tight">Create New Insight</CardTitle>
+          <CardDescription>Fill in the details below to publish a new blog post.</CardDescription>
+        </CardHeader>
         
-        {/* Title */}
-        <div>
-          <label className="block text-lg font-semibold text-gray-700 mb-2">Title</label>
-          <input
-            {...register('title', { required: true })}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-            type="text"
-            placeholder="Enter post title"
-            onChange={(e) => setValue('slug', generateSlug(e.target.value))}
-          />
-          {errors.title && <span className="text-red-500 text-sm mt-1">Title is required</span>}
-        </div>
-
-        {/* Slug */}
-        <div>
-          <label className="block text-lg font-semibold text-gray-700 mb-2">Slug</label>
-          <input
-            {...register('slug', { required: true })}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none bg-gray-100 focus:ring-2 focus:ring-blue-500 transition duration-200"
-            type="text"
-            placeholder="Auto-generated slug"
-            readOnly
-          />
-        </div>
-
-        {/* Content */}
-        <div>
-          <label className="block text-lg font-semibold text-gray-700 mb-2">Content</label>
-          <RichTextEditor
-            onChange={(value) => setValue('content', value)}
-          />
-          {errors.content && <span className="text-red-500 text-sm mt-1">Content is required</span>}
-        </div>
-
-        {/* Tags */}
-        <div>
-          <label className="block text-lg font-semibold text-gray-700 mb-2">Tags (comma separated)</label>
-          <input
-            {...register('tags')}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-            type="text"
-            placeholder="tag1, tag2, tag3"
-          />
-        </div>
-
-        {/* Cover Image */}
-        <div>
-          <label className="block text-lg font-semibold text-gray-700 mb-2">Cover Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-            onChange={handleFileChange}
-          />
-          {coverImageFile && (
-            <p className="text-sm text-gray-500 mt-2">Selected file: {coverImageFile.name}</p>
-          )}
-        </div>
-
-        {/* Meta Description */}
-        <div>
-          <label className="block text-lg font-semibold text-gray-700 mb-2">Meta Description</label>
-          <textarea
-            {...register('metaDescription')}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-            placeholder="Brief description for SEO"
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div className="text-center">
-          <button
-            type="submit"
-            className={`w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-l focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={loading}
-          >
-            {loading ? (
-              <FaSpinner className="animate-spin text-white mx-auto" />
-            ) : (
-              'Publish Post'
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <CardContent className="space-y-6 pt-6">
+            
+             {statusMessage && (
+              <Alert variant={statusMessage.type === 'error' ? 'destructive' : 'default'}>
+                {statusMessage.type === 'success' ? <CheckCircle className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
+                <AlertTitle>{statusMessage.type === 'success' ? 'Success' : 'Error'}</AlertTitle>
+                <AlertDescription>{statusMessage.message}</AlertDescription>
+              </Alert>
             )}
-          </button>
-        </div>
-      </form>
+
+            {/* Title */}
+            <div className="space-y-2">
+              <Label htmlFor="title">Title</Label>
+              <Input 
+                id="title"
+                placeholder="Enter post title"
+                {...register('title', { required: 'Title is required' })}
+                className={errors.title ? 'border-destructive' : ''}
+              />
+              {errors.title && <p className="text-sm text-destructive">{errors.title.message}</p>}
+            </div>
+            
+            {/* Slug */}
+            <div className="space-y-2">
+              <Label htmlFor="slug">Slug (Auto-generated)</Label>
+              <Input 
+                id="slug"
+                placeholder="post-slug-will-appear-here"
+                {...register('slug', { required: 'Slug is required' })}
+                readOnly 
+                className="bg-muted text-muted-foreground"
+              />
+            </div>
+
+            {/* Content Editor */}
+            <div className="space-y-2">
+              <Label htmlFor="content">Content</Label>
+              <div className="prose prose-sm max-w-none border rounded-md min-h-[300px] p-2 focus-within:ring-2 focus-within:ring-ring">
+                <RichTextEditor
+                  onChange={(value) => setValue('content', value)} 
+                />
+              </div>
+               <input type="hidden" {...register('content', { required: 'Content cannot be empty' })} />
+               {errors.content && <p className="text-sm text-destructive">{errors.content.message}</p>}
+            </div>
+
+            {/* Cover Image Upload */}
+            <div className="space-y-2">
+              <Label htmlFor="coverImage">Cover Image</Label>
+              <div className={`flex items-center justify-center w-full p-6 border-2 border-dashed rounded-md ${errors.coverImage ? 'border-destructive' : 'border-border'} hover:border-primary transition-colors`}>
+                <div className="text-center">
+                  <UploadCloud className="mx-auto h-12 w-12 text-muted-foreground" />
+                  <p className="mt-2 text-sm text-muted-foreground">Drag & drop image here, or click to select</p>
+                  <Input 
+                    id="coverImage" 
+                    type="file" 
+                    accept="image/*" 
+                    className="sr-only" 
+                    {...fileInputRegistration} 
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => { 
+                      fileInputRegistration.onChange(e); 
+                      handleFileChange(e); 
+                    }}
+                  />
+                  <Label htmlFor="coverImage" className="mt-2 text-sm font-medium text-primary hover:text-primary/80 cursor-pointer">
+                    Select File
+                  </Label>
+                </div>
+              </div>
+              {imagePreviewUrl && (
+                <div className="mt-4">
+                  <p className="text-sm font-medium mb-2">Image Preview:</p>
+                  <Image src={imagePreviewUrl} alt="Cover preview" width={200} height={100} className="rounded-md object-cover border" />
+                </div>
+              )}
+              {coverImageFile && !loading && (
+                <p className="text-sm text-muted-foreground mt-1">Selected: {coverImageFile.name}</p>
+              )}
+              {loading && coverImageFile && (
+                <div className="mt-2">
+                  <p className="text-sm text-primary">Uploading: {uploadProgress}%</p>
+                  <div className="w-full bg-muted rounded-full h-1.5 mt-1">
+                    <div className="bg-primary h-1.5 rounded-full transition-all duration-300" style={{ width: `${uploadProgress}%` }}></div>
+                  </div>
+                </div>
+              )}
+              {errors.coverImage && <p className="text-sm text-destructive mt-1">{errors.coverImage.message}</p>}
+            </div>
+
+            {/* Tags & Meta Description (Side-by-side on larger screens) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="tags">Tags (comma separated)</Label>
+                <Input 
+                  id="tags"
+                  placeholder="e.g., technology, strategy, growth"
+                  {...register('tags')}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="metaDescription">Meta Description (for SEO)</Label>
+                <Textarea 
+                  id="metaDescription"
+                  placeholder="Brief summary for search engines (approx. 160 chars)"
+                  {...register('metaDescription')}
+                  rows={3}
+                />
+              </div>
+            </div>
+
+          </CardContent>
+          <CardFooter className="border-t pt-6">
+            <Button type="submit" disabled={loading} className="w-full md:w-auto ml-auto">
+              {loading ? (
+                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Publishing...</>
+              ) : (
+                'Publish Post'
+              )}
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   );
 }

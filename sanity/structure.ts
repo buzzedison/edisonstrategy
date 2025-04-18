@@ -6,27 +6,14 @@ export default (S: any) => {
   return S.list()
     .title('Content')
     .items([
-      // Group portfolio items
+      // Portfolio projects
       S.listItem()
-        .title('Portfolio')
+        .title('Portfolio Projects')
+        .schemaType('portfolio')
         .child(
-          S.list()
-            .title('Portfolio')
-            .items([
-              S.listItem()
-                .title('All Projects')
-                .schemaType('portfolio')
-                .child(S.documentTypeList('portfolio').title('All Projects')),
-              
-              S.listItem()
-                .title('Featured Projects')
-                .child(
-                  S.documentList()
-                    .title('Featured Projects')
-                    .filter('_type == "portfolio" && featured == true')
-                    .defaultOrdering([{ field: 'order', direction: 'asc' }])
-                ),
-            ])
+          S.documentTypeList('portfolio')
+            .title('Portfolio Projects')
+            .defaultOrdering([{ field: 'projectDate', direction: 'desc' }])
         ),
 
       // Categories

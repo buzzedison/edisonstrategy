@@ -10,21 +10,13 @@ const navItems = [
   { name: 'About', path: '/about' },
   { 
     name: 'Services', 
-    path: '/services',
-    submenu: [
-      { name: 'Startup Growth', path: '/services/startup' },
-      { name: 'Leadership Coaching', path: '/services/leadership' },
-      { name: 'Web Development', path: '/services/webdev' },
-
-    ]
+    path: '/services'
   },
 
   { 
     name: 'Insights', 
     path: '/insights',
     submenu: [
-  
-
       { name: 'Books', path: '/books' },
       { name: 'Resources', path: '/tools/pricing' },
     ]
