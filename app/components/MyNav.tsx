@@ -17,6 +17,8 @@ const navItems = [
     name: 'Insights', 
     path: '/insights',
     submenu: [
+      { name: 'All Articles', path: '/insights' },
+      { name: 'Bookmarks', path: '/bookmarks' },
       { name: 'Books', path: '/books' },
       { name: 'Resources', path: '/tools/pricing' },
     ]
