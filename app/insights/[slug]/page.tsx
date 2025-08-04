@@ -4,7 +4,7 @@
 import { supabase } from '../../../lib/supabaseClient';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Clock, Tag, Share2, Twitter, Facebook, Linkedin, Copy, Eye, User, FileText } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, Share2, Twitter, Facebook, Linkedin, Copy, Eye, User, FileText, Edit, Trash2 } from 'lucide-react';
 import Script from 'next/script';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
@@ -13,6 +13,7 @@ import ArticleReactions from '../components/ArticleReactions';
 import BookmarkButton from '../components/BookmarkButton';
 import Comments from '../components/Comments';
 import InsightsWithSidebar from '../../components/InsightsWithSidebar';
+import { useAuth } from '../../../lib/authContext';
 
 type Props = {
   params: {
@@ -171,6 +172,7 @@ export default function PostPage() {
   const params = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -378,6 +380,19 @@ export default function PostPage() {
                   url={`${process.env.NEXT_PUBLIC_SITE_URL || 'https://buzzedison.com'}/insights/${post?.slug}`}
                   title={post?.title || ""}
                 />
+                
+                {/* Admin Controls */}
+                {user?.email === 'buzzedison@gmail.com' && post?.id && (
+                  <>
+                    <Link
+                      href={`/admin/blog/edit/${post.id}`}
+                      className="inline-flex items-center gap-1 px-3 py-2 text-sm text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors"
+                    >
+                      <Edit className="h-3 w-3" />
+                      Edit
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
 

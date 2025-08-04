@@ -245,6 +245,8 @@ function InsightsContent() {
       let query = supabase
         .from('posts')
         .select('*') // Select all columns first to see what's available
+        .neq('content', '<p><br></p>') // Exclude posts with empty content
+        .not('content', 'is', null) // Exclude posts with null content
         .order('created_at', { ascending: false });
 
       if (selectedTag) {
@@ -269,6 +271,8 @@ function InsightsContent() {
       const { data: latestPostsData, error: latestError } = await supabase
         .from('posts')
         .select('*')
+        .neq('content', '<p><br></p>') // Exclude posts with empty content
+        .not('content', 'is', null) // Exclude posts with null content
         .order('created_at', { ascending: false })
         .limit(5);
 
@@ -280,6 +284,8 @@ function InsightsContent() {
       const { data: topViewedData, error: topViewedError } = await supabase
         .from('posts')
         .select('*')
+        .neq('content', '<p><br></p>') // Exclude posts with empty content
+        .not('content', 'is', null) // Exclude posts with null content
         .order('created_at', { ascending: false })
         .limit(3);
 
