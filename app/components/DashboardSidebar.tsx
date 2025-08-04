@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '../../lib/authContext';
 import { 
   BookOpen, 
   Bookmark, 
@@ -50,6 +51,7 @@ const mockUser = {
 const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedChange }: DashboardSidebarProps) => {
   const pathname = usePathname();
   const router = useRouter();
+  const { user: authUser, session, signOut } = useAuth();
   const [user, setUser] = useState(mockUser);
   const [stats, setStats] = useState({
     bookmarks: 0,
@@ -59,9 +61,23 @@ const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedCh
   });
 
   useEffect(() => {
+    // Update user state based on auth
+    if (authUser && session) {
+      setUser({
+        id: authUser.id,
+        name: authUser.user_metadata?.name || authUser.email?.split('@')[0] || 'User',
+        email: authUser.email || '',
+        avatar: authUser.user_metadata?.avatar || '/image/edison.png',
+        role: authUser.email === 'buzzedison@gmail.com' ? 'admin' : 'user',
+        isLoggedIn: true
+      });
+    } else {
+      setUser({ ...mockUser, isLoggedIn: false });
+    }
+    
     // Fetch user stats
     fetchUserStats();
-  }, []);
+  }, [authUser, session]);
 
   const fetchUserStats = async () => {
     try {
@@ -76,28 +92,26 @@ const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedCh
     }
   };
 
-  const handleLogout = async () => {
+    const handleLogout = async () => {
     // Confirm logout
     const confirmLogout = confirm('Are you sure you want to sign out?');
     if (!confirmLogout) return;
-    
+
     try {
-      // Clear any local storage or session storage
+      // Use the signOut method from auth context
+      await signOut();
+
+      // Clear any additional local storage
       localStorage.removeItem('user');
       localStorage.removeItem('authToken');
       sessionStorage.clear();
-      
-      // If using Supabase auth, sign out
-      // await supabase.auth.signOut();
-      
+
       // Update user state
       setUser({ ...user, isLoggedIn: false });
-      
+
       // Redirect to home page
       router.push('/');
-      
-      // Optional: Show success message
-      // You could add a toast notification here
+
       console.log('Successfully signed out');
     } catch (error) {
       console.error('Error during logout:', error);

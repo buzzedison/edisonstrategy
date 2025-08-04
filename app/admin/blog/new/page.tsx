@@ -29,16 +29,71 @@ export default function CreateBlogPost() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  // Redirect to signin if there's no session, but only on the client side
-  useEffect(() => {
-    if (!session && typeof window !== 'undefined') {
-      router.push('/signin');
-    }
-  }, [session, router]);
+  // Check if user is admin (your email)
+  const adminEmail = 'buzzedison@gmail.com';
+  const isAdmin = user?.email === adminEmail;
 
-  // If there's no session, don't render anything or show a loading state
-  if (!session) {
-    return null; // or return <div>Loading...</div>;
+  console.log('🔍 Admin Blog Component Debug:', {
+    hasSession: !!session,
+    hasUser: !!user,
+    userEmail: user?.email,
+    adminEmail,
+    isAdmin,
+    emailMatch: user?.email === adminEmail
+  });
+
+  // Only redirect when we have definitive auth state
+  useEffect(() => {
+    console.log('🔄 Admin Blog useEffect triggered:', {
+      hasSession: !!session,
+      hasUser: !!user,
+      isAdmin,
+      userEmail: user?.email
+    });
+
+    // Only redirect if we're sure there's no session after a delay
+    if (!session && typeof window !== 'undefined') {
+      const timer = setTimeout(() => {
+        if (!session) {
+          console.log('❌ No session after delay, redirecting to signin');
+          router.push('/signin');
+        }
+      }, 1000); // Give auth time to load
+
+      return () => clearTimeout(timer);
+    }
+  }, [session, user, router]);
+
+  // Show loading while auth is initializing
+  if (!session || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If user is loaded but not admin, show access denied
+  if (user && !isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4 text-red-600">Access Denied</h1>
+          <p className="mb-4">You don't have admin privileges to access this page.</p>
+          <p className="text-sm text-gray-600 mb-4">Current email: {user.email}</p>
+          <p className="text-sm text-gray-600 mb-4">Required email: buzzedison@gmail.com</p>
+          <button 
+            onClick={() => router.push('/dashboard')}
+            className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+          >
+            Go to Dashboard
+          </button>
+        </div>
+      </div>
+    );
   }
 
   // Function to handle form submission
@@ -57,7 +112,7 @@ export default function CreateBlogPost() {
         
         // Upload the file to Supabase Storage
         const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('cover-image')
+          .from('cover-images')
           .upload(`1e7kp8l_1/${fileName}`, coverImage, {
             upsert: false
           });
@@ -69,7 +124,7 @@ export default function CreateBlogPost() {
 
         if (uploadData) {
           // Get the public URL of the uploaded file
-          const { data } = supabase.storage.from('cover-image').getPublicUrl(`1e7kp8l_1/${fileName}`);
+          const { data } = supabase.storage.from('cover-images').getPublicUrl(`1e7kp8l_1/${fileName}`);
           if (!data) throw new Error('Error getting public URL: No data returned');
           coverImageUrl = data.publicUrl;
         } else {
@@ -84,16 +139,16 @@ export default function CreateBlogPost() {
         cover_image: coverImageUrl,
         meta_description: metaDescription,
         tags: tags.split(',').map(tag => tag.trim()),
-        is_published: true,
-        published_at: new Date().toISOString(),
-      });
+        status: 'published',
+        author: 'Edison Ade'
+      }).select();
 
       if (insertError) {
         console.error('Insert error:', insertError);
         throw new Error(`Error creating post: ${insertError.message || 'Unknown error'}`);
       }
 
-      if (!insertData) {
+      if (!insertData || insertData.length === 0) {
         throw new Error('Post creation successful but no data returned');
       }
 
