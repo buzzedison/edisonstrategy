@@ -1,0 +1,4 @@
+# .npmrc
+optional=false
+# Allow npm to proceed even if platform mismatches
+strict-ssl=false
