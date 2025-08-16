@@ -221,3 +221,194 @@ body {
 .parallax-element {
   will-change: transform;
 }
+
+/* Enhanced Article Typography */
+.article-typography {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.7;
+  color: #374151;
+}
+
+.article-typography h1, 
+.article-typography h2, 
+.article-typography h3, 
+.article-typography h4, 
+.article-typography h5, 
+.article-typography h6 {
+  font-weight: 700;
+  color: #111827;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.article-typography h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+.article-typography h2 {
+  font-size: 2rem;
+  line-height: 1.3;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5rem;
+  margin-top: 3rem;
+}
+
+.article-typography h3 {
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.article-typography p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.article-typography p:first-of-type {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #4b5563;
+}
+
+.article-typography a {
+  color: #2563eb;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.article-typography a:hover {
+  color: #1d4ed8;
+  border-bottom-color: #2563eb;
+}
+
+.article-typography blockquote {
+  border-left: 4px solid #3b82f6;
+  background: #f8fafc;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  font-style: italic;
+  font-size: 1.125rem;
+  color: #1f2937;
+  position: relative;
+}
+
+.article-typography blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: #3b82f6;
+  position: absolute;
+  left: 1rem;
+  top: -0.5rem;
+  font-family: Georgia, serif;
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.article-typography ul, 
+.article-typography ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.article-typography li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.article-typography ul li::marker {
+  color: #3b82f6;
+}
+
+.article-typography ol li::marker {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.article-typography code {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+}
+
+.article-typography pre {
+  background: #1f2937;
+  color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin: 2rem 0;
+  font-family: 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+  line-height: 1.5;
+}
+
+.article-typography pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.article-typography img {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.article-typography hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d1d5db, transparent);
+  margin: 3rem 0;
+}
+
+.article-typography table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.article-typography th {
+  background: #f8fafc;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.article-typography td {
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.article-typography tr:hover {
+  background: #f9fafb;
+}
+
+/* Drop cap for first paragraph */
+.article-typography .first-paragraph::first-letter {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  float: left;
+  margin: 0.1rem 0.5rem 0 0;
+  color: #2563eb;
+  font-family: Georgia, serif;
+}
+
+/* Smooth scroll behavior for anchor links */
+.article-typography h2[id],
+.article-typography h3[id],
+.article-typography h4[id] {
+  scroll-margin-top: 6rem;
+}

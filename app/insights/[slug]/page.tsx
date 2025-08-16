@@ -13,6 +13,7 @@ import ArticleReactions from '../components/ArticleReactions';
 import BookmarkButton from '../components/BookmarkButton';
 import Comments from '../components/Comments';
 import InsightsWithSidebar from '../../components/InsightsWithSidebar';
+
 import { useAuth } from '../../../lib/authContext';
 
 type Props = {
@@ -311,7 +312,17 @@ export default function PostPage() {
           </div>
         </nav>
 
-        <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          <div className="flex gap-8">
+            {/* Main Content */}
+            <div className="flex-1 max-w-4xl">
+              {/* Reading indicator */}
+              <div className="mb-8">
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>Estimated read time: {readingTime} minutes</span>
+                  <span>{wordCount.toLocaleString()} words</span>
+                </div>
+              </div>
           {/* Article Header */}
           <header className="mb-12">
             {/* Tags */}
@@ -334,6 +345,9 @@ export default function PostPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 leading-tight">
               {post?.title}
             </h1>
+            
+            {/* Visual separator */}
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mb-8"></div>
 
             {/* Meta information and actions */}
             <div className="flex flex-wrap items-center justify-between gap-6 mb-8">
@@ -418,7 +432,7 @@ export default function PostPage() {
           )}
 
           {/* Article Content */}
-          <main className="prose prose-lg prose-gray max-w-none">
+          <main className="article-typography text-lg leading-8 max-w-none">
             <div dangerouslySetInnerHTML={{ __html: post?.content || "" }} />
           </main>
 
@@ -440,31 +454,71 @@ export default function PostPage() {
           {/* Related Posts */}
           <RelatedPosts currentPostId={post?.id || 0} tags={post?.tags || []} />
 
-          {/* Call to Action */}
-          <section className="mt-16 p-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
-            <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Ready to Turn Your Ideas Into Income?
-              </h3>
-              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-                Get actionable strategies and insights delivered to your inbox. Join other founders and creators building successful businesses.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/contact" 
-                  className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
-                >
-                  Start a Project
-                </Link>
-                <Link 
-                  href="/subscribe" 
-                  className="inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-gray-50 text-blue-600 font-semibold rounded-lg border border-blue-200 transition-colors"
-                >
-                  Subscribe to Newsletter
-                </Link>
+              {/* Call to Action */}
+              <section className="mt-16 p-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    Ready to Turn Your Ideas Into Income?
+                  </h3>
+                  <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+                    Get actionable strategies and insights delivered to your inbox. Join other founders and creators building successful businesses.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link 
+                      href="/contact" 
+                      className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+                    >
+                      Start a Project
+                    </Link>
+                    <Link 
+                      href="/subscribe" 
+                      className="inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-gray-50 text-blue-600 font-semibold rounded-lg border border-blue-200 transition-colors"
+                    >
+                      Subscribe to Newsletter
+                    </Link>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            {/* Sidebar */}
+            <div className="hidden lg:block w-80">
+              <div className="space-y-6">
+                {/* Author Card */}
+                <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+                  <div className="text-center">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                      EA
+                    </div>
+                    <h3 className="font-bold text-gray-900 mb-2">Edison Ade</h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      Empowering visionary leaders to build profitable businesses with purpose.
+                    </p>
+                    <Link 
+                      href="/about"
+                      className="inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Newsletter Signup */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+                  <h3 className="font-bold text-gray-900 mb-3">Never Miss an Update</h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    Get weekly insights on building profitable businesses delivered to your inbox.
+                  </p>
+                  <Link 
+                    href="/subscribe"
+                    className="w-full inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors"
+                  >
+                    Subscribe Now
+                  </Link>
+                </div>
               </div>
             </div>
-          </section>
+          </div>
         </div>
       </article>
     </InsightsWithSidebar>
