@@ -131,8 +131,11 @@ export default function EditPost() {
 
     setSaving(true);
     try {
+      console.log('🔵 FRONTEND: Starting save process for post ID:', params.id);
+      
       // Get the current session token
       const { data: { session } } = await supabase.auth.getSession();
+      console.log('🔵 FRONTEND: Session check:', { hasSession: !!session, hasToken: !!session?.access_token });
       
       const headers: HeadersInit = {
         'Content-Type': 'application/json',
@@ -141,7 +144,29 @@ export default function EditPost() {
       // Add authorization header if we have a session
       if (session?.access_token) {
         headers['Authorization'] = `Bearer ${session.access_token}`;
+        console.log('🔵 FRONTEND: Added auth header');
       }
+
+      const requestData = {
+        title,
+        slug,
+        content,
+        cover_image: coverImage,
+        meta_description: metaDescription,
+        tags,
+        status,
+        author
+      };
+      
+      console.log('🔵 FRONTEND: Sending request to:', `/api/posts/by-id/${params.id}`);
+      console.log('🔵 FRONTEND: Request data preview:', {
+        title,
+        slug,
+        contentLength: content?.length || 0,
+        tags,
+        status,
+        author
+      });
 
       const response = await fetch(`/api/posts/by-id/${params.id}`, {
         method: 'PUT',
@@ -158,29 +183,39 @@ export default function EditPost() {
         }),
       });
 
+      console.log('🔵 FRONTEND: Response status:', response.status);
+      console.log('🔵 FRONTEND: Response ok:', response.ok);
+
       if (!response.ok) {
         const error = await response.json();
-        console.error('API Error:', error);
-        console.error('Response status:', response.status);
+        console.error('🔴 FRONTEND API ERROR:', error);
+        console.error('🔴 FRONTEND Response status:', response.status);
+        console.error('🔴 FRONTEND Response headers:', Object.fromEntries(response.headers.entries()));
         throw new Error(error.error || 'Failed to update post');
       }
 
       const result = await response.json();
-      console.log('Update successful:', result);
+      console.log('🟢 FRONTEND: Update successful:', result);
       
-      // Clear any cached data by forcing a reload
-      if (typeof window !== 'undefined') {
-        // Clear browser cache for this domain
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations().then(registrations => {
-            registrations.forEach(registration => {
-              registration.update();
-            });
-          });
+      // Store the updated post slug for potential redirect
+      const updatedSlug = result.slug || slug;
+      
+      alert('Post updated successfully!');
+      
+      // Ask user if they want to view the updated post
+      const viewPost = confirm('Would you like to view the updated post?');
+      
+      if (viewPost) {
+        // Open the post in a new tab with cache busting
+        const postUrl = `/insights/${updatedSlug}?refresh=${Date.now()}`;
+        window.open(postUrl, '_blank');
+        
+        // Also trigger a page reload for any existing tabs with this post
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('post_updated', `${updatedSlug}:${Date.now()}`);
         }
       }
       
-      alert('Post updated successfully! The changes may take a moment to appear due to caching.');
       router.push('/admin/blog/listing');
     } catch (error) {
       console.error('Error updating post:', error);

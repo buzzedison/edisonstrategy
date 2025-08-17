@@ -2,6 +2,7 @@
 
 
 import { supabase } from '../../../lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, Twitter, Facebook, Linkedin, Copy, Eye, User, FileText, Edit, Trash2 } from 'lucide-react';
@@ -110,7 +111,22 @@ const RelatedPosts = ({ currentPostId, tags }: { currentPostId: number; tags: st
     const fetchRelatedPosts = async () => {
       if (!tags.length) return;
 
-      const { data, error } = await supabase
+      // Use fresh client for related posts too
+      const freshSupabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+          auth: { persistSession: false },
+          global: {
+            headers: {
+              'Cache-Control': 'no-cache',
+              'X-Timestamp': Date.now().toString()
+            }
+          }
+        }
+      );
+
+      const { data, error } = await freshSupabase
         .from('posts')
         .select('id, title, slug, cover_image, created_at, tags')
         .neq('id', currentPostId)
@@ -182,16 +198,62 @@ export default function PostPage() {
     setLoading(true);
   };
 
+  // Listen for post updates from localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updated = localStorage.getItem('post_updated');
+      if (updated && params.slug) {
+        const [updatedSlug, timestamp] = updated.split(':');
+        if (updatedSlug === params.slug) {
+          console.log('Post updated detected, refreshing...');
+          refreshPost();
+          localStorage.removeItem('post_updated');
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    // Also check on mount
+    handleStorageChange();
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [params.slug]);
+
   useEffect(() => {
     const fetchPost = async () => {
       if (!params.slug) return;
       
       // Add cache busting to ensure fresh data
       const timestamp = new Date().getTime();
-      const { data, error } = await supabase
+      console.log('Fetching post with timestamp:', timestamp);
+      
+      // Create a fresh Supabase client to bypass cache
+      const freshSupabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+          auth: {
+            persistSession: false, // Don't persist to avoid cache
+          },
+          global: {
+            headers: {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache',
+              'X-Timestamp': timestamp.toString()
+            }
+          }
+        }
+      );
+      
+      // Force fresh connection to avoid cached queries
+      const { data, error } = await freshSupabase
         .from('posts')
         .select('*')
         .eq('slug', params.slug)
+        .order('updated_at', { ascending: false })
+        .limit(1)
         .single();
 
       if (error || !data) {
@@ -200,6 +262,13 @@ export default function PostPage() {
         setPost(null);
         return;
       }
+
+      console.log('Fetched post data:', {
+        id: data.id,
+        title: data.title,
+        updated_at: data.updated_at,
+        slug: data.slug
+      });
 
       setPost(data);
       setLoading(false);

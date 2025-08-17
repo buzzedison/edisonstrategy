@@ -1,5 +1,6 @@
 import { supabase } from '../../../../../lib/supabaseClient';
 import { getSupabaseSession } from '../../../../../lib/authHelper';
+import { revalidatePath } from 'next/cache';
 
 // GET - Fetch a single post by ID
 export async function GET(
@@ -49,7 +50,10 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    console.log('PUT request for post ID:', params.id);
+    console.log('🚀 PUT REQUEST STARTED for post ID:', params.id);
+    console.log('🚀 Request URL:', request.url);
+    console.log('🚀 Request method:', request.method);
+    console.log('🚀 Timestamp:', new Date().toISOString());
     // Check admin access - try both server-side session and client-side token
     let isAuthorized = false;
     
@@ -165,12 +169,18 @@ export async function PUT(
         author: author || 'Edison Ade',
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id);
+      .eq('id', params.id)
+      .select();
 
     console.log('Update result:', { data, error });
+    console.log('UPDATE QUERY EXECUTED - data returned:', data);
+    console.log('Number of rows affected:', data ? data.length : 'unknown');
 
     if (error) {
       console.error('Supabase update error:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      console.error('Error details:', error.details);
       return new Response(JSON.stringify({ error: error.message }), { 
         status: 500,
         headers: { 'Content-Type': 'application/json' }
@@ -193,6 +203,22 @@ export async function PUT(
       }), {
         headers: { 'Content-Type': 'application/json' }
       });
+    }
+
+    console.log('✅ SUCCESSFULLY UPDATED POST:', {
+      id: updatedPost.id,
+      title: updatedPost.title,
+      slug: updatedPost.slug,
+      updated_at: updatedPost.updated_at
+    });
+
+    // Revalidate Next.js cache for this post and the main insights page
+    try {
+      revalidatePath(`/insights/${updatedPost.slug}`);
+      revalidatePath('/insights');
+      console.log('✅ Cache invalidated for:', `/insights/${updatedPost.slug}`);
+    } catch (revalidateError) {
+      console.error('❌ Cache revalidation failed:', revalidateError);
     }
 
     return new Response(JSON.stringify(updatedPost), {
