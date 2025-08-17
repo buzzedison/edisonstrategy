@@ -131,11 +131,21 @@ export default function EditPost() {
 
     setSaving(true);
     try {
+      // Get the current session token
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+      };
+      
+      // Add authorization header if we have a session
+      if (session?.access_token) {
+        headers['Authorization'] = `Bearer ${session.access_token}`;
+      }
+
       const response = await fetch(`/api/posts/by-id/${params.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify({
           title,
           slug,
@@ -150,10 +160,27 @@ export default function EditPost() {
 
       if (!response.ok) {
         const error = await response.json();
+        console.error('API Error:', error);
+        console.error('Response status:', response.status);
         throw new Error(error.error || 'Failed to update post');
       }
 
-      alert('Post updated successfully!');
+      const result = await response.json();
+      console.log('Update successful:', result);
+      
+      // Clear any cached data by forcing a reload
+      if (typeof window !== 'undefined') {
+        // Clear browser cache for this domain
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => {
+              registration.update();
+            });
+          });
+        }
+      }
+      
+      alert('Post updated successfully! The changes may take a moment to appear due to caching.');
       router.push('/admin/blog/listing');
     } catch (error) {
       console.error('Error updating post:', error);
@@ -166,8 +193,19 @@ export default function EditPost() {
   const handleDelete = async () => {
     setDeleting(true);
     try {
+      // Get the current session token
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      const headers: HeadersInit = {};
+      
+      // Add authorization header if we have a session
+      if (session?.access_token) {
+        headers['Authorization'] = `Bearer ${session.access_token}`;
+      }
+
       const response = await fetch(`/api/posts/by-id/${params.id}`, {
         method: 'DELETE',
+        headers,
       });
 
       if (!response.ok) {
@@ -220,7 +258,7 @@ export default function EditPost() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-8 gap-4">
           <div className="flex items-center gap-4">
             <Link
               href="/admin/blog/listing"
@@ -232,7 +270,7 @@ export default function EditPost() {
             <h1 className="text-2xl font-bold text-gray-900">Edit Post</h1>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
             <Link
               href={`/insights/${slug}`}
               target="_blank"
@@ -254,12 +292,24 @@ export default function EditPost() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="inline-flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-semibold shadow-lg"
             >
-              <Save className="h-4 w-4" />
+              <Save className="h-5 w-5" />
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
+        </div>
+
+        {/* Fixed Save Button for Mobile */}
+        <div className="lg:hidden fixed bottom-6 right-6 z-50">
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 transition-colors font-semibold shadow-xl"
+          >
+            <Save className="h-5 w-5" />
+            {saving ? 'Saving...' : 'Save'}
+          </button>
         </div>
 
         {/* Form */}
@@ -380,6 +430,29 @@ export default function EditPost() {
               value={content}
               onChange={setContent}
             />
+          </div>
+
+          {/* Bottom Save Actions */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-gray-200">
+            <div className="text-sm text-gray-500">
+              Make sure to save your changes before leaving this page.
+            </div>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/admin/blog/listing"
+                className="inline-flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                Cancel
+              </Link>
+              <button
+                onClick={handleSave}
+                disabled={saving}
+                className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-semibold shadow-lg"
+              >
+                <Save className="h-5 w-5" />
+                {saving ? 'Saving...' : 'Save Changes'}
+              </button>
+            </div>
           </div>
         </div>
       </div>

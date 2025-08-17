@@ -173,12 +173,21 @@ export default function PostPage() {
   const params = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
   const { user } = useAuth();
+
+  // Function to refresh post data
+  const refreshPost = () => {
+    setRefreshKey(prev => prev + 1);
+    setLoading(true);
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
       if (!params.slug) return;
       
+      // Add cache busting to ensure fresh data
+      const timestamp = new Date().getTime();
       const { data, error } = await supabase
         .from('posts')
         .select('*')
@@ -213,7 +222,7 @@ export default function PostPage() {
     };
 
     fetchPost();
-  }, [params.slug]);
+  }, [params.slug, refreshKey]);
 
   if (loading) {
     return (
@@ -398,6 +407,16 @@ export default function PostPage() {
                 {/* Admin Controls */}
                 {user?.email === 'buzzedison@gmail.com' && post?.id && (
                   <>
+                    <button
+                      onClick={refreshPost}
+                      className="inline-flex items-center gap-1 px-3 py-2 text-sm text-green-700 bg-green-100 rounded-lg hover:bg-green-200 transition-colors"
+                      title="Refresh post data"
+                    >
+                      <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      Refresh
+                    </button>
                     <Link
                       href={`/admin/blog/edit/${post.id}`}
                       className="inline-flex items-center gap-1 px-3 py-2 text-sm text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors"
