@@ -49,13 +49,13 @@ const Comments = ({ postSlug }: CommentsProps) => {
 
   const handleSubmit = async (e: React.FormEvent, parentId?: string) => {
     e.preventDefault();
-    
+
     if (!formData.content.trim() || !formData.author_name.trim() || !formData.author_email.trim()) {
       return;
     }
 
     setSubmitting(true);
-    
+
     try {
       const response = await fetch(`/api/posts/${postSlug}/comments`, {
         method: 'POST',
@@ -91,10 +91,10 @@ const Comments = ({ postSlug }: CommentsProps) => {
   };
 
   const CommentForm = ({ parentId, onCancel }: { parentId?: string; onCancel?: () => void }) => (
-    <form onSubmit={(e) => handleSubmit(e, parentId)} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <form onSubmit={(e) => handleSubmit(e, parentId)} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="author_name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="author_name" className="block text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-2">
             Name *
           </label>
           <input
@@ -102,12 +102,12 @@ const Comments = ({ postSlug }: CommentsProps) => {
             id="author_name"
             value={formData.author_name}
             onChange={(e) => setFormData({ ...formData, author_name: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-brand-stone/50 border border-gray-100 rounded-xl focus:ring-1 focus:ring-brand-charcoal focus:border-brand-charcoal transition-all text-sm outline-none"
             required
           />
         </div>
         <div>
-          <label htmlFor="author_email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="author_email" className="block text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-2">
             Email *
           </label>
           <input
@@ -115,14 +115,14 @@ const Comments = ({ postSlug }: CommentsProps) => {
             id="author_email"
             value={formData.author_email}
             onChange={(e) => setFormData({ ...formData, author_email: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-brand-stone/50 border border-gray-100 rounded-xl focus:ring-1 focus:ring-brand-charcoal focus:border-brand-charcoal transition-all text-sm outline-none"
             required
           />
         </div>
       </div>
-      
+
       <div>
-        <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="content" className="block text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-2">
           Comment *
         </label>
         <textarea
@@ -130,31 +130,31 @@ const Comments = ({ postSlug }: CommentsProps) => {
           rows={4}
           value={formData.content}
           onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-3 bg-brand-stone/50 border border-gray-100 rounded-xl focus:ring-1 focus:ring-brand-charcoal focus:border-brand-charcoal transition-all text-sm outline-none resize-none"
           placeholder={parentId ? "Write your reply..." : "Share your thoughts..."}
           required
         />
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-charcoal text-white rounded-xl hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-all text-[11px] font-bold uppercase tracking-widest shadow-sm"
         >
           {submitting ? (
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white border-t-transparent" />
           ) : (
-            <Send className="h-4 w-4" />
+            <Send className="h-3.5 w-3.5" />
           )}
-          {submitting ? 'Posting...' : 'Post Comment'}
+          {submitting ? 'Sending...' : 'Post Comment'}
         </button>
-        
+
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            className="px-6 py-3.5 text-[10px] font-bold uppercase tracking-widest text-brand-muted hover:text-brand-charcoal transition-colors"
           >
             Cancel
           </button>
@@ -164,49 +164,46 @@ const Comments = ({ postSlug }: CommentsProps) => {
   );
 
   const CommentItem = ({ comment, depth = 0 }: { comment: Comment; depth?: number }) => (
-    <div className={`${depth > 0 ? 'ml-8 mt-4' : ''}`}>
-      <div className="bg-gray-50 rounded-lg p-4 mb-4">
+    <div className={`${depth > 0 ? 'ml-6 md:ml-12 mt-6' : 'mb-8'}`}>
+      <div className="bg-white border border-gray-100 rounded-[2rem] p-6 shadow-sm">
         {/* Comment Header */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-              <User className="h-4 w-4 text-blue-600" />
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4">
+            <div className="h-10 w-10 rounded-full bg-brand-stone border border-gray-100 flex items-center justify-center">
+              <User className="h-5 w-5 text-brand-muted" />
             </div>
             <div>
-              <div className="font-medium text-gray-900">{comment.author_name}</div>
-              <div className="flex items-center gap-1 text-xs text-gray-500">
+              <div className="font-serif font-bold text-brand-charcoal">{comment.author_name}</div>
+              <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-brand-muted">
                 <Calendar className="h-3 w-3" />
                 {formatDate(comment.created_at)}
               </div>
             </div>
           </div>
-          
-          {/* Comment Actions */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
-              className="inline-flex items-center gap-1 px-2 py-1 text-xs text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              <Reply className="h-3 w-3" />
-              Reply
-            </button>
-          </div>
+
+          <button
+            onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-brand-stone hover:bg-gray-100 rounded-full text-[9px] font-bold uppercase tracking-widest text-brand-charcoal transition-all"
+          >
+            <Reply className="h-3 w-3" />
+            Reply
+          </button>
         </div>
 
         {/* Comment Content */}
-        <div className="text-gray-700 leading-relaxed mb-3">
+        <div className="text-brand-muted leading-relaxed font-light mb-2 pl-2">
           {comment.content}
         </div>
 
         {/* Reply Form */}
         {replyingTo === comment.id && (
-          <div className="mt-4 p-4 bg-white rounded-lg border">
-            <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <div className="mt-8 pt-8 border-t border-gray-50">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-brand-charcoal mb-6">
               Reply to {comment.author_name}
             </h4>
-            <CommentForm 
-              parentId={comment.id} 
-              onCancel={() => setReplyingTo(null)} 
+            <CommentForm
+              parentId={comment.id}
+              onCancel={() => setReplyingTo(null)}
             />
           </div>
         )}
@@ -214,7 +211,7 @@ const Comments = ({ postSlug }: CommentsProps) => {
 
       {/* Nested Replies */}
       {comment.replies && comment.replies.length > 0 && (
-        <div className="space-y-2">
+        <div className="space-y-4">
           {comment.replies.map((reply) => (
             <CommentItem key={reply.id} comment={reply} depth={depth + 1} />
           ))}
@@ -225,24 +222,24 @@ const Comments = ({ postSlug }: CommentsProps) => {
 
   if (loading) {
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-2 mb-6">
-          <MessageCircle className="h-5 w-5 text-gray-400" />
-          <h3 className="text-lg font-semibold text-gray-900">Comments</h3>
+      <div className="space-y-6">
+        <div className="flex items-center gap-3 mb-8">
+          <MessageCircle className="h-6 w-6 text-brand-gold" />
+          <h3 className="text-2xl font-serif font-bold text-brand-charcoal">Comments</h3>
         </div>
-        <div className="animate-pulse space-y-4">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="bg-gray-50 rounded-lg p-4">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="h-8 w-8 bg-gray-200 rounded-full"></div>
-                <div className="space-y-1">
-                  <div className="h-4 bg-gray-200 rounded w-24"></div>
-                  <div className="h-3 bg-gray-200 rounded w-16"></div>
+        <div className="animate-pulse space-y-6">
+          {[1, 2].map(i => (
+            <div key={i} className="bg-white border border-gray-100 rounded-[2rem] p-8">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-10 w-10 bg-brand-stone rounded-full"></div>
+                <div className="space-y-2">
+                  <div className="h-4 bg-brand-stone rounded w-32"></div>
+                  <div className="h-3 bg-brand-stone rounded w-20"></div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-full"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              <div className="space-y-3">
+                <div className="h-4 bg-brand-stone rounded w-full"></div>
+                <div className="h-4 bg-brand-stone rounded w-5/6"></div>
               </div>
             </div>
           ))}
@@ -252,30 +249,32 @@ const Comments = ({ postSlug }: CommentsProps) => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       {/* Header */}
-      <div className="flex items-center gap-2">
-        <MessageCircle className="h-5 w-5 text-gray-600" />
-        <h3 className="text-lg font-semibold text-gray-900">
-          Comments ({comments.length})
-        </h3>
+      <div className="flex items-center justify-between border-b border-gray-100 pb-8">
+        <div className="flex items-center gap-3">
+          <MessageCircle className="h-6 w-6 text-brand-gold" />
+          <h3 className="text-2xl font-serif font-bold text-brand-charcoal">
+            Insights ({comments.length})
+          </h3>
+        </div>
       </div>
 
       {/* Comment Form */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h4 className="text-md font-medium text-gray-900 mb-4">Leave a Comment</h4>
+      <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm">
+        <h4 className="text-[10px] font-bold uppercase tracking-widest text-brand-charcoal mb-8">Join the Discussion</h4>
         <CommentForm />
       </div>
 
       {/* Comments List */}
       {comments.length === 0 ? (
-        <div className="text-center py-12">
-          <MessageCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          <h4 className="text-lg font-medium text-gray-900 mb-2">No comments yet</h4>
-          <p className="text-gray-600">Be the first to share your thoughts!</p>
+        <div className="text-center py-20 bg-brand-stone/30 rounded-[2.5rem] border border-dashed border-gray-200">
+          <MessageCircle className="h-12 w-12 text-gray-200 mx-auto mb-6" />
+          <h4 className="text-xl font-serif font-bold text-brand-charcoal mb-2">No discussion yet</h4>
+          <p className="text-brand-muted font-light">Be the first to offer your perspective.</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-2">
           {comments.map((comment) => (
             <CommentItem key={comment.id} comment={comment} />
           ))}

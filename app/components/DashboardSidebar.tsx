@@ -5,12 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../../lib/authContext';
-import { 
-  BookOpen, 
-  Bookmark, 
-  User, 
-  Settings, 
-  LogOut, 
+import {
+  BookOpen,
+  Bookmark,
+  User,
+  Settings,
+  LogOut,
   LogIn,
   Home,
   TrendingUp,
@@ -48,7 +48,7 @@ const mockUser = {
   isLoggedIn: true // This would come from your auth system
 };
 
-const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedChange }: DashboardSidebarProps) => {
+const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const { user: authUser, session, signOut } = useAuth();
@@ -74,7 +74,7 @@ const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedCh
     } else {
       setUser({ ...mockUser, isLoggedIn: false });
     }
-    
+
     // Fetch user stats
     fetchUserStats();
   }, [authUser, session]);
@@ -92,7 +92,7 @@ const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedCh
     }
   };
 
-    const handleLogout = async () => {
+  const handleLogout = async () => {
     // Confirm logout
     const confirmLogout = confirm('Are you sure you want to sign out?');
     if (!confirmLogout) return;
@@ -163,156 +163,91 @@ const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedCh
 
   return (
     <>
-      {/* Overlay for mobile */}
+      {/* Overlay */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity"
           onClick={onToggle}
         />
       )}
 
       {/* Sidebar */}
       <div className={cn(
-        "fixed left-0 top-0 h-full bg-white border-r border-gray-200 z-50 transform transition-all duration-300 ease-in-out lg:translate-x-0",
-        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
-        isCollapsed ? "lg:w-20" : "lg:w-80",
-        "w-80"
+        "fixed left-0 top-0 h-full bg-brand-stone border-r border-gray-100 z-[60] transform transition-all duration-500 ease-out w-80 shadow-2xl overflow-hidden flex flex-col",
+        isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <Link href="/" className={cn(
-            "flex items-center gap-3",
-            isCollapsed && "lg:justify-center"
-          )}>
-            <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
+        <div className="flex items-center justify-between p-8 border-b border-gray-100 bg-white/30 backdrop-blur-md">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-brand-charcoal flex items-center justify-center shadow-lg">
               <BookOpen className="h-5 w-5 text-white" />
             </div>
-            <span className={cn(
-              "text-xl font-bold text-gray-900 transition-all duration-300",
-              isCollapsed && "lg:hidden"
-            )}>Insights</span>
+            <span className="text-xl font-serif font-bold tracking-tight text-brand-charcoal">BuzzEdison.</span>
           </Link>
-          
-          {/* Desktop collapse toggle */}
-          <button
-            onClick={() => onCollapsedChange?.(!isCollapsed)}
-            className="hidden lg:block p-2 hover:bg-gray-100 rounded-lg transition-colors"
-            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {isCollapsed ? (
-              <ChevronRight className="h-4 w-4 text-gray-500" />
-            ) : (
-              <ChevronLeft className="h-4 w-4 text-gray-500" />
-            )}
-          </button>
-          
-          {/* Mobile close button */}
+
           <button
             onClick={onToggle}
-            className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+            className="p-2 hover:bg-white rounded-xl transition-all border border-transparent hover:border-gray-100 shadow-sm group"
           >
-            <X className="h-5 w-5" />
+            <X className="h-5 w-5 text-brand-charcoal group-hover:rotate-90 transition-transform" />
           </button>
         </div>
 
-        {/* User Profile Section */}
-        {user.isLoggedIn ? (
-          <div className={cn(
-            "p-6 border-b border-gray-200 transition-all duration-300",
-            isCollapsed && "lg:px-3"
-          )}>
-            <div className={cn(
-              "flex items-center gap-3 mb-4",
-              isCollapsed && "lg:justify-center lg:mb-2"
-            )}>
+        {/* User Profile Section - Minimized */}
+        <div className="p-8 border-b border-gray-100">
+          {user.isLoggedIn ? (
+            <div className="flex items-center gap-4">
               <div className="relative">
-                <div className="h-12 w-12 rounded-full overflow-hidden bg-gray-200">
+                <div className="h-12 w-12 rounded-full overflow-hidden border-2 border-white shadow-sm ring-1 ring-gray-100">
                   {user.avatar ? (
                     <Image
                       src={user.avatar}
                       alt={user.name}
                       width={48}
                       height={48}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover grayscale"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-lg font-semibold text-gray-600">
+                    <div className="w-full h-full flex items-center justify-center text-lg font-serif font-semibold bg-white text-brand-charcoal">
                       {user.name.charAt(0)}
                     </div>
                   )}
                 </div>
-                <div className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-500 rounded-full border-2 border-white"></div>
+                <div className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 bg-brand-gold rounded-full border-2 border-brand-stone"></div>
               </div>
-              <div className={cn(
-                "flex-1 min-w-0",
-                isCollapsed && "lg:hidden"
-              )}>
-                <p className="text-sm font-semibold text-gray-900 truncate">{user.name}</p>
-                <p className="text-xs text-gray-500 truncate">{user.email}</p>
-              </div>
-            </div>
-
-            {/* Quick Stats */}
-            <div className={cn(
-              "grid grid-cols-2 gap-3 transition-all duration-300",
-              isCollapsed && "lg:hidden"
-            )}>
-              <div className="bg-blue-50 rounded-lg p-3 text-center">
-                <div className="text-lg font-bold text-blue-600">{stats.bookmarks}</div>
-                <div className="text-xs text-blue-600">Bookmarks</div>
-              </div>
-              <div className="bg-green-50 rounded-lg p-3 text-center">
-                <div className="text-lg font-bold text-green-600">{stats.views}</div>
-                <div className="text-xs text-green-600">Views</div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-serif font-medium text-brand-charcoal truncate">{user.name}</p>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted truncate">
+                    {user.role === 'admin' ? 'Strategic Lead' : 'Partner'}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className={cn(
-            "p-6 border-b border-gray-200 transition-all duration-300",
-            isCollapsed && "lg:px-3"
-          )}>
-            <div className={cn(
-              "text-center",
-              isCollapsed && "lg:px-0"
-            )}>
-              <div className="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                <User className="h-8 w-8 text-gray-400" />
+          ) : (
+            <div className="text-center">
+              <div className="h-16 w-16 rounded-full bg-white border border-gray-50 shadow-sm flex items-center justify-center mx-auto mb-4">
+                <User className="h-6 w-6 text-brand-muted" />
               </div>
-              <p className="text-sm text-gray-600 mb-4">Sign in to access your bookmarks and personalized content</p>
-              <div className="space-y-3">
-                <Link
-                  href="/signin"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium w-full justify-center"
-                >
-                  <LogIn className="h-4 w-4" />
-                  Sign In
-                </Link>
-                
-                {/* Developer helper - remove in production */}
-                <button
-                  onClick={() => setUser({ ...user, isLoggedIn: true })}
-                  className="text-xs text-gray-500 hover:text-gray-700 underline"
-                >
-                  Quick Login (Dev)
-                </button>
-              </div>
+              <p className="text-xs text-brand-muted mb-6 leading-relaxed">Join for personalized business insights.</p>
+              <Link
+                href="/signin"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-charcoal text-white rounded-full hover:bg-black transition-all text-[11px] font-bold uppercase tracking-widest w-full justify-center shadow-sm"
+              >
+                <LogIn className="h-3.5 w-3.5" />
+                Auth Access
+              </Link>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Navigation */}
-        <div className={cn(
-          "flex-1 overflow-y-auto p-4 transition-all duration-300",
-          isCollapsed && "lg:px-2"
-        )}>
-          <nav className="space-y-6">
+        <div className="flex-1 overflow-y-auto p-6 scrollbar-hide">
+          <nav className="space-y-8">
             {navigationItems.map((section) => (
               <div key={section.title}>
-                <h3 className={cn(
-                  "text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 px-2 transition-all duration-300",
-                  isCollapsed && "lg:hidden"
-                )}>
+                <h3 className="text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-4 px-3">
                   {section.title}
                 </h3>
                 <div className="space-y-1">
@@ -320,32 +255,22 @@ const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedCh
                     <Link
                       key={item.name}
                       href={item.href}
+                      onClick={onToggle}
                       className={cn(
-                        "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative group",
+                        "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-300 group",
                         pathname === item.href
-                          ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700"
-                          : "text-gray-700 hover:bg-gray-100",
-                        isCollapsed && "lg:justify-center lg:px-2"
+                          ? "bg-white text-brand-charcoal shadow-sm border border-gray-100 font-medium scale-[1.02]"
+                          : "text-brand-muted hover:text-brand-charcoal hover:bg-white/50"
                       )}
-                      title={isCollapsed ? item.name : undefined}
                     >
-                      <item.icon className="h-4 w-4 flex-shrink-0" />
-                      <span className={cn(
-                        "flex-1 transition-all duration-300",
-                        isCollapsed && "lg:hidden"
-                      )}>{item.name}</span>
-                      
-                      {/* Tooltip for collapsed state */}
-                      {isCollapsed && (
-                        <div className="hidden lg:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                          {item.name}
-                        </div>
-                      )}
+                      <item.icon className={cn(
+                        "h-4 w-4 flex-shrink-0 transition-colors",
+                        pathname === item.href ? "text-brand-charcoal" : "text-brand-muted group-hover:text-brand-charcoal"
+                      )} />
+                      <span className="flex-1">{item.name}</span>
+
                       {item.count !== null && item.count > 0 && (
-                        <span className={cn(
-                          "bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full min-w-[20px] text-center transition-all duration-300",
-                          isCollapsed && "lg:absolute lg:-top-1 lg:-right-1 lg:bg-blue-600 lg:text-white lg:text-[10px] lg:w-4 lg:h-4 lg:flex lg:items-center lg:justify-center lg:p-0 lg:min-w-0"
-                        )}>
+                        <span className="bg-brand-stone border border-gray-100 text-brand-charcoal text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
                           {item.count}
                         </span>
                       )}
@@ -359,30 +284,13 @@ const DashboardSidebar = ({ isOpen, onToggle, isCollapsed = false, onCollapsedCh
 
         {/* Footer */}
         {user.isLoggedIn && (
-          <div className={cn(
-            "border-t border-gray-200 p-4 transition-all duration-300",
-            isCollapsed && "lg:px-2"
-          )}>
+          <div className="border-t border-gray-100 p-6 bg-white/30 backdrop-blur-sm">
             <button
               onClick={handleLogout}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 w-full transition-all duration-300 relative group",
-                isCollapsed && "lg:justify-center lg:px-2"
-              )}
-              title={isCollapsed ? "Sign Out" : undefined}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest text-red-600 hover:bg-red-50 w-full transition-all duration-300"
             >
               <LogOut className="h-4 w-4 flex-shrink-0" />
-              <span className={cn(
-                "transition-all duration-300",
-                isCollapsed && "lg:hidden"
-              )}>Sign Out</span>
-              
-              {/* Tooltip for collapsed state */}
-              {isCollapsed && (
-                <div className="hidden lg:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Sign Out
-                </div>
-              )}
+              <span>Sign Out</span>
             </button>
           </div>
         )}

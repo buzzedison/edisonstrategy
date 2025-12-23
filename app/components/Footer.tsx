@@ -1,43 +1,76 @@
 "use client";
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { Twitter, Linkedin, Instagram, Youtube, Mail, MapPin } from 'lucide-react';
+import { Twitter, Linkedin, Instagram, Youtube, Mail, ArrowUpRight, Sparkles, MapPin, Phone } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const Footer = () => {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
-  
+
+  // Suppress global footer on specialized pages (matching Navbar logic)
+  const isSpecializedPage = pathname.startsWith('/insights') ||
+    pathname.startsWith('/dashboard') ||
+    pathname.startsWith('/bookmarks') ||
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/signin') ||
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/books') ||
+    pathname.startsWith('/tools');
+
+  if (isSpecializedPage) return null;
+
   return (
-    <footer className="bg-gray-50 pt-16 pb-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand column */}
-          <div>
-            <Image 
-              src="/image/logo.svg" 
-              alt="Edison Ade" 
-              width={120} 
-              height={60}
-              className="mb-4"
-            />
-            <p className="text-gray-600 mb-6">
-              Empowering visionary leaders to build profitable businesses with purpose.
-            </p>
-            
-            <div className="flex space-x-3">
+    <footer className="bg-white border-t border-gray-100 pt-32 pb-12 relative overflow-hidden">
+      {/* Sublte top pattern/texture */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-24">
+
+          {/* Section 1: Brand Strategy */}
+          <div className="lg:col-span-5 space-y-12">
+            <div>
+              <Link href="/" className="inline-block group mb-8">
+                <span className="text-4xl font-serif font-bold tracking-tight text-brand-charcoal group-hover:opacity-80 transition-opacity">
+                  BuzzEdison<span className="text-brand-gold">.</span>
+                </span>
+              </Link>
+              <p className="text-xl text-brand-muted font-light leading-relaxed max-w-md">
+                Strategic counsel for founders and high-impact leaders. We build <span className="text-brand-charcoal font-medium">systems that scale</span> and strategies that endure.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-charcoal">Global Presence</h4>
+                <p className="text-sm text-brand-muted font-light flex items-start gap-2">
+                  <MapPin className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                  Remote-First. <br />HQ: Accra, Ghana.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-charcoal">Direct Line</h4>
+                <p className="text-sm text-brand-muted font-light flex items-start gap-2">
+                  <Mail className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                  ask@buzzedison.com
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-4 pt-4">
               {[
-                { icon: <Twitter size={18} />, url: 'https://twitter.com/buzzedison', label: 'Twitter' },
-                { icon: <Linkedin size={18} />, url: 'https://linkedin.com/in/buzzedison', label: 'LinkedIn' },
-                { icon: <Instagram size={18} />, url: 'https://instagram.com/buzzedison', label: 'Instagram' },
-                { icon: <Youtube size={18} />, url: 'https://youtube.com/buzzedison', label: 'YouTube' }
+                { icon: <Twitter className="w-4 h-4" />, url: 'https://twitter.com/buzzedison', label: 'Twitter' },
+                { icon: <Linkedin className="w-4 h-4" />, url: 'https://linkedin.com/in/buzzedison', label: 'LinkedIn' },
+                { icon: <Instagram className="w-4 h-4" />, url: 'https://instagram.com/buzzedison', label: 'Instagram' },
               ].map((social, index) => (
                 <a
                   key={index}
                   href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-brand-stone/30 text-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all duration-500 border border-transparent hover:shadow-xl hover:shadow-brand-charcoal/10"
                   aria-label={social.label}
-                  className="bg-white p-2 rounded-md shadow-sm text-gray-600 hover:text-blue-600 transition-colors"
                 >
                   {social.icon}
                 </a>
@@ -45,81 +78,78 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick links column */}
-          <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              {['About', 'Services', 'Brands', 'Insights', 'Speaking', 'Contact'].map((item) => (
+          {/* Section 2: Core Frameworks */}
+          <div className="lg:col-span-2 space-y-10">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-charcoal border-b border-brand-stone pb-4">Anchors</h3>
+            <ul className="space-y-5">
+              {['Services', 'Portfolio', 'Ventures', 'About', 'Contact'].map((item) => (
                 <li key={item}>
-                  <Link 
-                    href={`/${item.toLowerCase()}`} 
-                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  <Link
+                    href={`/${item.toLowerCase()}`}
+                    className="text-brand-muted hover:text-brand-charcoal transition-all text-[15px] font-light flex items-center group"
                   >
-                    {item}
+                    <span className="group-hover:translate-x-2 transition-transform">{item}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services column */}
-          <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Services</h3>
-            <ul className="space-y-2">
-              {['Consulting', 'Development', 'Startup Launch', 'Books', 'Pricing Strategy'].map((item) => (
-                <li key={item}>
-                  <Link 
-                    href={`/${item.toLowerCase().replace(' ', '-')}`} 
-                    className="text-gray-600 hover:text-blue-600 transition-colors"
+          {/* Section 3: The Library */}
+          <div className="lg:col-span-2 space-y-10">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-charcoal border-b border-brand-stone pb-4">Library</h3>
+            <ul className="space-y-5">
+              {[
+                { name: 'Articles', path: '/insights' },
+                { name: 'Frameworks', path: '/services' },
+                { name: 'Books', path: '/books' },
+                { name: 'Resources', path: '/tools/pricing' },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.path}
+                    className="text-brand-muted hover:text-brand-charcoal transition-all text-[15px] font-light flex items-center group"
                   >
-                    {item}
+                    <span className="group-hover:translate-x-2 transition-transform">{item.name}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact column */}
-          <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Contact</h3>
-            <div className="space-y-3">
-              <div className="flex items-start">
-                <Mail className="h-5 w-5 text-blue-600 mr-2 mt-0.5" />
-                <a href="mailto:hello@buzzedison.com" className="text-gray-600 hover:text-blue-600">
-                  ask@buzzedison.com
-                </a>
-              </div>
-              <div className="flex items-start">
-                <MapPin className="h-5 w-5 text-blue-600 mr-2 mt-0.5" />
-                <span className="text-gray-600">Remote Worldwide</span>
-              </div>
-              <div className="pt-3">
-                <Link 
-                  href="/contact" 
-                  className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
-                >
-                  Get in touch
-                  <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+          {/* Section 4: Direct Engagement */}
+          <div className="lg:col-span-3 space-y-10">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-charcoal border-b border-brand-stone pb-4">Directives</h3>
+            <div className="space-y-8">
+              <div className="p-8 bg-brand-stone/30 rounded-[2.5rem] border border-brand-stone/50 hover:bg-white hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all duration-700 group cursor-pointer">
+                <Sparkles className="w-6 h-6 text-brand-gold mb-4 group-hover:rotate-12 transition-transform" />
+                <p className="text-sm text-brand-muted mb-6 font-light leading-relaxed">
+                  "Strategy without systems is just a hallucination. Let's build something real."
+                </p>
+                <Link href="/contact" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-brand-charcoal hover:text-brand-gold transition-colors">
+                  Inquire Now <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
+              </div>
+
+              <div className="flex items-center gap-3 pl-2">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Available for Consultation</span>
               </div>
             </div>
           </div>
         </div>
-        
-        {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-600 text-sm">&copy; {currentYear} Edison Ade. All rights reserved.</p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/privacy" className="text-sm text-gray-600 hover:text-blue-600">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-sm text-gray-600 hover:text-blue-600">
-                Terms of Service
-              </Link>
-            </div>
+
+        {/* Legal & Credits */}
+        <div className="pt-16 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-10">
+          <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted/50">
+            <span>&copy; {currentYear} BuzzEdison</span>
+            <span className="hidden md:inline w-1 h-1 bg-brand-stone rounded-full" />
+            <span className="text-brand-stone">Strategic Systems Engineering</span>
+          </div>
+
+          <div className="flex items-center gap-12">
+            <Link href="/privacy" className="text-[10px] font-bold uppercase tracking-widest text-brand-muted/60 hover:text-brand-charcoal transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-[10px] font-bold uppercase tracking-widest text-brand-muted/60 hover:text-brand-charcoal transition-colors">Client Terms</Link>
           </div>
         </div>
       </div>

@@ -1,294 +1,321 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, Check, Target, Zap, Users, Building, Brain } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Sparkles,
+  Target,
+  Zap,
+  Users,
+  Building,
+  Brain,
+  Calendar,
+  MapPin,
+  Clock,
+  BookOpen,
+  ArrowRight,
+  TrendingUp,
+  Shield,
+  Play
+} from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { client } from '@/sanity/lib/client';
+import { groq } from 'next-sanity';
+import { urlFor } from '@/sanity/lib/image';
+import { supabase } from '@/lib/supabaseClient';
 
-// SEO Metadata (can be generated server-side if needed later)
-// export const metadata = {
-//   title: 'About | The Growth Architect - Building Scalable Businesses',
-//   description: 'Learn about The Growth Architect - I partner with founders and leaders to build scalable tech, systems, and teams, turning vision into predictable growth.',
-// };
+interface Event {
+  _id: string;
+  title: string;
+  date: string;
+  location: string;
+  time: string;
+  type: string;
+}
 
-const AboutPage: React.FC = () => {
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  meta_description: string;
+  created_at: string;
+  tags: string[];
+}
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
+interface PortfolioItem {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  mainImage: any;
+  excerpt: string;
+}
+
+export default function AboutPage() {
+  const [nextEvent, setNextEvent] = useState<Event | null>(null);
+  const [latestInsights, setLatestInsights] = useState<Post[]>([]);
+  const [featuredWorks, setFeaturedWorks] = useState<PortfolioItem[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch next event from Sanity
+        const upcomingEvent = await client.fetch(groq`
+          *[_type == "event" && date >= now()] | order(date asc)[0] {
+            _id, title, date, location, time, type
+          }
+        `);
+        setNextEvent(upcomingEvent);
+
+        // Fetch latest insights from Supabase
+        const { data: posts } = await supabase
+          .from('posts')
+          .select('id, title, slug, meta_description, created_at, tags')
+          .neq('content', '<p><br></p>')
+          .order('created_at', { ascending: false })
+          .limit(3);
+        setLatestInsights((posts || []) as Post[]);
+
+        // Fetch featured portfolio from Sanity
+        const works = await client.fetch(groq`
+          *[_type == "portfolio" && featured == true] | order(projectDate desc)[0..2] {
+            _id, title, slug, mainImage, excerpt
+          }
+        `);
+        setFeaturedWorks(works);
+      } catch (error) {
+        console.error('Error fetching dynamic About data:', error);
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
-    <div className="bg-white text-gray-800">
-      {/* Hero Section */}
-      <motion.section 
-        className="relative py-24 md:py-32 bg-gradient-to-b from-blue-50 via-white to-white overflow-hidden"
-        initial="hidden" animate="visible" variants={fadeIn}
-      >
-        <div className="absolute inset-0 opacity-10 bg-grid-pattern bg-[length:30px_30px]"></div>
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/30 rounded-full blur-3xl opacity-50 -translate-x-1/4 -translate-y-1/4"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-100/30 rounded-full blur-3xl opacity-50 translate-x-1/4 translate-y-1/4"></div>
-        
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 leading-tight tracking-tight"
-                variants={fadeIn}
-              >
-                Meet <span className="text-blue-600">The Growth Architect</span>
-              </motion.h1>
-              <motion.p 
-                className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed"
-                variants={fadeIn}
-              >
-                I partner with founders, leaders, and organizations to transform ambitious ideas into <strong className="font-semibold">scalable, profitable realities</strong>. Many struggle to connect technology, strategy, and execution – I bridge that critical gap.
-              </motion.p>
-              <motion.div variants={fadeIn}>
-                <Link href="/contact" passHref>
-                  <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all">
-                    Start Architecting Growth <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+    <div className="bg-white min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
+      {/* Hero Section: Portrait-led Editorial */}
+      <section className="pt-40 pb-32 px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-stone/20 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-24 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <div className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12">
+                <Sparkles className="h-3.5 w-3.5 mr-2 text-brand-gold" />
+                Strategic Architect
+              </div>
+
+              <h1 className="text-6xl md:text-8xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.9] mb-12">
+                Edison <br />
+                <span className="text-gray-400 italic">Ade.</span>
+              </h1>
+
+              <p className="text-2xl md:text-3xl text-brand-muted font-light leading-relaxed mb-12">
+                I build the <span className="text-brand-charcoal font-medium underline decoration-brand-gold/30 underline-offset-8">systems</span> that turn vision into high-leverage outcomes.
+              </p>
+
+              <div className="space-y-8 text-lg text-brand-muted font-light leading-relaxed max-w-xl">
+                <p>
+                  Specializing in the intersection of business strategy and systems engineering, I partner with founders and organizations to architect scalable growth.
+                </p>
+                <p>
+                  My work is characterized by "Quiet Premium"—a focus on deep impact over noise, building resilient frameworks that sustain long-term excellence.
+                </p>
+              </div>
+
+              <div className="mt-16 flex flex-wrap gap-8 items-center">
+                <Link href="/contact" className="px-12 py-6 bg-brand-charcoal text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black transition-all shadow-xl">
+                  Initiate Engagement
                 </Link>
-              </motion.div>
-            </div>
-            <motion.div 
-              className="relative rounded-2xl overflow-hidden shadow-2xl aspect-square md:aspect-[4/5]"
-              variants={fadeIn}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
+                <div className="flex items-center gap-4 group cursor-pointer">
+                  <div className="w-12 h-12 rounded-full border border-brand-stone flex items-center justify-center group-hover:bg-brand-stone transition-all">
+                    <Play className="w-4 h-4 text-brand-charcoal ml-1" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Watch Philosophy</span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2 }}
+              className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[4rem] overflow-hidden bg-brand-stone"
             >
               <Image
-                src="/image/edisonnew.jpg" // Replace with your actual image path
-                alt="Edison Ade - The Growth Architect"
+                src="/image/edisonnew.jpg"
+                alt="Edison Ade"
                 fill
-                className="object-cover"
                 priority
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/40 to-transparent" />
             </motion.div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
-      {/* My Philosophy / Mission */}
-      <motion.section 
-        className="py-20 md:py-28"
-        initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerContainer}
-      >
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6" variants={fadeIn}>
-            Bridging Vision & Execution
-          </motion.h2>
-          <motion.p className="text-lg text-gray-600 leading-relaxed" variants={fadeIn}>
-            Great ideas often stall at the intersection of technology, business strategy, and practical implementation. My mission is to be the architect that designs and builds the bridge, ensuring your vision doesn't just stay a dream but becomes a well-executed, thriving reality. I believe in practical strategy, robust systems, and empowered teams as the pillars of sustainable growth.
-          </motion.p>
-        </div>
-      </motion.section>
-
-      {/* What I Architect (Services) */}
-      <motion.section 
-        className="py-20 md:py-28 bg-gray-50"
-        initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}
-      >
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <motion.h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" variants={fadeIn}>
-              Architecting Your Success: My Core Pillars
-            </motion.h2>
-            <motion.p className="text-lg text-gray-600 max-w-3xl mx-auto" variants={fadeIn}>
-              I focus on three critical areas to build businesses that last and scale effectively.
-            </motion.p>
+      {/* Core Directives: The 3 Pillars */}
+      <section className="py-24 bg-brand-stone/30">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              { icon: Shield, title: "Systems That Scale", desc: "Engineering the operational infrastructure needed to support rapid expansion without friction." },
+              { icon: Zap, title: "Smart Workflows", desc: "Eliminating digital waste through intelligent process automation and high-efficiency tooling." },
+              { icon: TrendingUp, title: "Long-Term Growth", desc: "Drafting strategic blueprints that ensure consistency, profitability, and market leadership." }
+            ].map((pillar, idx) => (
+              <motion.div
+                key={pillar.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2 }}
+                className="p-10 bg-white rounded-[3rem] border border-gray-100 hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all"
+              >
+                <pillar.icon className="w-10 h-10 text-brand-gold mb-8" />
+                <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-4">{pillar.title}</h3>
+                <p className="text-brand-muted font-light leading-relaxed">{pillar.desc}</p>
+              </motion.div>
+            ))}
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Pillar 1: Technology */}
-            <motion.div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 flex flex-col" variants={fadeIn}>
-              <div className="mb-5">
-                <div className="inline-block bg-blue-100 text-blue-600 p-3 rounded-lg">
-                  <Zap className="h-7 w-7" />
+        </div>
+      </section>
+
+      {/* Next Briefing: Dynamic Sanity Event */}
+      {nextEvent && (
+        <section className="py-32 px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="bg-brand-charcoal rounded-[4rem] p-12 md:p-24 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+
+              <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                  <div className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-brand-gold mb-12">
+                    <Calendar className="w-4 h-4" /> Next Strategic Briefing
+                  </div>
+                  <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-8 tracking-tight">
+                    {nextEvent.title}
+                  </h2>
+                  <div className="flex flex-wrap gap-8 text-white/60 text-sm font-light uppercase tracking-widest">
+                    <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-brand-gold" /> {nextEvent.location}</div>
+                    <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-brand-gold" /> {nextEvent.time}</div>
+                  </div>
+                </div>
+                <div className="flex justify-start lg:justify-end">
+                  <Link href="/events" className="px-12 py-6 bg-white text-brand-charcoal rounded-full text-xs font-bold uppercase tracking-widest hover:bg-brand-gold transition-all">
+                    Register for Session
+                  </Link>
                 </div>
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">Build Digital Engines</h3>
-              <p className="text-gray-600 mb-4 flex-grow">I design and construct the technology that powers growth – from sleek web/mobile apps and internal tools to robust digital platforms that deliver results and enhance user experience.</p>
-              <ul className="text-sm text-gray-500 space-y-1">
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-blue-500" /> Custom App Development</li>
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-blue-500" /> Platform Architecture</li>
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-blue-500" /> System Integration</li>
-              </ul>
-            </motion.div>
-
-            {/* Pillar 2: Systems */}
-            <motion.div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 flex flex-col" variants={fadeIn}>
-              <div className="mb-5">
-                <div className="inline-block bg-indigo-100 text-indigo-600 p-3 rounded-lg">
-                  <Building className="h-7 w-7" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">Architect Scalable Systems</h3>
-              <p className="text-gray-600 mb-4 flex-grow">Growth requires a solid foundation. I craft the operational blueprints for scale: resilient business models, optimized pricing strategies, and efficient revenue systems designed for longevity.</p>
-              <ul className="text-sm text-gray-500 space-y-1">
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-indigo-500" /> Business Model Design</li>
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-indigo-500" /> Pricing & Revenue Strategy</li>
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-indigo-500" /> Operational Process Optimization</li>
-              </ul>
-            </motion.div>
-
-            {/* Pillar 3: Leadership & Teams */}
-            <motion.div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 flex flex-col" variants={fadeIn}>
-              <div className="mb-5">
-                <div className="inline-block bg-purple-100 text-purple-600 p-3 rounded-lg">
-                  <Brain className="h-7 w-7" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">Develop High-Performing Teams</h3>
-              <p className="text-gray-600 mb-4 flex-grow">Ideas are executed by people. I empower founders and teams to elevate their capabilities in leadership, strategic thinking, operational excellence, and effective execution.</p>
-              <ul className="text-sm text-gray-500 space-y-1">
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-purple-500" /> Founder & Leadership Coaching</li>
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-purple-500" /> Team Skill Development</li>
-                <li className="flex items-center"><Check className="h-4 w-4 mr-2 text-purple-500" /> Execution Frameworks</li>
-              </ul>
-            </motion.div>
+            </div>
           </div>
-        </div>
-      </motion.section>
+        </section>
+      )}
 
-      {/* My Approach */}
-      <motion.section 
-        className="py-20 md:py-28"
-        initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerContainer}
-      >
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <motion.h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" variants={fadeIn}>
-              My Approach: Hands-On Partnership
-            </motion.h2>
-            <motion.p className="text-lg text-gray-600" variants={fadeIn}>
-              I don't just deliver recommendations; I roll up my sleeves and become an extension of your team.
-            </motion.p>
-          </div>
-          <div className="flex flex-col md:flex-row gap-8 items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-8 md:p-12 rounded-2xl shadow-md">
-            <motion.div className="md:w-1/2" variants={fadeIn}>
-              <p className="text-gray-700 leading-relaxed space-y-4">
-                <span>My process is collaborative and results-focused. We'll work together to diagnose challenges, design solutions, and implement them effectively.</span>
-                <span>I believe in building <strong className="font-semibold">long-term capability</strong>, not just short-term fixes. Expect direct involvement, transparent communication, and a relentless focus on achieving your strategic objectives.</span>
-                <span>Whether it's architecting software, refining business processes, or coaching your team, I'm invested in your success.</span>
-              </p>
-            </motion.div>
-             <motion.div className="md:w-1/2 flex justify-center" variants={fadeIn}>
-              {/* Optional: Add an illustrative image or icon here */}
-               <Target className="w-32 h-32 text-blue-500 opacity-50" />
-            </motion.div>
-          </div>
-        </div>
-      </motion.section>
-
-       {/* Impact / Accomplishments */}
-      <motion.section 
-        className="py-20 md:py-28 bg-gray-800 text-white"
-        initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerContainer}
-      >
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <motion.h2 className="text-3xl md:text-4xl font-bold mb-6" variants={fadeIn}>
-            Proven Impact
-          </motion.h2>
-          <motion.p className="text-lg text-gray-300 mb-12 max-w-3xl mx-auto" variants={fadeIn}>
-            While every engagement is unique, my focus remains constant: delivering measurable results and building sustainable growth engines. 
-            {/* Placeholder for specific accomplishments - add real data later */}
-          </motion.p>
-          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8" variants={staggerContainer}>
-            {/* Example Accomplishment Cards - Replace with real data */}
-            <motion.div className="bg-gray-700 p-6 rounded-lg" variants={fadeIn}>
-              <h3 className="text-2xl font-bold text-blue-400 mb-2">100+</h3>
-              <p className="text-gray-300">Founders & Leaders Empowered</p>
-            </motion.div>
-            <motion.div className="bg-gray-700 p-6 rounded-lg" variants={fadeIn}>
-              <h3 className="text-2xl font-bold text-indigo-400 mb-2">50+</h3>
-              <p className="text-gray-300">Digital Products & Systems Built</p>
-            </motion.div>
-            <motion.div className="bg-gray-700 p-6 rounded-lg" variants={fadeIn}>
-              <h3 className="text-2xl font-bold text-purple-400 mb-2">95%</h3>
-              <p className="text-gray-300">Client Success & Satisfaction Rate</p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Ideal Partners */}
-      <motion.section 
-        className="py-20 md:py-28"
-        initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={staggerContainer}
-      >
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <motion.h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" variants={fadeIn}>
-              Who I Partner With
-            </motion.h2>
-            <motion.p className="text-lg text-gray-600 max-w-3xl mx-auto" variants={fadeIn}>
-              I thrive when collaborating with ambitious leaders and organizations ready for meaningful transformation.
-            </motion.p>
-          </div>
-          <motion.div className="space-y-6" variants={staggerContainer}>
-            <motion.div className="flex items-start p-6 bg-white rounded-lg shadow-sm border border-gray-100 gap-4" variants={fadeIn}>
-              <Users className="h-8 w-8 text-blue-600 mt-1 flex-shrink-0" />
+      {/* Selected Insights: Dynamic Supabase Posts */}
+      {latestInsights.length > 0 && (
+        <section className="py-24 px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
               <div>
-                <h3 className="text-xl font-semibold mb-1">Founders & CEOs</h3>
-                <p className="text-gray-600">Visionaries aiming for significant, sustainable scaling who need a strategic and technical partner to execute.</p>
+                <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-4">Strategic Archives</div>
+                <h2 className="text-5xl font-serif font-bold text-brand-charcoal">Selected Insights.</h2>
               </div>
-            </motion.div>
-             <motion.div className="flex items-start p-6 bg-white rounded-lg shadow-sm border border-gray-100 gap-4" variants={fadeIn}>
-              <Building className="h-8 w-8 text-indigo-600 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="text-xl font-semibold mb-1">Companies Seeking Growth</h3>
-                <p className="text-gray-600">Businesses requiring custom digital solutions, optimized processes, or strategic guidance to overcome growth plateaus.</p>
-              </div>
-            </motion.div>
-             <motion.div className="flex items-start p-6 bg-white rounded-lg shadow-sm border border-gray-100 gap-4" variants={fadeIn}>
-              <Brain className="h-8 w-8 text-purple-600 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="text-xl font-semibold mb-1">Leaders & Teams</h3>
-                <p className="text-gray-600">Individuals and groups looking to enhance execution discipline, strategic thinking, and leadership capabilities.</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </motion.section>
+              <Link href="/insights" className="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-brand-muted hover:text-brand-charcoal transition-colors group">
+                Enter the Library <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
 
-      {/* Call to Action */}
-      <motion.section 
-        className="py-20 md:py-28 bg-gradient-to-r from-blue-600 to-indigo-700 text-white"
-        initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={fadeIn}
-      >
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.h2 className="text-3xl md:text-4xl font-bold mb-6" variants={fadeIn}>
-            Ready to Architect Your Growth?
-          </motion.h2>
-          <motion.p className="text-lg md:text-xl text-blue-100 mb-8" variants={fadeIn}>
-            Let's discuss how we can translate your vision into tangible results and build a scalable future for your business.
-          </motion.p>
-          <motion.div variants={fadeIn}>
-            <Link href="/contact" passHref>
-              <Button size="lg" variant="outline" className="bg-white text-blue-700 hover:bg-gray-100 border-transparent text-lg px-8 py-3 shadow-lg hover:shadow-xl transition-all">
-                Let's Build Together <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              {latestInsights.map((post, idx) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="group cursor-pointer"
+                >
+                  <Link href={`/insights/${post.slug}`}>
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-brand-gold mb-6">{post.tags?.[0]}</div>
+                    <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-4 group-hover:text-brand-gold transition-colors duration-500">{post.title}</h3>
+                    <p className="text-sm text-brand-muted font-light leading-relaxed mb-8 line-clamp-2">{post.meta_description}</p>
+                    <div className="w-12 h-[1px] bg-brand-stone group-hover:w-24 group-hover:bg-brand-charcoal transition-all duration-700" />
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Selected Works Strip: Sanity Portfolio */}
+      {featuredWorks.length > 0 && (
+        <section className="py-24 bg-brand-charcoal text-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+              <h2 className="text-5xl font-serif font-bold">Selected Works.</h2>
+              <Link href="/portfolio" className="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors group">
+                Examine All Strategies <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+              {featuredWorks.map((work, idx) => (
+                <motion.div
+                  key={work._id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <Link href={`/portfolio/${work.slug.current}`} className="group block">
+                    <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-8 bg-white/5">
+                      {work.mainImage && (
+                        <Image
+                          src={urlFor(work.mainImage).url()}
+                          alt={work.title}
+                          fill
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
+                        />
+                      )}
+                    </div>
+                    <h3 className="text-2xl font-serif font-bold group-hover:text-brand-gold transition-colors">{work.title}</h3>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Narrative CTA */}
+      <section className="py-40 px-6 lg:px-8 bg-white text-center">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            <h2 className="text-5xl md:text-7xl font-serif font-bold text-brand-charcoal mb-12 tracking-tight">
+              Let's Architect <br /> your <span className="text-gray-400 italic">Evolution.</span>
+            </h2>
+            <p className="text-xl text-brand-muted font-light leading-relaxed mb-16 max-w-2xl mx-auto">
+              The status quo is your only competitor. I'm ready to help you engineer a system that makes it obsolete.
+            </p>
+            <Link href="/contact" className="inline-flex items-center gap-8 group">
+              <span className="text-brand-charcoal font-bold uppercase tracking-[0.4em] text-xs">Initiate a Strategic Dialogue</span>
+              <div className="w-20 h-[1px] bg-brand-stone group-hover:w-40 group-hover:bg-brand-charcoal transition-all duration-700" />
+              <ArrowUpRight className="w-6 h-6 text-brand-charcoal" />
             </Link>
           </motion.div>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
-};
-
-export default AboutPage; 
+}

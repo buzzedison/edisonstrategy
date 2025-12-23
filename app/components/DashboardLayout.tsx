@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
+import Link from 'next/link';
 import DashboardSidebar from './DashboardSidebar';
 
 interface DashboardLayoutProps {
@@ -12,7 +13,6 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children, title, subtitle }: DashboardLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // Close sidebar on mobile when route changes
   useEffect(() => {
@@ -20,49 +20,52 @@ const DashboardLayout = ({ children, title, subtitle }: DashboardLayoutProps) =>
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <DashboardSidebar 
-        isOpen={sidebarOpen} 
+    <div className="min-h-screen bg-brand-stone/30">
+      {/* Sidebar - Unified Overlay */}
+      <DashboardSidebar
+        isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
-        isCollapsed={sidebarCollapsed}
-        onCollapsedChange={setSidebarCollapsed}
       />
 
       {/* Main Content */}
-      <div className={`transition-all duration-300 ${sidebarCollapsed ? 'lg:pl-20' : 'lg:pl-80'}`}>
-        {/* Top Bar */}
-        <div className="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              {/* Mobile menu button */}
+      <div className="transition-all duration-300">
+        {/* Top Bar - Premium Unified */}
+        <div className="sticky top-0 z-30 bg-white/50 backdrop-blur-xl border-b border-gray-100 px-6 py-4">
+          <div className="flex items-center justify-between max-w-7xl mx-auto w-full">
+            <div className="flex items-center gap-8">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+                className="flex items-center gap-3 group transition-all"
               >
-                <Menu className="h-5 w-5" />
+                <div className="p-2 bg-brand-stone rounded-xl group-hover:bg-brand-charcoal group-hover:text-white transition-all shadow-sm border border-gray-100/50">
+                  <Menu className="h-4 w-4" />
+                </div>
+                <div className="flex flex-col items-start -space-y-0.5">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-charcoal">Menu</span>
+                  <span className="text-[8px] font-bold uppercase tracking-[0.1em] text-brand-muted group-hover:text-brand-gold transition-colors">Dashboard</span>
+                </div>
               </button>
 
               {/* Page title */}
-              <div>
+              <div className="hidden sm:block border-l border-gray-100 pl-8">
                 {title && (
-                  <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-                )}
-                {subtitle && (
-                  <p className="text-sm text-gray-600 mt-1">{subtitle}</p>
+                  <h1 className="text-xl font-serif font-bold text-brand-charcoal tracking-tight">{title}</h1>
                 )}
               </div>
             </div>
 
-            {/* Right side actions can go here */}
-            <div className="flex items-center gap-3">
-              {/* Add any top-right actions here */}
+            <Link href="/" className="text-xl font-serif font-bold text-brand-charcoal tracking-tight hover:opacity-80 transition-opacity">
+              BuzzEdison.
+            </Link>
+
+            <div className="flex items-center gap-4">
+              {/* Optional dashboard actions */}
             </div>
           </div>
         </div>
 
         {/* Page Content */}
-        <main className="px-4 py-6 sm:px-6 lg:px-8">
+        <main className="max-w-7xl mx-auto px-6 py-12">
           {children}
         </main>
       </div>

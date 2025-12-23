@@ -11,11 +11,11 @@ interface BookmarkButtonProps {
   className?: string;
 }
 
-const BookmarkButton = ({ 
-  postId, 
-  userId, 
+const BookmarkButton = ({
+  postId,
+  userId,
   variant = 'default',
-  className = '' 
+  className = ''
 }: BookmarkButtonProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +33,7 @@ const BookmarkButton = ({
       const response = await fetch(`/api/bookmarks?userId=${currentUserId}`);
       if (response.ok) {
         const data = await response.json();
-        const bookmarked = data.bookmarks.some((bookmark: any) => 
+        const bookmarked = data.bookmarks.some((bookmark: any) =>
           bookmark.posts?.id === postId
         );
         setIsBookmarked(bookmarked);
@@ -45,16 +45,16 @@ const BookmarkButton = ({
 
   const toggleBookmark = async () => {
     if (isLoading) return;
-    
+
     setIsLoading(true);
-    
+
     try {
       if (isBookmarked) {
         // Remove bookmark
         const response = await fetch(`/api/bookmarks?userId=${currentUserId}&postId=${postId}`, {
           method: 'DELETE',
         });
-        
+
         if (response.ok) {
           setIsBookmarked(false);
         }
@@ -70,7 +70,7 @@ const BookmarkButton = ({
             postId: postId,
           }),
         });
-        
+
         if (response.ok) {
           setIsBookmarked(true);
         }
@@ -88,16 +88,16 @@ const BookmarkButton = ({
         onClick={toggleBookmark}
         disabled={isLoading}
         className={cn(
-          "p-2 rounded-full transition-all duration-200 hover:bg-gray-100 disabled:opacity-50",
-          isBookmarked ? "text-blue-600" : "text-gray-400 hover:text-gray-600",
+          "p-2.5 rounded-full transition-all duration-300 hover:bg-white border border-transparent hover:border-gray-100 shadow-sm disabled:opacity-50 group",
+          isBookmarked ? "text-brand-gold bg-white border-gray-100" : "text-brand-muted hover:text-brand-charcoal",
           className
         )}
         title={isBookmarked ? "Remove bookmark" : "Add bookmark"}
       >
         {isBookmarked ? (
-          <BookmarkCheck className="h-4 w-4" />
+          <BookmarkCheck className="h-4 w-4 fill-current" />
         ) : (
-          <Bookmark className="h-4 w-4" />
+          <Bookmark className="h-4 w-4 group-hover:scale-110 transition-transform" />
         )}
       </button>
     );
@@ -109,15 +109,15 @@ const BookmarkButton = ({
         onClick={toggleBookmark}
         disabled={isLoading}
         className={cn(
-          "inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 hover:text-blue-600 disabled:opacity-50",
-          isBookmarked ? "text-blue-600" : "text-gray-600",
+          "inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-all duration-300 hover:text-brand-gold disabled:opacity-50",
+          isBookmarked ? "text-brand-gold" : "text-brand-muted",
           className
         )}
       >
         {isBookmarked ? (
-          <BookmarkCheck className="h-4 w-4" />
+          <BookmarkCheck className="h-3.5 w-3.5 fill-current" />
         ) : (
-          <Bookmark className="h-4 w-4" />
+          <Bookmark className="h-3.5 w-3.5" />
         )}
         {isBookmarked ? 'Bookmarked' : 'Bookmark'}
       </button>
@@ -129,19 +129,19 @@ const BookmarkButton = ({
       onClick={toggleBookmark}
       disabled={isLoading}
       className={cn(
-        "inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 disabled:opacity-50",
-        isBookmarked 
-          ? "bg-blue-50 text-blue-600 hover:bg-blue-100" 
-          : "bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-700",
+        "inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 disabled:opacity-50",
+        isBookmarked
+          ? "bg-brand-gold text-white shadow-sm ring-4 ring-brand-gold/10"
+          : "bg-white text-brand-muted border border-gray-100 hover:border-brand-charcoal hover:text-brand-charcoal shadow-sm",
         className
       )}
     >
       {isLoading ? (
-        <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+        <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-t-transparent" />
       ) : isBookmarked ? (
-        <BookmarkCheck className="h-4 w-4" />
+        <BookmarkCheck className="h-3.5 w-3.5 fill-current" />
       ) : (
-        <Bookmark className="h-4 w-4" />
+        <Bookmark className="h-3.5 w-3.5" />
       )}
       {isBookmarked ? 'Bookmarked' : 'Bookmark'}
     </button>

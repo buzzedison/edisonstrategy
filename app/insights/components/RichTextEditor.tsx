@@ -14,10 +14,10 @@ interface RichTextEditorProps {
   placeholder?: string;
 }
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({ 
-  onChange, 
-  value = '', 
-  placeholder = "Start writing your post..." 
+const RichTextEditor: React.FC<RichTextEditorProps> = ({
+  onChange,
+  value = '',
+  placeholder = "Start writing your post..."
 }) => {
   const modules = useMemo(() => ({
     toolbar: {
@@ -37,7 +37,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         ['clean']
       ],
       handlers: {
-        image: function(this: any) {
+        image: function (this: any) {
           const input = document.createElement('input');
           input.setAttribute('type', 'file');
           input.setAttribute('accept', 'image/*');
@@ -86,139 +86,81 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           border-top: none !important;
           border-left: none !important;
           border-right: none !important;
-          border-bottom: 1px solid #e5e7eb !important;
-          background-color: #f9fafb;
+          border-bottom: 1px solid #F5F5F4 !important;
+          background-color: #FAFAF9;
+          padding: 12px 20px !important;
         }
         
         .ql-container {
           border: none !important;
-          font-family: inherit;
-          font-size: 16px;
-          line-height: 1.6;
-        }
-        
-        .ql-editor {
-          min-height: 300px;
-          padding: 20px;
-          color: #374151;
-        }
-        
-        .ql-editor.ql-blank::before {
-          color: #9ca3af;
-          font-style: italic;
-        }
-        
-        .ql-toolbar .ql-picker-label:hover,
-        .ql-toolbar .ql-picker-item:hover {
-          color: #2563eb;
-        }
-        
-        .ql-toolbar button:hover,
-        .ql-toolbar button:focus {
-          color: #2563eb;
-        }
-        
-        .ql-toolbar button.ql-active,
-        .ql-toolbar .ql-picker-label.ql-active {
-          color: #2563eb;
-        }
-        
-        .ql-toolbar .ql-stroke {
-          stroke: currentColor;
-        }
-        
-        .ql-toolbar .ql-fill {
-          fill: currentColor;
-        }
-        
-        .ql-editor h1 {
-          font-size: 2.5rem;
-          font-weight: 700;
-          line-height: 1.2;
-          margin: 1.5rem 0 1rem 0;
-        }
-        
-        .ql-editor h2 {
-          font-size: 2rem;
-          font-weight: 600;
-          line-height: 1.3;
-          margin: 1.25rem 0 0.75rem 0;
-        }
-        
-        .ql-editor h3 {
-          font-size: 1.5rem;
-          font-weight: 600;
-          line-height: 1.4;
-          margin: 1rem 0 0.5rem 0;
-        }
-        
-        .ql-editor h4 {
-          font-size: 1.25rem;
-          font-weight: 600;
-          line-height: 1.4;
-          margin: 0.75rem 0 0.5rem 0;
-        }
-        
-        .ql-editor h5 {
-          font-size: 1.125rem;
-          font-weight: 600;
-          line-height: 1.4;
-          margin: 0.75rem 0 0.25rem 0;
-        }
-        
-        .ql-editor h6 {
-          font-size: 1rem;
-          font-weight: 600;
-          line-height: 1.4;
-          margin: 0.5rem 0 0.25rem 0;
-        }
-        
-        .ql-editor p {
-          margin: 0 0 1rem 0;
+          font-family: 'Inter', sans-serif;
+          font-size: 17px;
           line-height: 1.7;
         }
         
-        .ql-editor blockquote {
-          border-left: 4px solid #2563eb;
-          background-color: #f8fafc;
-          padding: 1rem 1.5rem;
-          margin: 1.5rem 0;
+        .ql-editor {
+          min-height: 500px;
+          padding: 40px 60px;
+          color: #262626;
+        }
+        
+        .ql-editor.ql-blank::before {
+          color: #A8A29E;
           font-style: italic;
-          color: #475569;
+          left: 60px;
         }
         
-        .ql-editor code {
-          background-color: #f1f5f9;
-          color: #e11d48;
-          padding: 0.125rem 0.375rem;
-          border-radius: 0.25rem;
-          font-size: 0.875em;
+        .ql-toolbar button:hover,
+        .ql-toolbar button:focus,
+        .ql-toolbar button.ql-active {
+          color: #D4AF37 !important;
         }
         
-        .ql-editor pre {
-          background-color: #1e293b;
-          color: #f1f5f9;
-          padding: 1rem;
-          border-radius: 0.5rem;
-          overflow-x: auto;
-          margin: 1rem 0;
+        .ql-toolbar .ql-stroke {
+          stroke: #57534E;
         }
         
-        .ql-editor ul, .ql-editor ol {
-          margin: 1rem 0;
-          padding-left: 1.5rem;
+        .ql-toolbar button:hover .ql-stroke,
+        .ql-toolbar button.ql-active .ql-stroke {
+          stroke: #D4AF37;
         }
         
-        .ql-editor li {
-          margin: 0.5rem 0;
-          line-height: 1.6;
+        .ql-editor h1, .ql-editor h2, .ql-editor h3 {
+          font-family: 'Playfair Display', serif;
+          margin-bottom: 1.5rem;
+          color: #262626;
+        }
+
+        .ql-editor h1 { font-size: 3rem; font-weight: 500; }
+        .ql-editor h2 { font-size: 2.25rem; font-weight: 500; margin-top: 2rem; }
+        .ql-editor h3 { font-size: 1.75rem; font-weight: 500; margin-top: 1.5rem; }
+        
+        .ql-editor p {
+          margin-bottom: 1.25rem;
+          font-weight: 300;
         }
         
+        .ql-editor blockquote {
+          border-left: 3px solid #D4AF37;
+          background-color: #FAFAF9;
+          padding: 2rem 3rem;
+          margin: 3rem 0;
+          font-style: italic;
+          font-family: 'Playfair Display', serif;
+          font-size: 1.25rem;
+          color: #57534E;
+        }
+
         .ql-editor img {
-          max-width: 100%;
-          height: auto;
-          border-radius: 0.5rem;
-          margin: 1rem 0;
+          border-radius: 2rem;
+          margin: 3rem 0;
+          box-shadow: 0 4px 20px -10px rgba(0,0,0,0.1);
+          transition: all 0.5s ease;
+        }
+        
+        .ql-editor img:hover {
+          transform: scale(1.01);
+          box-shadow: 0 10px 30px -15px rgba(0,0,0,0.15);
         }
         
         .ql-editor a {
@@ -230,7 +172,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           color: #1d4ed8;
         }
       `}</style>
-      
+
       <ReactQuill
         theme="snow"
         value={value}
