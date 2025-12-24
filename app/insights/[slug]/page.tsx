@@ -1,11 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 import { Metadata } from 'next';
-import { cache } from 'react';
 import { notFound } from 'next/navigation';
 import PostPageClient from './PostPageClient';
 
-// Cache the fetch to avoid double-fetching between generateMetadata and the page
-const getPost = cache(async (slug: string) => {
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+// Fetch post data - no caching to ensure fresh content
+async function getPost(slug: string) {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -19,7 +21,7 @@ const getPost = cache(async (slug: string) => {
 
   if (error || !data) return null;
   return data;
-});
+}
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getPost(params.slug);

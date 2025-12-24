@@ -151,6 +151,13 @@ export default function PostEditor() {
                 if (error) throw error;
             }
 
+
+            // Trigger local refresh signal for any open viewer tabs
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('post_updated', `${formData.slug}:${Date.now()}`);
+            }
+
+            router.refresh();
             router.push('/admin/insights');
         } catch (err) {
             console.error('Error saving post:', err);
