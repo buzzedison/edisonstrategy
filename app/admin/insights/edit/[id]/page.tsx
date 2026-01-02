@@ -144,11 +144,44 @@ export default function PostEditor() {
             };
 
             if (isNew) {
+                console.log('Creating new post...', postData);
                 const { error } = await supabase.from('posts').insert([postData]);
                 if (error) throw error;
+                console.log('✅ Post created successfully');
             } else {
-                const { error } = await supabase.from('posts').update(postData).eq('id', params.id);
-                if (error) throw error;
+                // Use API route for updates to ensure proper auth
+                console.log('🔄 Updating existing post ID:', params.id);
+                console.log('📝 Post data:', { ...postData, content: postData.content.substring(0, 100) + '...' });
+
+                const { data: { session } } = await supabase.auth.getSession();
+                const token = session?.access_token;
+
+                console.log('🔑 Auth token present:', !!token);
+                console.log('🔑 Session user:', session?.user?.email);
+
+                const apiUrl = `/api/posts/by-id/${params.id}`;
+                console.log('🌐 Making PUT request to:', apiUrl);
+
+                const response = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...(token && { 'Authorization': `Bearer ${token}` })
+                    },
+                    body: JSON.stringify(postData)
+                });
+
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('❌ API Error:', errorData);
+                    throw new Error(errorData.error || 'Failed to update post');
+                }
+
+                const result = await response.json();
+                console.log('✅ Update successful:', result);
             }
 
 
@@ -161,7 +194,7 @@ export default function PostEditor() {
             router.push('/admin/insights');
         } catch (err) {
             console.error('Error saving post:', err);
-            alert('Failed to save post. Check console.');
+            alert(`Failed to save post: ${err instanceof Error ? err.message : 'Unknown error'}`);
         } finally {
             setSaving(false);
         }

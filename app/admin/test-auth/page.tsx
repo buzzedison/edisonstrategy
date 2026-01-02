@@ -25,7 +25,7 @@ export default function TestAuthPage() {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Auth Loading Test</h1>
-        
+
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">Current State</h2>
           <div className="grid grid-cols-2 gap-4">
@@ -57,7 +57,7 @@ export default function TestAuthPage() {
 
         <div className="mt-6">
           <button
-            onClick={() => window.location.href = '/admin/blog/new'}
+            onClick={() => window.location.href = '/admin/insights/new'}
             className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600"
           >
             Test Admin Access

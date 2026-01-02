@@ -152,8 +152,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
     navigationItems.push({
       title: 'Admin',
       items: [
-        { name: 'Write Article', href: '/admin/blog/new', icon: PlusCircle, count: null },
-        { name: 'Manage Posts', href: '/admin/blog/listing', icon: BookOpen, count: null },
+        { name: 'Write Article', href: '/admin/insights/new', icon: PlusCircle, count: null },
+        { name: 'Manage Posts', href: '/admin/insights', icon: BookOpen, count: null },
         { name: 'Analytics', href: '/admin/analytics', icon: BarChart3, count: null },
         { name: 'Comments', href: '/admin/comments', icon: MessageCircle, count: null },
         { name: 'Admin Panel', href: '/admin', icon: Shield, count: null },

@@ -1,5 +1,6 @@
 'use client';
 
+import { createClient } from '@supabase/supabase-js';
 import { supabase } from '../../lib/supabaseClient';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -211,7 +212,17 @@ function InsightsContent() {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      let query = supabase
+      const freshSupabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+          global: {
+            fetch: (url, options) => fetch(url, { ...options, cache: 'no-store' }),
+          },
+        }
+      );
+
+      let query = freshSupabase
         .from('posts')
         .select('*')
         .neq('content', '<p><br></p>')
@@ -230,8 +241,18 @@ function InsightsContent() {
         return;
       }
 
-      // Fetch latest posts
-      const { data: latestPostsData } = await supabase
+      setPosts(postsData || []);
+
+      // Fetch latest posts with no-cache
+      const { data: latestPostsData } = await createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+          global: {
+            fetch: (url, options) => fetch(url, { ...options, cache: 'no-store' }),
+          },
+        }
+      )
         .from('posts')
         .select('*')
         .neq('content', '<p><br></p>')

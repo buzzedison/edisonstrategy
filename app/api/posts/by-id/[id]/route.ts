@@ -1,6 +1,25 @@
 import { supabase } from '../../../../../lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
 import { getSupabaseSession } from '../../../../../lib/authHelper';
 import { revalidatePath } from 'next/cache';
+
+// Create admin client with service role key for privileged operations
+const getAdminClient = () => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+  if (!serviceRoleKey) {
+    console.error('⚠️ SUPABASE_SERVICE_ROLE_KEY is not set!');
+    throw new Error('Service role key is required for admin operations');
+  }
+
+  return createClient(supabaseUrl, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  });
+};
 
 // GET - Fetch a single post by ID
 export async function GET(
@@ -116,9 +135,12 @@ export async function PUT(
       });
     }
 
+    // Use admin client for database operations
+    const adminClient = getAdminClient();
+
     // First check if the post exists
     console.log('Checking if post exists with ID:', params.id);
-    const { data: existingPost, error: checkError } = await supabase
+    const { data: existingPost, error: checkError } = await adminClient
       .from('posts')
       .select('id')
       .eq('id', params.id)
@@ -128,7 +150,7 @@ export async function PUT(
 
     if (checkError || !existingPost) {
       console.log('Post not found error:', checkError);
-      return new Response(JSON.stringify({ error: 'Post not found' }), { 
+      return new Response(JSON.stringify({ error: 'Post not found' }), {
         status: 404,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -144,7 +166,7 @@ export async function PUT(
       processedTags = [];
     }
 
-    // Update the post
+    // Update the post using admin client (bypasses RLS)
     console.log('Attempting to update post with data:', {
       title,
       slug,
@@ -156,7 +178,7 @@ export async function PUT(
       author: author || 'Edison Ade'
     });
 
-    const { data, error } = await supabase
+    const { data, error } = await adminClient
       .from('posts')
       .update({
         title,
@@ -181,14 +203,14 @@ export async function PUT(
       console.error('Error code:', error.code);
       console.error('Error message:', error.message);
       console.error('Error details:', error.details);
-      return new Response(JSON.stringify({ error: error.message }), { 
+      return new Response(JSON.stringify({ error: error.message }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
     // If update succeeded, fetch the updated post to return
-    const { data: updatedPost, error: fetchError } = await supabase
+    const { data: updatedPost, error: fetchError } = await adminClient
       .from('posts')
       .select('*')
       .eq('id', params.id)
@@ -278,19 +300,22 @@ export async function DELETE(
     }
     
     if (!isAuthorized) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), { 
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    const { error } = await supabase
+    // Use admin client for delete operation
+    const adminClient = getAdminClient();
+
+    const { error } = await adminClient
       .from('posts')
       .delete()
       .eq('id', params.id);
 
     if (error) {
-      return new Response(JSON.stringify({ error: error.message }), { 
+      return new Response(JSON.stringify({ error: error.message }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });

@@ -43,14 +43,20 @@ export default function InsightsManagement() {
 
     async function fetchPosts() {
         setLoading(true);
-        const { data, error } = await supabase
-            .from('posts')
-            .select('*')
-            .order('created_at', { ascending: false });
+        try {
+            const response = await fetch('/api/admin/posts');
+            const data = await response.json();
 
-        if (error) console.error('Error fetching posts:', error);
-        else setPosts(data || []);
-        setLoading(false);
+            if (response.ok) {
+                setPosts(data.posts || []);
+            } else {
+                console.error('Error fetching posts:', data.error);
+            }
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        } finally {
+            setLoading(false);
+        }
     }
 
     const handleDelete = async (id: number) => {

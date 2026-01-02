@@ -16,6 +16,30 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/admin/blog/listing',
+        destination: '/admin/insights',
+        permanent: true,
+      },
+      {
+        source: '/admin/blog/new',
+        destination: '/admin/insights/new',
+        permanent: true,
+      },
+      {
+        source: '/admin/blog/edit/:id',
+        destination: '/admin/insights/edit/:id',
+        permanent: true,
+      },
+      {
+        source: '/insights/admin',
+        destination: '/admin/insights',
+        permanent: true,
+      }
+    ];
+  },
 };
 
 module.exports = nextConfig;

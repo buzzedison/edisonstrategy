@@ -72,7 +72,10 @@ const RelatedPosts = ({ currentPostId, tags }: { currentPostId: number; tags: st
             const freshSupabase = createClient(
                 process.env.NEXT_PUBLIC_SUPABASE_URL!,
                 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-                { auth: { persistSession: false } }
+                {
+                    auth: { persistSession: false },
+                    global: { fetch: (url, options) => fetch(url, { ...options, cache: 'no-store' }) }
+                }
             );
             const { data, error } = await freshSupabase
                 .from('posts')
@@ -134,12 +137,20 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
 
+    // Sync state when props change (crucial for router.refresh())
+    useEffect(() => {
+        setPost(initialPost);
+    }, [initialPost]);
+
     const refreshPost = async () => {
         setLoading(true);
         const freshSupabase = createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            { auth: { persistSession: false } }
+            {
+                auth: { persistSession: false },
+                global: { fetch: (url, options) => fetch(url, { ...options, cache: 'no-store' }) }
+            }
         );
 
         const { data, error } = await freshSupabase

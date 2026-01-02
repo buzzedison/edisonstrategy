@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { unstable_noStore as noStore } from 'next/cache';
 import PostPageClient from './PostPageClient';
 
 export const dynamic = 'force-dynamic';
@@ -8,9 +9,15 @@ export const revalidate = 0;
 
 // Fetch post data - no caching to ensure fresh content
 async function getPost(slug: string) {
+  noStore();
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: {
+        fetch: (url, options) => fetch(url, { ...options, cache: 'no-store' }),
+      },
+    }
   );
 
   const { data, error } = await supabase

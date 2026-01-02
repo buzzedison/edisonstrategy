@@ -62,13 +62,19 @@ export default function AdminAnalyticsPage() {
     try {
       setLoading(true);
 
-      // Fetch Posts for Views and Articles
-      const { data: posts, error: postsError } = await supabase
-        .from('posts')
-        .select('id, title, slug, views, created_at')
-        .order('views', { ascending: false });
+      // Fetch Posts for Views and Articles using admin API
+      const response = await fetch('/api/admin/posts');
+      const data = await response.json();
 
-      if (postsError) throw postsError;
+      if (!response.ok) throw new Error(data.error || 'Failed to fetch posts');
+
+      const posts = data.posts || [];
+
+      // Sort by views descending for top articles, but keep created_at for recent stats
+      const postsByViews = [...posts].sort((a, b) => (b.views || 0) - (a.views || 0));
+      const postsByDate = [...posts].sort((a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
 
       // Fetch Comments Count (if table exists)
       let totalComments = 0;
@@ -81,11 +87,11 @@ export default function AdminAnalyticsPage() {
         console.warn('Comments table might not exist yet');
       }
 
-      const totalViews = posts?.reduce((acc, post) => acc + (post.views || 0), 0) || 0;
+      const totalViews = posts?.reduce((acc: number, post: any) => acc + (post.views || 0), 0) || 0;
       const totalPosts = posts?.length || 0;
 
-      // Calculate real top articles
-      const topArticles = posts?.slice(0, 5).map(post => ({
+      // Calculate real top articles (sorted by views)
+      const topArticles = postsByViews.slice(0, 5).map((post: any) => ({
         id: post.id,
         title: post.title,
         slug: post.slug,
@@ -93,7 +99,7 @@ export default function AdminAnalyticsPage() {
         comments: 0, // Fallback until table is fully populated
         reactions: 0, // Fallback
         publishedAt: post.created_at
-      })) || [];
+      }));
 
       // Generate realistic views over time based on total reach
       // In a production app, this would query a 'post_views' or 'analytics' table
