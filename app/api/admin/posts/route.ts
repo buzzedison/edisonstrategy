@@ -7,11 +7,15 @@ export const revalidate = 0;
 
 // Create admin client with service role key
 const getAdminClient = () => {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseUrl) {
+        throw new Error('NEXT_PUBLIC_SUPABASE_URL environment variable is not set');
+    }
 
     if (!serviceRoleKey) {
-        throw new Error('Service role key is required for admin operations');
+        throw new Error('SUPABASE_SERVICE_ROLE_KEY environment variable is not set. This is required for admin operations.');
     }
 
     return createClient(supabaseUrl, serviceRoleKey, {
@@ -43,7 +47,8 @@ export async function GET(request: NextRequest) {
             }
         });
     } catch (error) {
-        console.error('Admin posts API error:', error);
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('Admin posts API error:', errorMessage);
+        return NextResponse.json({ error: errorMessage, posts: [] }, { status: 500 });
     }
 }
