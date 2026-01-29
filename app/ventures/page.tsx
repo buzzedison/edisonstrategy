@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Globe, Sparkles, Target, Zap, Users, Shield, Heart } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 const VentureCard = ({
@@ -31,14 +32,14 @@ const VentureCard = ({
             transition={{ duration: 0.8, delay: index * 0.1 }}
             className="group relative"
         >
-            <div className="flex flex-col h-full bg-white border border-gray-100 p-10 lg:p-14 rounded-[3.5rem] hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all duration-1000">
+            <div className="flex flex-col h-full bg-white border border-gray-100 p-10 lg:p-14 hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all duration-1000">
                 <div className="flex justify-between items-start mb-12">
-                    <div className="w-20 h-20 rounded-3xl bg-brand-stone/30 flex items-center justify-center text-brand-charcoal group-hover:bg-brand-charcoal group-hover:text-white transition-all duration-700">
+                    <div className="w-20 h-20 bg-brand-stone/30 flex items-center justify-center text-brand-charcoal group-hover:bg-brand-charcoal group-hover:text-white transition-all duration-700">
                         <Icon className="w-10 h-10" />
                     </div>
                     <div className="flex flex-wrap gap-2 justify-end">
                         {tags.map((tag, i) => (
-                            <span key={i} className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gold bg-brand-stone/50 px-3 py-1 rounded-full">
+                            <span key={i} className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gold bg-brand-stone/50 px-3 py-1">
                                 {tag}
                             </span>
                         ))}
@@ -118,17 +119,32 @@ export default function VenturesPage() {
     ];
 
     return (
-        <div className="bg-white min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
+        <div className="bg-background min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
             {/* Hero Section */}
-            <section className="pt-40 pb-32 px-6 lg:px-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-stone/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+            <section className="pt-40 pb-32 px-6 lg:px-8 relative overflow-hidden bg-background">
+                {/* Background Textures */}
+                <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
+                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02]" />
+
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-stone/20 blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+
+                {/* Decorative Illustration Element */}
+                <div className="absolute -bottom-24 -left-20 w-96 h-96 opacity-10 pointer-events-none">
+                    <Image
+                        src="/image/systems-illustration.png"
+                        alt=""
+                        fill
+                        className="object-contain grayscale"
+                    />
+                </div>
+
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="max-w-4xl">
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8 }}
-                            className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12"
+                            className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12"
                         >
                             <Sparkles className="h-3.5 w-3.5 mr-2 text-brand-gold" />
                             Strategic Portfolio
@@ -138,7 +154,7 @@ export default function VenturesPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1, delay: 0.2 }}
-                            className="text-6xl md:text-8xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.9] mb-12"
+                            className="text-5xl md:text-7xl font-serif font-medium text-brand-charcoal tracking-tight leading-[1.1] mb-12"
                         >
                             Ventures & <br />
                             <span className="text-gray-400 italic">Global Directives.</span>
@@ -168,7 +184,7 @@ export default function VenturesPage() {
             </section>
 
             {/* Narrative Section */}
-            <section className="py-40 px-6 lg:px-8 bg-brand-stone/30">
+            <section className="py-40 px-6 lg:px-8 bg-background border-y border-brand-stone/50">
                 <div className="max-w-4xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -188,10 +204,10 @@ export default function VenturesPage() {
             </section>
 
             {/* Partnership CTA */}
-            <section className="py-40 px-6 lg:px-8 bg-white">
+            <section className="py-40 px-6 lg:px-8 bg-background">
                 <div className="max-w-7xl mx-auto">
-                    <div className="bg-brand-charcoal rounded-[4rem] p-12 md:p-24 flex flex-col items-center text-center relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+                    <div className="bg-brand-charcoal p-12 md:p-24 flex flex-col items-center text-center relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
                         <div className="relative z-10 max-w-3xl">
                             <h2 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 tracking-tight">Expand the <br /> <span className="text-brand-gold italic">Ecosystem.</span></h2>
@@ -199,7 +215,7 @@ export default function VenturesPage() {
                                 I am always looking for founders, partners, and leaders who are ready to build the extraordinary. Let's discuss your next milestone.
                             </p>
 
-                            <Link href="/contact" className="inline-flex items-center gap-4 bg-brand-gold hover:bg-white text-brand-charcoal px-16 py-8 rounded-full text-lg font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl">
+                            <Link href="/contact" className="inline-flex items-center gap-4 bg-brand-gold hover:bg-white text-brand-charcoal px-16 py-8 rounded-none text-lg font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl">
                                 Initiate Consultation
                                 <ArrowUpRight className="w-6 h-6" />
                             </Link>

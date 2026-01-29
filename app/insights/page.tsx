@@ -38,7 +38,7 @@ const SearchBar = ({ onSearch, searchTerm }: { onSearch: (term: string) => void;
         placeholder="Search articles..."
         value={searchTerm}
         onChange={(e) => onSearch(e.target.value)}
-        className="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+        className="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 focus:ring-1 focus:ring-brand-charcoal focus:border-brand-charcoal transition-colors duration-200"
       />
     </div>
   );
@@ -74,7 +74,7 @@ const PostCard = ({
         <Link href={`/insights/${post.slug}`}>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {showImage && post.cover_image && (
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-brand-stone">
+              <div className="relative aspect-[16/10] overflow-hidden bg-brand-stone">
                 <Image
                   src={post.cover_image}
                   alt={post.title}
@@ -87,7 +87,7 @@ const PostCard = ({
 
             <div className="space-y-6">
               {category && (
-                <div className="inline-flex items-center px-3 py-1 bg-brand-stone border border-gray-100 rounded-full">
+                <div className="inline-flex items-center px-3 py-1 bg-brand-stone border border-gray-100">
                   <span className="text-[10px] font-bold text-brand-muted uppercase tracking-widest">
                     {category}
                   </span>
@@ -108,9 +108,9 @@ const PostCard = ({
                 {post.author && (
                   <span className="text-brand-charcoal">{post.author}</span>
                 )}
-                <span className="w-1 h-1 bg-gray-200 rounded-full"></span>
+                <span className="w-1 h-1 bg-gray-200"></span>
                 <time>{formattedDate}</time>
-                <span className="w-1 h-1 bg-gray-200 rounded-full"></span>
+                <span className="w-1 h-1 bg-gray-200"></span>
                 <span>{readingTime} min read</span>
               </div>
             </div>
@@ -125,7 +125,7 @@ const PostCard = ({
       <Link href={`/insights/${post.slug}`}>
         <div className="space-y-6">
           {showImage && post.cover_image && (
-            <div className="relative aspect-[3/2] overflow-hidden rounded-[1.5rem] bg-brand-stone">
+            <div className="relative aspect-[3/2] overflow-hidden bg-brand-stone">
               <Image
                 src={post.cover_image}
                 alt={post.title}
@@ -154,7 +154,7 @@ const PostCard = ({
 
             <div className="flex items-center gap-4 text-[10px] font-bold tracking-widest text-brand-muted pt-2 uppercase">
               <time>{formattedDate}</time>
-              <span className="w-1 h-1 bg-gray-200 rounded-full"></span>
+              <span className="w-1 h-1 bg-gray-200"></span>
               <span>{readingTime} min read</span>
             </div>
           </div>
@@ -170,7 +170,7 @@ const TopicFilter = ({ categories, selectedTag }: { categories: { name: string, 
     <Link
       href="/insights"
       className={cn(
-        "px-5 py-2 text-[10px] font-bold uppercase tracking-widest rounded-full transition-all duration-300 border",
+        "px-5 py-2 text-[10px] font-bold uppercase tracking-widest transition-all duration-300 border",
         !selectedTag
           ? "bg-brand-charcoal text-white border-brand-charcoal shadow-sm"
           : "bg-white text-brand-muted border-gray-100 hover:border-brand-charcoal hover:text-brand-charcoal"
@@ -183,7 +183,7 @@ const TopicFilter = ({ categories, selectedTag }: { categories: { name: string, 
         key={index}
         href={`/insights?tag=${encodeURIComponent(category.name)}`}
         className={cn(
-          "px-5 py-2 text-[10px] font-bold uppercase tracking-widest rounded-full transition-all duration-300 border",
+          "px-5 py-2 text-[10px] font-bold uppercase tracking-widest transition-all duration-300 border",
           selectedTag === category.name
             ? "bg-brand-charcoal text-white border-brand-charcoal shadow-sm"
             : "bg-white text-brand-muted border-gray-100 hover:border-brand-charcoal hover:text-brand-charcoal"
@@ -319,8 +319,8 @@ function InsightsContent() {
   if (loading) {
     return (
       <InsightsWithSidebar>
-        <div className="min-h-screen bg-brand-stone/30 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-charcoal"></div>
+        <div className="min-h-screen bg-background flex items-center justify-center">
+          <div className="animate-spin h-8 w-8 border-b-2 border-brand-charcoal"></div>
         </div>
       </InsightsWithSidebar>
     );
@@ -336,13 +336,13 @@ function InsightsContent() {
 
   return (
     <InsightsWithSidebar>
-      <div className="min-h-screen bg-brand-stone/30">
+      <div className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto px-6 py-12 pt-24">
           {/* Header with search and filters */}
           <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12">
               <div>
-                <div className="inline-flex items-center px-4 py-1.5 bg-white border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-4">
+                <div className="inline-flex items-center px-4 py-1.5 bg-white border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-4">
                   <BookOpen className="h-3.5 w-3.5 mr-2 text-brand-gold" />
                   Strategic Library
                 </div>
@@ -357,7 +357,7 @@ function InsightsContent() {
                     placeholder="Search for systems, AI, strategy..."
                     value={searchTerm}
                     onChange={(e) => handleSearch(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 text-sm bg-white border border-gray-100 rounded-2xl focus:ring-1 focus:ring-brand-charcoal focus:border-brand-charcoal transition-all shadow-sm"
+                    className="w-full pl-12 pr-4 py-4 text-sm bg-white border border-gray-100 focus:ring-1 focus:ring-brand-charcoal focus:border-brand-charcoal transition-all shadow-sm"
                   />
                 </div>
               </div>
@@ -385,7 +385,7 @@ function InsightsContent() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-32 bg-white rounded-[2.5rem] border border-gray-100">
+                <div className="text-center py-32 bg-white border border-gray-100">
                   <BookOpen className="h-12 w-12 text-gray-100 mx-auto mb-6" />
                   <p className="text-brand-muted text-lg font-light">
                     {searchTerm
@@ -402,7 +402,7 @@ function InsightsContent() {
                   {currentPage > 1 && (
                     <Link
                       href={`${paginationBasePath}page=${currentPage - 1}`}
-                      className="h-12 px-8 inline-flex items-center gap-2 text-brand-charcoal bg-white rounded-full border border-gray-100 text-[11px] font-bold uppercase tracking-widest hover:bg-brand-stone transition-all shadow-sm"
+                      className="h-12 px-8 inline-flex items-center gap-2 text-brand-charcoal bg-white border border-gray-100 text-[11px] font-bold uppercase tracking-widest hover:bg-brand-stone transition-all shadow-sm"
                     >
                       <ArrowRight className="h-4 w-4 rotate-180" />
                       Previous
@@ -411,7 +411,7 @@ function InsightsContent() {
                   {hasMorePosts && (
                     <Link
                       href={`${paginationBasePath}page=${currentPage + 1}`}
-                      className="h-12 px-8 inline-flex items-center gap-2 text-white bg-brand-charcoal rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-black transition-all shadow-sm"
+                      className="h-12 px-8 inline-flex items-center gap-2 text-white bg-brand-charcoal text-[11px] font-bold uppercase tracking-widest hover:bg-black transition-all shadow-sm"
                     >
                       Next
                       <ArrowRight className="h-4 w-4" />

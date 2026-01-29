@@ -28,8 +28,8 @@ const StrategicPillar = ({
       transition={{ duration: 0.8, delay: index * 0.1 }}
       className="group relative"
     >
-      <div className="flex flex-col h-full bg-white border border-gray-100 p-10 lg:p-14 rounded-[3rem] hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all duration-1000">
-        <div className="w-20 h-20 rounded-3xl bg-brand-stone/30 flex items-center justify-center text-brand-charcoal mb-12 group-hover:bg-brand-charcoal group-hover:text-white transition-all duration-700">
+      <div className="flex flex-col h-full bg-white border border-gray-100 p-10 lg:p-14 hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all duration-1000">
+        <div className="w-20 h-20 bg-brand-stone/30 flex items-center justify-center text-brand-charcoal mb-12 group-hover:bg-brand-charcoal group-hover:text-white transition-all duration-700">
           <Icon className="w-10 h-10" />
         </div>
 
@@ -43,7 +43,7 @@ const StrategicPillar = ({
           <div className="grid grid-cols-1 gap-4">
             {services.map((service, i) => (
               <div key={i} className="flex items-center gap-4 text-brand-muted font-light group/item">
-                <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/40 group-hover/item:scale-150 transition-transform" />
+                <div className="w-1.5 h-1.5 bg-brand-gold/40 group-hover/item:scale-150 transition-transform" />
                 <span className="text-[15px]">{service}</span>
               </div>
             ))}
@@ -96,17 +96,17 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="bg-white min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
+    <div className="bg-background min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
       {/* Hero Section - Refined Editorial Style */}
       <section className="pt-40 pb-32 px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-stone/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-stone/20 blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-4xl">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12"
+              className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12"
             >
               <Shield className="h-3.5 w-3.5 mr-2" />
               Strategic Solutions
@@ -138,7 +138,7 @@ export default function ServicesPage() {
               className="flex flex-wrap gap-6"
             >
               <Link href="/contact">
-                <Button className="bg-brand-charcoal hover:bg-black text-white px-12 py-8 rounded-full text-lg transition-all shadow-sm hover:shadow-2xl">
+                <Button className="bg-brand-charcoal hover:bg-black text-white px-12 py-8 rounded-none text-lg transition-all shadow-sm hover:shadow-2xl">
                   Build Your Strategy
                   <ArrowRight className="ml-3 h-5 w-5" />
                 </Button>
@@ -149,12 +149,12 @@ export default function ServicesPage() {
       </section>
 
       {/* Strategic Pillars Section */}
-      <section className="py-32 px-6 lg:px-8 bg-brand-stone/30 relative">
+      <section className="py-32 px-6 lg:px-8 bg-background relative border-y border-brand-stone/50">
         <div className="absolute inset-0 bg-white/40 backdrop-blur-3xl" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-6xl font-serif font-bold text-brand-charcoal mb-8 tracking-tight">Pillars of <span className="text-gray-400 italic">Personal Excellence.</span></h2>
-            <div className="w-24 h-1 bg-brand-gold mx-auto rounded-full" />
+            <h2 className="text-4xl md:text-6xl font-serif font-medium text-brand-charcoal mb-8 tracking-tight">Pillars of <span className="text-gray-400 italic">Personal Excellence.</span></h2>
+            <div className="w-24 h-1 bg-brand-gold mx-auto" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -170,7 +170,7 @@ export default function ServicesPage() {
 
       {/* Trust Quote Section */}
       <section className="py-40 px-6 lg:px-8 bg-brand-charcoal relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 blur-[100px] translate-x-1/2 -translate-y-1/2" />
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -191,9 +191,9 @@ export default function ServicesPage() {
       </section>
 
       {/* Partner CTA */}
-      <section className="py-40 px-6 lg:px-8 bg-white">
+      <section className="py-40 px-6 lg:px-8 bg-background">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-brand-stone/30 rounded-[4rem] p-12 md:p-24 flex flex-col lg:flex-row items-center justify-between gap-16 relative overflow-hidden group">
+          <div className="bg-brand-stone/30 p-12 md:p-24 flex flex-col lg:flex-row items-center justify-between gap-16 relative overflow-hidden group">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-brand-gold/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
             <div className="relative z-10 max-w-2xl">
@@ -209,7 +209,7 @@ export default function ServicesPage() {
 
             <div className="relative z-10 flex flex-col items-center">
               <Link href="/contact">
-                <Button className="bg-brand-charcoal hover:bg-black text-white px-16 py-10 rounded-full text-xl transition-all shadow-2xl hover:scale-105 active:scale-95">
+                <Button className="bg-brand-charcoal hover:bg-black text-white px-16 py-10 rounded-none text-xl transition-all shadow-2xl hover:scale-105 active:scale-95">
                   Secure Your Consult
                 </Button>
               </Link>

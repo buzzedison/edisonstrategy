@@ -52,10 +52,10 @@ const TestimonialSlider = () => {
     const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
 
     return (
-        <section ref={targetRef} className="relative h-[300vh] bg-brand-stone/20">
+        <section ref={targetRef} className="relative h-[300vh] bg-background border-y border-brand-stone/50">
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
                 <div className="absolute top-10 left-10 z-10">
-                    <div className="inline-flex items-center px-4 py-1.5 bg-white border border-gray-100 rounded-full text-brand-muted text-[10px] font-bold tracking-widest uppercase">
+                    <div className="inline-flex items-center px-4 py-1.5 bg-white border border-gray-100 text-brand-muted text-[10px] font-bold tracking-widest uppercase">
                         <Star className="w-3.5 h-3.5 text-brand-gold mr-2 fill-brand-gold" />
                         Wall of Love
                     </div>
@@ -74,7 +74,7 @@ const TestimonialSlider = () => {
                     </div>
 
                     {testimonials.map((testimonial, i) => (
-                        <div key={i} className="group relative h-[60vh] w-[400px] md:w-[500px] flex-shrink-0 overflow-hidden rounded-[2.5rem] bg-white border border-gray-100 p-10 flex flex-col justify-between hover:border-gray-200 transition-all duration-500 shadow-sm hover:shadow-md">
+                        <div key={i} className="group relative h-[60vh] w-[400px] md:w-[500px] flex-shrink-0 overflow-hidden bg-white border border-gray-100 p-10 flex flex-col justify-between hover:border-gray-200 transition-all duration-500 shadow-sm hover:shadow-md">
                             <div className="relative z-10">
                                 <div className="flex gap-1 mb-6">
                                     {[...Array(5)].map((_, i) => (
@@ -87,7 +87,7 @@ const TestimonialSlider = () => {
                             </div>
 
                             <div className="relative z-10 flex items-center gap-4 mt-8">
-                                <div className="h-10 w-10 rounded-full overflow-hidden bg-brand-stone border border-gray-100">
+                                <div className="h-10 w-10 overflow-hidden bg-brand-stone border border-gray-100">
                                     <div className="w-full h-full bg-gray-200" />
                                 </div>
                                 <div>
@@ -99,11 +99,11 @@ const TestimonialSlider = () => {
                     ))}
 
                     {/* CTA Card at the end */}
-                    <div className="min-w-[400px] flex items-center justify-center bg-brand-charcoal rounded-[2.5rem] p-10 text-white text-center shadow-lg">
+                    <div className="min-w-[400px] flex items-center justify-center bg-brand-charcoal p-10 text-white text-center shadow-lg">
                         <div>
                             <h3 className="text-3xl font-medium font-serif mb-6">Build Together.</h3>
                             <p className="text-lg mb-8 text-gray-400 font-light">Ready to architect your success story?</p>
-                            <button className="px-10 py-4 bg-white text-brand-charcoal font-medium rounded-full hover:bg-brand-stone transition-all">
+                            <button className="px-10 py-4 bg-white text-brand-charcoal font-medium rounded-none hover:bg-brand-stone transition-all">
                                 Get Started
                             </button>
                         </div>

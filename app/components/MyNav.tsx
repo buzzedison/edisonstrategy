@@ -70,7 +70,7 @@ export default function Navbar() {
     <motion.nav
       className={cn(
         "fixed w-full z-[100] transition-all duration-500",
-        scrolled ? "bg-white/80 backdrop-blur-xl border-b border-gray-100 py-3" : "bg-white/50 backdrop-blur-md py-6"
+        scrolled ? "bg-background/80 backdrop-blur-xl border-b border-gray-100 py-3" : "bg-background/50 backdrop-blur-md py-6"
       )}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-48 bg-white rounded-2xl shadow-xl py-3 border border-gray-100 overflow-hidden"
+                      className="absolute top-full left-0 mt-2 w-48 bg-white shadow-xl py-3 border border-gray-100 overflow-hidden"
                       onMouseEnter={() => setActiveItem(item.name)}
                       onMouseLeave={() => setActiveItem('')}
                     >
@@ -138,7 +138,7 @@ export default function Navbar() {
             </Link>
 
             <Link href="/contact" className="ml-2">
-              <button className="px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-brand-charcoal rounded-full hover:bg-black transition-all shadow-sm flex items-center gap-2 group">
+              <button className="px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-brand-charcoal rounded-none hover:bg-black transition-all shadow-sm flex items-center gap-2 group">
                 Get Started
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -147,7 +147,7 @@ export default function Navbar() {
 
           <div className="lg:hidden flex items-center gap-4">
             <button
-              className="p-2 hover:bg-brand-stone rounded-xl transition-all"
+              className="p-2 hover:bg-brand-stone rounded-none transition-all"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="h-6 w-6 text-brand-charcoal" /> : <Menu className="h-6 w-6 text-brand-charcoal" />}
@@ -194,13 +194,13 @@ export default function Navbar() {
               <div className="pt-8 mt-auto flex flex-col gap-4">
                 <Link
                   href="/signin"
-                  className="w-full px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-brand-charcoal border border-brand-stone rounded-2xl flex items-center justify-center gap-3"
+                  className="w-full px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-brand-charcoal border border-brand-stone rounded-none flex items-center justify-center gap-3"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Client Portal
                 </Link>
                 <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-                  <button className="w-full px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-white bg-brand-charcoal rounded-2xl flex items-center justify-center gap-3">
+                  <button className="w-full px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-white bg-brand-charcoal rounded-none flex items-center justify-center gap-3">
                     Start Your Project
                     <ArrowRight className="w-4 h-4" />
                   </button>

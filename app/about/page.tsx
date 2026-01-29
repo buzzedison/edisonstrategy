@@ -92,7 +92,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
+    <div className="bg-background min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
       {/* Hero Section: Portrait-led Editorial */}
       <section className="pt-40 pb-32 px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-stone/20 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
@@ -104,7 +104,7 @@ export default function AboutPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
             >
-              <div className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12">
+              <div className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12">
                 <Sparkles className="h-3.5 w-3.5 mr-2 text-brand-gold" />
                 Strategic Architect
               </div>
@@ -128,11 +128,11 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-16 flex flex-wrap gap-8 items-center">
-                <Link href="/contact" className="px-12 py-6 bg-brand-charcoal text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black transition-all shadow-xl">
+                <Link href="/contact" className="px-12 py-6 bg-brand-charcoal text-white text-xs font-bold uppercase tracking-widest hover:bg-black transition-all shadow-xl">
                   Initiate Engagement
                 </Link>
                 <div className="flex items-center gap-4 group cursor-pointer">
-                  <div className="w-12 h-12 rounded-full border border-brand-stone flex items-center justify-center group-hover:bg-brand-stone transition-all">
+                  <div className="w-12 h-12 border border-brand-stone flex items-center justify-center group-hover:bg-brand-stone transition-all">
                     <Play className="w-4 h-4 text-brand-charcoal ml-1" />
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Watch Philosophy</span>
@@ -144,7 +144,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2 }}
-              className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[4rem] overflow-hidden bg-brand-stone"
+              className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] overflow-hidden bg-brand-stone shadow-xl"
             >
               <Image
                 src="/image/edisonnew.jpg"
@@ -174,7 +174,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.2 }}
-                className="p-10 bg-white rounded-[3rem] border border-gray-100 hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all"
+                className="p-10 bg-white border border-gray-100 hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all"
               >
                 <pillar.icon className="w-10 h-10 text-brand-gold mb-8" />
                 <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-4">{pillar.title}</h3>
@@ -187,9 +187,9 @@ export default function AboutPage() {
 
       {/* Next Briefing: Dynamic Sanity Event */}
       {nextEvent && (
-        <section className="py-32 px-6 lg:px-8">
+        <section className="py-32 px-6 lg:px-8 bg-background border-y border-brand-stone/50">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-brand-charcoal rounded-[4rem] p-12 md:p-24 relative overflow-hidden group">
+            <div className="bg-brand-charcoal p-12 md:p-24 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
               <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
@@ -206,7 +206,7 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div className="flex justify-start lg:justify-end">
-                  <Link href="/events" className="px-12 py-6 bg-white text-brand-charcoal rounded-full text-xs font-bold uppercase tracking-widest hover:bg-brand-gold transition-all">
+                  <Link href="/events" className="px-12 py-6 bg-white text-brand-charcoal text-xs font-bold uppercase tracking-widest hover:bg-brand-stone transition-all">
                     Register for Session
                   </Link>
                 </div>
@@ -274,7 +274,7 @@ export default function AboutPage() {
                   transition={{ delay: idx * 0.1 }}
                 >
                   <Link href={`/portfolio/${work.slug.current}`} className="group block">
-                    <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-8 bg-white/5">
+                    <div className="relative aspect-[4/3] overflow-hidden mb-8 bg-white/5">
                       {work.mainImage && (
                         <Image
                           src={urlFor(work.mainImage).url()}
@@ -294,7 +294,7 @@ export default function AboutPage() {
       )}
 
       {/* Narrative CTA */}
-      <section className="py-40 px-6 lg:px-8 bg-white text-center">
+      <section className="py-40 px-6 lg:px-8 bg-background text-center">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

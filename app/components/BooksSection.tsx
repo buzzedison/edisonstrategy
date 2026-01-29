@@ -40,14 +40,14 @@ const books = [
 
 const BooksSection = () => {
     return (
-        <section className="py-32 px-6 lg:px-8 bg-brand-stone/30">
+        <section className="py-32 px-6 lg:px-8 bg-background border-y border-brand-stone/50">
             <div className="max-w-7xl mx-auto">
                 <div className="mb-20 text-center max-w-3xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-gray-100 shadow-sm mb-6"
+                        className="inline-flex items-center px-4 py-1.5 bg-white border border-gray-100 shadow-sm mb-6"
                     >
                         <Book className="w-4 h-4 text-brand-gold mr-2" />
                         <span className="text-[10px] font-bold tracking-widest text-brand-muted uppercase">Publications & Books</span>
@@ -81,7 +81,7 @@ const BooksSection = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
-                            className="group flex flex-col h-full bg-white rounded-[2.5rem] border border-gray-100/80 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
+                            className="group flex flex-col h-full bg-white border border-gray-100/80 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
                         >
                             <div className="relative h-64 overflow-hidden">
                                 <Image
@@ -91,7 +91,7 @@ const BooksSection = () => {
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 {book.isNew && (
-                                    <div className="absolute top-6 left-6 bg-brand-charcoal text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">
+                                    <div className="absolute top-6 left-6 bg-brand-charcoal text-white px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
                                         New Release
                                     </div>
                                 )}
@@ -119,12 +119,12 @@ const BooksSection = () => {
 
                                 <div className="mt-auto pt-8 border-t border-gray-50 flex items-center gap-4">
                                     <Link href={book.link} className="flex-1">
-                                        <Button variant="outline" className="w-full rounded-full border-gray-200 hover:border-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all duration-300">
+                                        <Button variant="outline" className="w-full rounded-none border-gray-200 hover:border-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all duration-300">
                                             Explore
                                         </Button>
                                     </Link>
                                     <Link href={book.buyLink} className="flex-1">
-                                        <Button className="w-full bg-brand-charcoal hover:bg-black text-white rounded-full transition-all duration-300">
+                                        <Button className="w-full bg-brand-charcoal hover:bg-black text-white rounded-none transition-all duration-300">
                                             Buy Now
                                             <ExternalLink className="ml-2 w-3.5 h-3.5" />
                                         </Button>

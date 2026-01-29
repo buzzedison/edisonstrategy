@@ -28,7 +28,8 @@ body {
 } */
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 30 20% 98%;
+    /* Soft Ivory stone */
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -52,7 +53,8 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0rem
+      /* Sharp corners for luxury feel */
   }
 
   .dark {
@@ -90,8 +92,9 @@ body {
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-inter), sans-serif;
+    font-family: var(--font-garamond), serif;
     scroll-behavior: smooth;
+    letter-spacing: -0.01em;
   }
 
   h1,
@@ -100,7 +103,9 @@ body {
   h4,
   h5,
   h6 {
-    font-family: var(--font-playfair), serif;
+    font-family: var(--font-garamond), serif;
+    letter-spacing: -0.02em;
+    font-weight: 500;
   }
 }
 
@@ -358,7 +363,7 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(to right, #1e293b, #3b82f6);
+  background-image: linear-gradient(to right, #1a1a1a, #4a4a4a);
 }
 
 .text-gradient-gold {
@@ -370,8 +375,8 @@ body {
 
 /* Enhanced Article Typography */
 .article-typography {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.7;
+  font-family: var(--font-garamond), serif;
+  line-height: 1.8;
   color: #374151;
 }
 

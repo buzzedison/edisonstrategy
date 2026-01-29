@@ -23,7 +23,7 @@ const Footer = () => {
   if (isSpecializedPage) return null;
 
   return (
-    <footer className="bg-white border-t border-gray-100 pt-32 pb-12 relative overflow-hidden">
+    <footer className="bg-background border-t border-brand-stone/50 pt-32 pb-12 relative overflow-hidden">
       {/* Sublte top pattern/texture */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
 
@@ -69,7 +69,7 @@ const Footer = () => {
                 <a
                   key={index}
                   href={social.url}
-                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-brand-stone/30 text-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all duration-500 border border-transparent hover:shadow-xl hover:shadow-brand-charcoal/10"
+                  className="w-12 h-12 flex items-center justify-center bg-brand-stone/30 text-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all duration-500 border border-transparent hover:shadow-xl hover:shadow-brand-charcoal/10"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -121,7 +121,7 @@ const Footer = () => {
           <div className="lg:col-span-3 space-y-10">
             <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-charcoal border-b border-brand-stone pb-4">Directives</h3>
             <div className="space-y-8">
-              <div className="p-8 bg-brand-stone/30 rounded-[2.5rem] border border-brand-stone/50 hover:bg-white hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all duration-700 group cursor-pointer">
+              <div className="p-8 bg-brand-stone/30 border border-brand-stone/50 hover:bg-background hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all duration-700 group cursor-pointer">
                 <Sparkles className="w-6 h-6 text-brand-gold mb-4 group-hover:rotate-12 transition-transform" />
                 <p className="text-sm text-brand-muted mb-6 font-light leading-relaxed">
                   "Strategy without systems is just a hallucination. Let's build something real."
@@ -132,7 +132,7 @@ const Footer = () => {
               </div>
 
               <div className="flex items-center gap-3 pl-2">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <div className="w-2 h-2 bg-green-500 animate-pulse" />
                 <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Available for Consultation</span>
               </div>
             </div>

@@ -45,7 +45,7 @@ export default async function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-brand-charcoal selection:text-brand-stone">
+    <div className="min-h-screen bg-background font-serif selection:bg-brand-charcoal selection:text-brand-stone">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -54,7 +54,7 @@ export default async function Home() {
       <HeroSection />
 
       {/* Strategic Frameworks Section - SEO Driven */}
-      <section className="py-24 px-6 lg:px-8 bg-white">
+      <section className="py-24 px-6 lg:px-8 bg-background border-y border-brand-stone/50">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-12">
             {[
@@ -75,7 +75,7 @@ export default async function Home() {
               }
             ].map((item, idx) => (
               <div key={idx} className="group">
-                <div className="w-12 h-12 rounded-2xl bg-brand-stone flex items-center justify-center text-brand-charcoal mb-6 group-hover:bg-brand-charcoal group-hover:text-white transition-colors">
+                <div className="w-12 h-12 bg-brand-stone flex items-center justify-center text-brand-charcoal mb-6 group-hover:bg-brand-charcoal group-hover:text-white transition-colors">
                   {item.icon}
                 </div>
                 <h3 className="text-xl font-medium text-brand-charcoal mb-4 font-serif">{item.title}</h3>
@@ -102,7 +102,7 @@ export default async function Home() {
 
             {/* Left Content */}
             <div className="lg:col-span-5 order-2 lg:order-1">
-              <div className="inline-flex items-center px-4 py-1.5 bg-white border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12">
+              <div className="inline-flex items-center px-4 py-1.5 bg-white border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12">
                 <Users className="h-3.5 w-3.5 mr-2" />
                 My Story
               </div>
@@ -125,14 +125,14 @@ export default async function Home() {
 
               <div className="flex flex-wrap gap-3 mb-12">
                 {['Scaling Strategy', 'Business Design', 'AI Systems', 'Team Performance'].map((tag) => (
-                  <span key={tag} className="px-4 py-1.5 bg-white text-brand-muted border border-gray-100 rounded-full text-xs font-medium">
+                  <span key={tag} className="px-4 py-1.5 bg-white text-brand-muted border border-gray-100 text-xs font-medium">
                     {tag}
                   </span>
                 ))}
               </div>
 
               <Link href="/about">
-                <Button className="bg-brand-charcoal hover:bg-black text-white px-10 py-7 rounded-full text-lg transition-all shadow-sm hover:shadow-lg">
+                <Button className="bg-brand-charcoal hover:bg-black text-white px-10 py-7 rounded-none text-lg transition-all shadow-sm hover:shadow-lg">
                   Read the Full Story
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -141,7 +141,7 @@ export default async function Home() {
 
             {/* Right Image - Refined Portrait */}
             <div className="lg:col-span-7 order-1 lg:order-2 relative">
-              <div className="relative h-[700px] w-full rounded-[2.5rem] overflow-hidden shadow-sm border border-white/50">
+              <div className="relative h-[700px] w-full overflow-hidden shadow-sm border border-white/50">
                 <Image
                   src="/image/edisonaboutnew.jpg"
                   alt="Edison Ade"
@@ -151,7 +151,7 @@ export default async function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/30 via-transparent to-transparent" />
 
                 {/* Minimalist Stats */}
-                <div className="absolute bottom-10 left-10 right-10 bg-white/80 backdrop-blur-md border border-white/40 p-10 rounded-[2rem] text-brand-charcoal">
+                <div className="absolute bottom-10 left-10 right-10 bg-white/80 backdrop-blur-md border border-white/40 p-10 text-brand-charcoal">
                   <div className="grid grid-cols-3 gap-8 text-center">
                     <div>
                       <p className="text-2xl font-medium font-serif">15+</p>
@@ -179,7 +179,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-gray-100 pb-12">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-8">
+              <div className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-8">
                 <BookOpen className="h-3.5 w-3.5 mr-2" />
                 Latest Articles
               </div>
@@ -196,7 +196,7 @@ export default async function Home() {
           <div className="grid md:grid-cols-3 gap-x-12 gap-y-16">
             {posts && posts.map((post: any) => (
               <article key={post.id} className="group flex flex-col h-full cursor-pointer">
-                <Link href={`/insights/${post.slug}`} className="block overflow-hidden rounded-[2rem] mb-8 relative border border-gray-100 shadow-sm">
+                <Link href={`/insights/${post.slug}`} className="block overflow-hidden mb-8 relative border border-gray-100 shadow-sm">
                   {post.cover_image ? (
                     <div className="relative h-80 w-full overflow-hidden">
                       <Image

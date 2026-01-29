@@ -25,7 +25,7 @@ const InsightsWithSidebar = ({
   }
 
   return (
-    <div className="min-h-screen bg-brand-stone/30">
+    <div className="min-h-screen bg-background">
       {/* Sidebar - Pure Overlay */}
       <DashboardSidebar
         isOpen={sidebarOpen}
@@ -42,7 +42,7 @@ const InsightsWithSidebar = ({
                 onClick={() => setSidebarOpen(true)}
                 className="flex items-center gap-3 group transition-all"
               >
-                <div className="p-2 bg-brand-stone rounded-xl group-hover:bg-brand-charcoal group-hover:text-white transition-all shadow-sm border border-gray-100/50">
+                <div className="p-2 bg-brand-stone group-hover:bg-brand-charcoal group-hover:text-white transition-all shadow-sm border border-gray-100/50">
                   <Menu className="h-4 w-4" />
                 </div>
                 <div className="flex flex-col items-start -space-y-0.5">
@@ -61,7 +61,7 @@ const InsightsWithSidebar = ({
               {!hideBookmarkShortcut && !headerActions && (
                 <Link
                   href="/bookmarks"
-                  className="p-2 hover:bg-brand-stone rounded-xl transition-colors text-brand-muted hover:text-brand-charcoal"
+                  className="p-2 hover:bg-brand-stone transition-colors text-brand-muted hover:text-brand-charcoal"
                   title="Your Bookmarks"
                 >
                   <Bookmark className="h-4 w-4" />

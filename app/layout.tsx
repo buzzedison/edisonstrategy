@@ -2,14 +2,14 @@
 import React from 'react';
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, EB_Garamond } from 'next/font/google';
 import NavbarNew from './components/MyNav';
 import Footer from './components/Footer';
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import { AuthProvider } from '../lib/authContext';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
+const garamond = EB_Garamond({ subsets: ['latin'], variable: '--font-garamond' });
 
 export const metadata: Metadata = {
   title: {
@@ -68,8 +68,8 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className={inter.className}>
+    <html lang="en" className={`${inter.variable} ${garamond.variable}`}>
+      <body className={garamond.className}>
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
           <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
         )}

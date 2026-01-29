@@ -16,6 +16,10 @@ module.exports = {
 			},
 		},
 		extend: {
+			fontFamily: {
+				sans: ['var(--font-inter)', 'sans-serif'],
+				serif: ['var(--font-garamond)', 'serif'],
+			},
 			colors: {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',

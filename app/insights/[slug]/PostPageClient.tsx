@@ -100,7 +100,7 @@ const RelatedPosts = ({ currentPostId, tags }: { currentPostId: number; tags: st
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {relatedPosts.map((post) => (
                     <Link key={post.id} href={`/insights/${post.slug}`} className="group block">
-                        <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col">
+                        <div className="bg-white shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col">
                             {post.cover_image && (
                                 <div className="relative aspect-[16/9] overflow-hidden">
                                     <Image
@@ -198,7 +198,7 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
         <InsightsWithSidebar
             headerActions={<BookmarkButton postId={post.id} variant="compact" />}
         >
-            <div className="min-h-screen bg-brand-stone/30 selection:bg-brand-gold/20 selection:text-brand-charcoal">
+            <div className="min-h-screen bg-background selection:bg-brand-gold/20 selection:text-brand-charcoal">
                 <Script id="structured-data" type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",
@@ -220,7 +220,7 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
                         {post.tags && post.tags.length > 0 && (
                             <div className="flex flex-wrap gap-2 mb-8">
                                 {post.tags.map((tag: string) => (
-                                    <span key={tag} className="px-4 py-1.5 bg-white border border-gray-100 text-brand-muted text-[10px] font-bold uppercase tracking-widest rounded-full">
+                                    <span key={tag} className="px-4 py-1.5 bg-white border border-gray-100 text-brand-muted text-[10px] font-bold uppercase tracking-widest">
                                         {tag}
                                     </span>
                                 ))}
@@ -233,7 +233,7 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
 
                         <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-brand-muted border-t border-gray-100 pt-8">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full overflow-hidden bg-brand-stone relative border border-gray-100">
+                                <div className="w-8 h-8 overflow-hidden bg-brand-stone relative border border-gray-100">
                                     <Image src="/image/edisonaboutnew.jpg" alt="Edison Ade" fill className="object-cover grayscale" />
                                 </div>
                                 <span className="text-brand-charcoal">{post.author || "Edison Ade"}</span>
@@ -249,7 +249,7 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
 
                     {/* Featured Image */}
                     {post.cover_image && (
-                        <div className="relative aspect-[21/10] mb-20 rounded-[2.5rem] overflow-hidden shadow-sm border border-white">
+                        <div className="relative aspect-[21/10] mb-20 overflow-hidden shadow-sm border border-white">
                             <Image
                                 src={post.cover_image}
                                 alt={post.title || ""}
@@ -265,8 +265,8 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
             prose-headings:font-serif prose-headings:font-medium prose-headings:text-brand-charcoal prose-headings:mt-16 prose-headings:mb-8
             prose-p:text-brand-muted prose-p:leading-[1.9] prose-p:font-light prose-p:mb-10 text-[18px]
             prose-a:text-brand-charcoal prose-a:underline decoration-brand-gold/40 underline-offset-4 hover:decoration-brand-gold transition-all
-            prose-blockquote:border-l-0 prose-blockquote:bg-white prose-blockquote:py-12 prose-blockquote:px-12 prose-blockquote:rounded-[2.5rem] prose-blockquote:not-italic prose-blockquote:text-brand-charcoal prose-blockquote:font-serif prose-blockquote:text-2xl prose-blockquote:leading-relaxed prose-blockquote:my-16 prose-blockquote:border border-gray-50 prose-blockquote:shadow-sm
-            prose-img:rounded-[2rem] prose-img:shadow-sm prose-img:my-16
+            prose-blockquote:border-l-0 prose-blockquote:bg-white prose-blockquote:py-12 prose-blockquote:px-12 prose-blockquote:not-italic prose-blockquote:text-brand-charcoal prose-blockquote:font-serif prose-blockquote:text-2xl prose-blockquote:leading-relaxed prose-blockquote:my-16 prose-blockquote:border border-gray-50 prose-blockquote:shadow-sm
+            prose-img:shadow-sm prose-img:my-16
             prose-strong:font-bold prose-strong:text-brand-charcoal
             prose-ul:list-disc prose-ul:pl-6 prose-ul:my-10 prose-li:text-brand-muted prose-li:mb-4 prose-li:marker:text-brand-gold
             prose-ol:list-decimal prose-ol:pl-6 prose-ol:my-10
@@ -281,7 +281,7 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
 
                         {/* Admin Controls */}
                         {user?.email === 'buzzedison@gmail.com' && post.id && (
-                            <div className="flex gap-4 mt-12 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                            <div className="flex gap-4 mt-12 p-6 bg-white border border-gray-100 shadow-sm">
                                 <button onClick={refreshPost} className="text-[10px] font-bold uppercase tracking-widest text-green-600 hover:underline">
                                     {loading ? 'Refreshing...' : 'Refresh Data'}
                                 </button>
@@ -291,8 +291,8 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
                     </div>
 
                     {/* Author Bio (Editorial Style) */}
-                    <div className="mt-24 p-10 bg-white rounded-[2.5rem] border border-gray-100 flex flex-col md:flex-row items-center gap-10 shadow-sm">
-                        <div className="w-24 h-24 rounded-full bg-brand-stone overflow-hidden flex-shrink-0 relative border-2 border-white shadow-sm ring-1 ring-gray-100">
+                    <div className="mt-24 p-10 bg-white border border-gray-100 flex flex-col md:flex-row items-center gap-10 shadow-sm">
+                        <div className="w-24 h-24 bg-brand-stone overflow-hidden flex-shrink-0 relative border-2 border-white shadow-sm ring-1 ring-gray-100">
                             <Image src="/image/edisonaboutnew.jpg" alt="Edison Ade" fill className="object-cover grayscale" />
                         </div>
                         <div className="text-center md:text-left">
@@ -309,7 +309,7 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
                     <RelatedPosts currentPostId={post.id || 0} tags={post.tags || []} />
 
                     {/* Newsletter CTA - Premium Style */}
-                    <section className="mt-32 text-center bg-brand-charcoal text-white rounded-[3rem] p-16 relative overflow-hidden shadow-xl">
+                    <section className="mt-32 text-center bg-brand-charcoal text-white p-16 relative overflow-hidden shadow-xl">
                         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-gold/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
 
@@ -326,9 +326,9 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
                                 <input
                                     type="email"
                                     placeholder="Entry email..."
-                                    className="flex-1 px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all"
+                                    className="flex-1 px-6 py-4 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all"
                                 />
-                                <Button className="bg-white hover:bg-brand-stone text-brand-charcoal font-bold px-8 py-4 rounded-2xl h-auto text-[11px] uppercase tracking-widest transition-all">
+                                <Button className="bg-white hover:bg-brand-stone text-brand-charcoal font-bold px-8 py-4 h-auto text-[11px] uppercase tracking-widest transition-all rounded-none">
                                     Subscribe
                                 </Button>
                             </div>

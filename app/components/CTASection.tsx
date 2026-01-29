@@ -64,14 +64,14 @@ const CTASection = () => {
                             className="flex flex-col sm:flex-row gap-5"
                         >
                             <Link href="/contact">
-                                <Button className="h-14 px-10 text-lg bg-white text-brand-charcoal hover:bg-brand-stone rounded-full transition-all duration-300 shadow-sm hover:shadow-lg">
+                                <Button className="h-14 px-10 text-lg bg-white text-brand-charcoal hover:bg-brand-stone rounded-none transition-all duration-300 shadow-sm hover:shadow-lg">
                                     Work With Me
                                     <ArrowRight className="ml-2 h-5 w-5" />
                                 </Button>
                             </Link>
 
                             <Link href="/subscribe">
-                                <Button variant="outline" className="h-14 px-10 text-lg bg-transparent border-white/10 text-white hover:bg-white/5 rounded-full backdrop-blur-sm transition-colors">
+                                <Button variant="outline" className="h-14 px-10 text-lg bg-transparent border-white/20 text-white hover:bg-white/5 rounded-none backdrop-blur-sm transition-colors">
                                     Get Updates
                                 </Button>
                             </Link>
