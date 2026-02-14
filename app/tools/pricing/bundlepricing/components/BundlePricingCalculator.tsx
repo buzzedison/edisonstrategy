@@ -53,7 +53,7 @@ const BundlePricingCalculator = () => {
   // Save the bundle configuration to Supabase
   const saveBundle = async () => {
     if (!user) {
-      alert("You must be logged in to save your bundles.");
+      alert("Sign in to save this bundle.");
       return;
     }
 
@@ -118,7 +118,7 @@ const BundlePricingCalculator = () => {
           transition={{ duration: 0.6 }}
           className="text-5xl font-bold mb-12 text-center text-gray-800"
         >
-          Bundle Pricing Calculator
+          Bundle Price Calculator
         </motion.h2>
 
         <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl p-8">
@@ -127,7 +127,7 @@ const BundlePricingCalculator = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold mb-4">Enter Product Details</h3>
+            <h3 className="text-2xl font-bold mb-4">Add products</h3>
 
             {products.map((product, index) => (
               <div key={index} className="mb-4 flex space-x-4">
@@ -135,14 +135,14 @@ const BundlePricingCalculator = () => {
                   type="text"
                   value={product.name}
                   onChange={(e) => updateProduct(index, "name", e.target.value)}
-                  placeholder="Product Name"
+                  placeholder="Product name"
                   className="w-1/2 px-4 py-2 bg-gray-100 border-b-2 border-gray-300 focus:border-blue-500 transition-colors duration-300 outline-none"
                 />
                 <input
                   type="number"
                   value={product.cost}
                   onChange={(e) => updateProduct(index, "cost", parseFloat(e.target.value))}
-                  placeholder="Cost ($)"
+                  placeholder="Price ($)"
                   className="w-1/2 px-4 py-2 bg-gray-100 border-b-2 border-gray-300 focus:border-blue-500 transition-colors duration-300 outline-none"
                 />
                 <button
@@ -158,7 +158,7 @@ const BundlePricingCalculator = () => {
               onClick={addProduct}
               className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
             >
-              Add Product
+              Add product
             </button>
           </motion.div>
 
@@ -168,7 +168,7 @@ const BundlePricingCalculator = () => {
             transition={{ duration: 0.6 }}
             className="mt-8"
           >
-            <h3 className="text-2xl font-bold mb-4">Bundle Discount (%)</h3>
+            <h3 className="text-2xl font-bold mb-4">Bundle discount (%)</h3>
             <input
               type="number"
               value={bundleDiscount}
@@ -183,26 +183,26 @@ const BundlePricingCalculator = () => {
             transition={{ duration: 0.6 }}
             className="mt-8"
           >
-            <h3 className="text-3xl font-bold mb-6">Bundle Price: ${bundlePrice.toFixed(2)}</h3>
+            <h3 className="text-3xl font-bold mb-6">Suggested bundle price: ${bundlePrice.toFixed(2)}</h3>
             <button
               onClick={calculateBundlePrice}
               className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
             >
-              Calculate Bundle Price
+              Calculate
             </button>
 
             <button
               onClick={saveBundle}
               className="ml-4 px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-300"
             >
-              Save Bundle
+              Save bundle
             </button>
 
             <button
               onClick={exportPDF}
               className="ml-4 px-6 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-300"
             >
-              Download Report as PDF
+              Download PDF
             </button>
           </motion.div>
 
@@ -212,14 +212,14 @@ const BundlePricingCalculator = () => {
             transition={{ duration: 0.6 }}
             className="mt-8"
           >
-            <h3 className="text-2xl font-bold mb-4">Saved Bundles</h3>
+            <h3 className="text-2xl font-bold mb-4">Saved bundles</h3>
             {savedBundles.map((bundle, index) => (
               <div key={index} className="mb-2">
                 <button
                   onClick={() => loadBundle(bundle)}
                   className="px-4 py-2 bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-300"
                 >
-                  Load Bundle {index + 1}
+                  Load bundle {index + 1}
                 </button>
               </div>
             ))}

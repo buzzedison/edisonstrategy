@@ -16,23 +16,22 @@ export default function ConsultingPage() {
             <div className="space-y-8">
               <div className="inline-flex items-center px-4 py-2 bg-blue-50 border border-blue-100 rounded-full text-blue-600 font-medium text-sm">
                 <Compass className="h-4 w-4 mr-2" />
-                Strategic Consulting & Business Strategy
+                Business Strategy Support
               </div>
               
               <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="block text-gray-900">Turn Vision Into</span>
-                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">Viable Roadmap</span>
+                <span className="block text-gray-900">Turn Ideas Into</span>
+                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">a Clear Plan</span>
               </h1>
               
               <p className="text-xl text-gray-600 leading-relaxed">
-                Ideal for founders stuck in the idea maze or scaling chaos. Get clarity, direction, 
-                and a strategic roadmap that transforms confusion into profitable action.
+                For founders who need clear priorities and faster execution. You get direction, structure, and practical next steps.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact">
                   <Button className="px-8 py-4 text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center">
-                    Book Strategy Session
+                    Book Free Strategy Call
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
@@ -96,9 +95,9 @@ export default function ConsultingPage() {
       <section id="services" className="py-20 px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Strategic Consulting Services</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">How I Help</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive strategic guidance to transform your business challenges into growth opportunities.
+              Practical support to solve growth problems and improve execution.
             </p>
           </div>
 
@@ -188,9 +187,9 @@ export default function ConsultingPage() {
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Strategic Process</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">How We Work</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A proven methodology that transforms business challenges into growth opportunities.
+              A simple process to move from confusion to clear action.
             </p>
           </div>
 
@@ -226,9 +225,9 @@ export default function ConsultingPage() {
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Client Success Stories</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Client Results</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See how strategic consulting has transformed businesses and accelerated growth.
+              See how founders used this support to grow faster and make better decisions.
             </p>
           </div>
 
@@ -284,11 +283,10 @@ export default function ConsultingPage() {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Transform Your Business Strategy?
+            Ready for a Clear Growth Plan?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Book a free strategy session to discuss your challenges and discover how we can help 
-            you build a winning roadmap for growth.
+            Book a free call to discuss your challenges and map your next steps.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -307,7 +305,7 @@ export default function ConsultingPage() {
           </div>
           
           <div className="mt-8 text-blue-100">
-            <p>✓ No commitment required  ✓ 15-minute discovery call  ✓ Strategic insights guaranteed</p>
+            <p>✓ No commitment required  ✓ 15-minute discovery call  ✓ Clear next steps</p>
           </div>
         </div>
       </section>

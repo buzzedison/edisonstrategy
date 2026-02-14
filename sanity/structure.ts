@@ -6,6 +6,27 @@ export default (S: any) => {
   return S.list()
     .title('Content')
     .items([
+      // Landing page singleton
+      S.listItem()
+        .title('Landing Page')
+        .schemaType('landingPage')
+        .child(
+          S.document()
+            .schemaType('landingPage')
+            .documentId('landingPage')
+            .title('Landing Page')
+        ),
+
+      // Portfolio projects
+      S.listItem()
+        .title('Marketing Pages')
+        .schemaType('marketingPage')
+        .child(
+          S.documentTypeList('marketingPage')
+            .title('Marketing Pages')
+            .defaultOrdering([{ field: '_updatedAt', direction: 'desc' }])
+        ),
+
       // Portfolio projects
       S.listItem()
         .title('Portfolio Projects')
@@ -24,7 +45,8 @@ export default (S: any) => {
 
       // Add remaining document types
       ...S.documentTypeListItems().filter(
-        (listItem: any) => !['portfolio', 'category'].includes(listItem.getId())
+        (listItem: any) =>
+          !['landingPage', 'marketingPage', 'portfolio', 'category'].includes(listItem.getId())
       ),
     ])
 }

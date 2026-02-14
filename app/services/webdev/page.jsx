@@ -1,142 +1,117 @@
-"use client"
-import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { ArrowUpRight, CheckCircle2, Code2, Globe, Smartphone } from 'lucide-react';
+import { getMarketingPageContent } from '@/lib/marketingPages';
 
-const WebDevelopmentPage = () => {
-  const services = [
-    {
-      title: "Custom Website Development",
-      description: "From sleek landing pages to complex e-commerce platforms, I build custom websites that align with your brand identity and deliver exceptional user experiences.",
-      icon: "🖥️"
-    },
-    {
-      title: "Web Application Development",
-      description: "Leveraging the latest technologies like React, Next.js, and Svelte, I create powerful, scalable web applications that streamline your operations and drive business growth.",
-      icon: "⚛️"
-    },
-    {
-      title: "WordPress Development",
-      description: "Whether you need a custom WordPress theme, plugin development, or ongoing maintenance and support, I can help you maximize the power of this versatile platform.",
-      icon: "🔧"
-    },
-    {
-      title: "Database Integration & APIs",
-      description: "Seamlessly integrate databases like MongoDB and leverage APIs to create dynamic, data-driven web experiences.",
-      icon: "🔗"
-    }
-  ];
-
-  const skills = [
-    "React", "Next.js", "Svelte", "HTML", "CSS", "JavaScript",
-    "Node.js", "Express.js", "MongoDB", "WordPress", "API Integration", "Git"
-  ];
+export default async function WebDevelopmentPage() {
+  const content = await getMarketingPageContent('services-webdev');
+  const offers = content.sections.find((section) => section.id === 'offers');
+  const icons = [Globe, Code2, Smartphone];
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20 mt-2 lg:mt-12"
-        >
-          <h1 className="text-6xl font-extrabold text-gray-900 mb-6">
-            Crafted Web Experiences That <br/> <span className="text-blue-600">Drive Results</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            From high-performance websites to custom web applications, Edison delivers cutting-edge solutions tailored to your business goals.
-          </p>
-          <a 
-            href="/contact" 
-            className="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Bring Your Vision to Life
-          </a>
-        </motion.div>
+    <div className="bg-background min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
+      <section className="pt-40 pb-24 px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-stone/25 blur-[110px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-8">{content.hero.eyebrow}</p>
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-brand-charcoal leading-[0.95] tracking-tight mb-8">
+              {content.hero.titleLine1} <br />
+              <span className="text-gray-400 italic">{content.hero.emphasizedTitle}</span>
+            </h1>
+            <p className="text-xl text-brand-muted font-light leading-relaxed max-w-2xl mb-10">
+              {content.hero.description}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href={content.hero.primaryCta.href}
+                className="inline-flex items-center gap-2 bg-brand-charcoal text-white px-8 py-4 text-sm font-bold uppercase tracking-wider hover:bg-black transition-colors"
+              >
+                {content.hero.primaryCta.label}
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              {content.hero.secondaryCta && (
+                <Link
+                  href={content.hero.secondaryCta.href}
+                  className="inline-flex items-center gap-2 border border-brand-charcoal/20 text-brand-charcoal px-8 py-4 text-sm font-bold uppercase tracking-wider hover:border-brand-charcoal transition-colors"
+                >
+                  {content.hero.secondaryCta.label}
+                </Link>
+              )}
+            </div>
+          </div>
 
-        <div className="flex flex-col lg:flex-row items-center justify-between mb-24">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:w-1/2 mb-12 lg:mb-0"
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-blue-200 rounded-full transform -rotate-6"></div>
-              <Image 
-                src="/image/webdev.png" 
-                alt="Web Development Showcase" 
-                width={600} 
-                height={400} 
-                className="rounded-full shadow-2xl relative z-10"
+          <div className="relative">
+            <div className="bg-brand-stone/40 p-4 border border-brand-stone/60">
+              <Image
+                src={content.hero.imageUrl || '/image/webdev.png'}
+                alt={content.hero.imageAlt || 'Web and mobile development'}
+                width={700}
+                height={520}
+                className="w-full h-[420px] object-cover"
+                priority
               />
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:w-1/2 lg:pl-16"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Elevate Your Online Presence</h2>
-            <p className="text-xl text-gray-600 mb-6">
-              Your website is your most valuable asset. It's often the first point of contact for potential customers, partners, and investors.
-            </p>
-            <p className="text-xl text-gray-600">
-              I combine technical expertise with a deep understanding of user experience to create websites and web applications that are not only beautiful but also high-performing, user-friendly, and optimized to achieve your specific business objectives.
-            </p>
-          </motion.div>
-        </div>
-
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Web Development Services Tailored to Your Needs</h2>
-
-        <div className="grid md:grid-cols-2 gap-8 mb-24">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="text-4xl mb-4">{service.icon}</div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">{service.title}</h3>
-              <p className="text-gray-600">{service.description}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="bg-white p-8 rounded-xl shadow-lg mb-24">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6">Technical Skills</h3>
-          <div className="flex flex-wrap gap-4">
-            {skills.map((skill, index) => (
-              <span key={index} className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                {skill}
-              </span>
-            ))}
           </div>
         </div>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-20 px-8 rounded-3xl shadow-2xl"
-        >
-          <h2 className="text-4xl font-bold mb-8">Ready to Transform Your Online Presence?</h2>
-          <p className="text-xl mb-12 max-w-3xl mx-auto">Let's discuss your web development needs and how I can help you achieve your digital goals.</p>
-          <a 
-            href="/contact" 
-            className="inline-block px-12 py-4 bg-white text-blue-600 font-bold text-lg rounded-full hover:bg-gray-100 transition duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Schedule a Free Consultation
-          </a>
-        </motion.div>
-      </div>
+      <section className="py-24 px-6 lg:px-8 bg-brand-stone/20 border-y border-brand-stone/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal tracking-tight mb-4">
+              {offers?.title}
+            </h2>
+            <p className="text-lg text-brand-muted max-w-3xl mx-auto">
+              {offers?.description}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {(offers?.cards || []).map((offer, index) => {
+              const Icon = icons[index] || Globe;
+              return (
+              <article key={offer.title} className="bg-white border border-gray-100 p-8">
+                <div className="w-12 h-12 bg-brand-stone flex items-center justify-center mb-6">
+                  <Icon className="w-6 h-6 text-brand-charcoal" />
+                </div>
+                <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-3">{offer.title}</h3>
+                <p className="text-brand-muted mb-6">{offer.description}</p>
+                <ul className="space-y-3">
+                  {(offer.bullets || []).map((point) => (
+                    <li key={point} className="flex items-start gap-2 text-sm text-brand-muted">
+                      <CheckCircle2 className="w-4 h-4 text-brand-gold mt-0.5" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            )})}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-brand-charcoal p-12 md:p-16 text-white flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+            <div className="max-w-2xl">
+              <h2 className="text-4xl md:text-5xl font-serif font-bold leading-tight mb-4">
+                {content.finalCta.title}
+              </h2>
+              <p className="text-white/75 text-lg">
+                {content.finalCta.description}
+              </p>
+            </div>
+            <Link
+              href={content.finalCta.button.href}
+              className="inline-flex items-center gap-2 bg-white text-brand-charcoal px-10 py-4 text-sm font-bold uppercase tracking-wider hover:bg-brand-stone transition-colors"
+            >
+              {content.finalCta.button.label}
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
-};
-
-export default WebDevelopmentPage;
+}

@@ -1,148 +1,159 @@
-"use client";
-
-import React, { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight, CheckCircle2, Mic, Radio, Users } from 'lucide-react';
+import { getMarketingPageContent } from '@/lib/marketingPages';
 
-const SpeakingPage = () => {
-  const [activeTab, setActiveTab] = useState('topics');
-
-  const topics = [
-    "African Development", "High-Performing Teams", "Future of Business",
-    "Project Management", "Artificial Intelligence", "Digital Transformation",
-    "Startup Development", "Design Thinking", "Venture Capital",
-    "Effective Leadership", "Marketing & Branding", "Pricing Strategies"
-  ];
-
-  const clients = ["UNFPA", "Yalda", "AIESEC", "Enactus", "GhanaTechLab", "USIU"];
-
-  const tabVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.5 } }
-  };
+export default async function SpeakingPage() {
+  const content = await getMarketingPageContent('speaking');
+  const topicsSection = content.sections.find((section) => section.id === 'topics');
+  const podcastsSection = content.sections.find((section) => section.id === 'podcasts');
+  const spacesSection = content.sections.find((section) => section.id === 'spaces');
+  const clientsSection = content.sections.find((section) => section.id === 'clients');
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24"> 
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16 pt-16 md:pt-24" // Increased top padding here
-        >
-          <h1 className="text-5xl font-extrabold text-blue-900 mb-4">
-            Empower Your Audience with <span className="text-blue-600">Edison</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Delivering actionable insights and transformative experiences for over 100,000 individuals across 100+ engagements.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="absolute inset-0 bg-blue-200 rounded-full transform -rotate-6"></div>
-            <Image 
-              src="/image/edisonnew.jpg" 
-              alt="Edison speaking at an event" 
-              width={600} 
-              height={400} 
-              className="rounded-lg shadow-2xl relative z-10"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-8"
-          >
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Edison is a dynamic keynote speaker, facilitator, and trainer known for delivering practical, actionable insights that drive real-world results. His engaging presentations leave audiences equipped and inspired to create positive change.
+    <div className="bg-background min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
+      <section className="pt-40 pb-24 px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-stone/25 blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-8">{content.hero.eyebrow}</p>
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.95] mb-8">
+              {content.hero.titleLine1} <br />
+              <span className="text-gray-400 italic">{content.hero.emphasizedTitle}</span>
+            </h1>
+            <p className="text-xl text-brand-muted font-light leading-relaxed max-w-2xl mb-10">
+              {content.hero.description}
             </p>
-            <div className="flex space-x-4">
-              {['Topics', 'Clients'].map((tab) => (
-                <button 
-                  key={tab}
-                  onClick={() => setActiveTab(tab.toLowerCase())}
-                  className={`px-6 py-2 rounded-full text-sm font-semibold transition-colors duration-300 ${
-                    activeTab === tab.toLowerCase()
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-                  }`}
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href={content.hero.primaryCta.href}
+                className="inline-flex items-center gap-2 bg-brand-charcoal text-white px-8 py-4 text-sm font-bold uppercase tracking-wider hover:bg-black transition-colors"
+              >
+                {content.hero.primaryCta.label}
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              {content.hero.secondaryCta && (
+                <Link
+                  href={content.hero.secondaryCta.href}
+                  className="inline-flex items-center gap-2 border border-brand-charcoal/20 text-brand-charcoal px-8 py-4 text-sm font-bold uppercase tracking-wider hover:border-brand-charcoal transition-colors"
                 >
-                  {tab}
-                </button>
-              ))}
+                  {content.hero.secondaryCta.label}
+                </Link>
+              )}
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md overflow-hidden">
-              <AnimatePresence mode="wait">
-                {activeTab === 'topics' ? (
-                  <motion.div
-                    key="topics"
-                    variants={tabVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                  >
-                    <h2 className="text-2xl font-semibold mb-4 text-blue-800">Areas of Expertise:</h2>
-                    <ul className="grid grid-cols-2 gap-3">
-                      {topics.map((topic, index) => (
-                        <li key={index} className="flex items-center text-gray-700">
-                          <svg className="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                          {topic}
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="clients"
-                    variants={tabVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                  >
-                    <h2 className="text-2xl font-semibold mb-4 text-blue-800">Trusted by:</h2>
-                    <div className="grid grid-cols-2 gap-4">
-                      {clients.map((client, index) => (
-                        <div key={index} className="bg-gray-100 p-4 rounded-lg text-center">
-                          <span className="text-lg font-semibold text-gray-800">{client}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        </div>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 px-8 rounded-2xl shadow-xl"
-        >
-          <h2 className="text-3xl font-bold mb-6">Ready to Inspire Your Audience?</h2>
-          <p className="text-xl mb-8">Available for both virtual and in-person events, Edison brings a dynamic and engaging presence to every stage.</p>
-          <a 
-            href="/contact" 
-            className="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-gray-100 transition duration-300 transform hover:scale-105"
+          <div className="bg-brand-stone/35 border border-brand-stone/60 p-4">
+            <Image
+              src={content.hero.imageUrl || '/image/edisonnew.jpg'}
+              alt={content.hero.imageAlt || 'Edison speaking at an event'}
+              width={700}
+              height={520}
+              className="w-full h-[420px] object-cover"
+              priority
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="topics" className="py-24 px-6 lg:px-8 bg-brand-stone/20 border-y border-brand-stone/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal tracking-tight mb-4">
+              {topicsSection?.title}
+            </h2>
+            <p className="text-lg text-brand-muted max-w-2xl mx-auto">
+              {topicsSection?.description}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {(topicsSection?.items || []).map((topic) => (
+              <div key={topic} className="bg-white border border-gray-100 px-5 py-4">
+                <p className="text-sm font-medium text-brand-charcoal">{topic}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="podcasts" className="py-24 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal tracking-tight mb-4">
+              {podcastsSection?.title}
+            </h2>
+            <p className="text-lg text-brand-muted max-w-3xl mx-auto">
+              {podcastsSection?.description}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {(podcastsSection?.cards || []).map((card, index) => (
+              <article key={card.title} className="bg-white border border-gray-100 p-8">
+                <div className="w-12 h-12 bg-brand-stone flex items-center justify-center mb-6">
+                  {index === 0 ? <Mic className="w-6 h-6 text-brand-charcoal" /> : <Users className="w-6 h-6 text-brand-charcoal" />}
+                </div>
+                <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-3">{card.title}</h3>
+                <p className="text-brand-muted mb-6">{card.description}</p>
+                {card.ctaLabel && card.ctaHref && (
+                  <Link href={card.ctaHref} className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-charcoal hover:text-brand-gold transition-colors">
+                    {card.ctaLabel}
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="spaces" className="py-24 px-6 lg:px-8 bg-brand-stone/20 border-y border-brand-stone/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+            <article className="bg-white border border-gray-100 p-8">
+              <div className="w-12 h-12 bg-brand-stone flex items-center justify-center mb-6">
+                <Radio className="w-6 h-6 text-brand-charcoal" />
+              </div>
+              <h2 className="text-3xl font-serif font-bold text-brand-charcoal mb-3">{spacesSection?.title}</h2>
+              <p className="text-brand-muted mb-6">
+                {spacesSection?.description}
+              </p>
+              {(spacesSection?.items || []).map((item) => (
+                <p key={item} className="flex items-start gap-2 text-brand-muted">
+                  <CheckCircle2 className="w-4 h-4 text-brand-gold mt-1" />
+                  {item}
+                </p>
+              ))}
+            </article>
+
+            <article className="bg-white border border-gray-100 p-8">
+              <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-5">{clientsSection?.title}</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {(clientsSection?.items || []).map((client) => (
+                  <div key={client} className="bg-brand-stone/30 px-4 py-3 text-center text-sm font-medium text-brand-charcoal">
+                    {client}
+                  </div>
+                ))}
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-28 px-6 lg:px-8 bg-brand-charcoal relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl md:text-6xl font-serif italic text-white/90 leading-tight mb-10">
+            {content.finalCta.title}
+          </h2>
+          <Link
+            href={content.finalCta.button.href}
+            className="inline-flex items-center gap-2 bg-white text-brand-charcoal px-10 py-4 text-sm font-bold uppercase tracking-wider hover:bg-brand-stone transition-colors"
           >
-            Book Edison for Your Event
-          </a>
-        </motion.div>
-      </div>
+            {content.finalCta.button.label}
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
     </div>
   );
-};
-
-export default SpeakingPage;
+}

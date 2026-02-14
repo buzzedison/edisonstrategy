@@ -1,11 +1,25 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Calendar, ArrowUpRight, Sparkles, Shield, Clock, MapPin, Globe } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Calendar, ArrowUpRight, Sparkles, Shield, Clock, Globe } from 'lucide-react';
+import { getDefaultMarketingPageContent, getMarketingPageContent, type MarketingPageContent } from '@/lib/marketingPages';
 
 export default function ContactPage() {
+    const [content, setContent] = React.useState<MarketingPageContent>(() => getDefaultMarketingPageContent('contact'));
+    const directSection = content.sections.find((section) => section.id === 'direct');
+    const prepSection = content.sections.find((section) => section.id === 'prep');
+    const bookingSection = content.sections.find((section) => section.id === 'booking');
+
+    React.useEffect(() => {
+        async function fetchContent() {
+            const pageContent = await getMarketingPageContent('contact');
+            setContent(pageContent);
+        }
+        fetchContent();
+    }, []);
+
     return (
         <div className="bg-white min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
             {/* Hero Section */}
@@ -20,7 +34,7 @@ export default function ContactPage() {
                             className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12"
                         >
                             <Sparkles className="h-3.5 w-3.5 mr-2 text-brand-gold" />
-                            Strategic Entry Point
+                            {content.hero.eyebrow}
                         </motion.div>
 
                         <motion.h1
@@ -29,8 +43,8 @@ export default function ContactPage() {
                             transition={{ duration: 1, delay: 0.2 }}
                             className="text-6xl md:text-8xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.9] mb-12"
                         >
-                            Initiate <br />
-                            <span className="text-gray-400 italic">Dialogue.</span>
+                            {content.hero.titleLine1} <br />
+                            <span className="text-gray-400 italic">{content.hero.emphasizedTitle}</span>
                         </motion.h1>
 
                         <motion.p
@@ -39,7 +53,7 @@ export default function ContactPage() {
                             transition={{ duration: 1, delay: 0.4 }}
                             className="text-xl md:text-2xl text-brand-muted font-light leading-relaxed max-w-2xl"
                         >
-                            Every transformation begins with a deliberate conversation. Secure a slot for a strategic consultation or reach out directly for high-impact directives.
+                            {content.hero.description}
                         </motion.p>
                     </div>
                 </div>
@@ -50,7 +64,7 @@ export default function ContactPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="grid lg:grid-cols-12 gap-12 lg:gap-24">
 
-                        {/* Sidebar: Direct Directives */}
+                        {/* Sidebar: Contact Details */}
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -58,30 +72,34 @@ export default function ContactPage() {
                             className="lg:col-span-4 space-y-12"
                         >
                             <div>
-                                <h3 className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-charcoal border-b border-brand-stone pb-4 mb-8">Direct Directives</h3>
+                                <h3 className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-charcoal border-b border-brand-stone pb-4 mb-8">{directSection?.title}</h3>
                                 <div className="space-y-10">
                                     <div className="group cursor-pointer">
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-2 transition-colors group-hover:text-brand-gold">General Inquiries</p>
-                                        <a href="mailto:ask@buzzedison.com" className="text-xl font-serif group-hover:text-brand-charcoal transition-colors">ask@buzzedison.com</a>
+                                        <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-2 transition-colors group-hover:text-brand-gold">
+                                            {directSection?.cards?.[0]?.title || 'Email'}
+                                        </p>
+                                        <a href={`mailto:${directSection?.cards?.[0]?.description || 'ask@buzzedison.com'}`} className="text-xl font-serif group-hover:text-brand-charcoal transition-colors">
+                                            {directSection?.cards?.[0]?.description || 'ask@buzzedison.com'}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="p-10 bg-brand-stone/30 rounded-[3rem] border border-brand-stone/50 hover:bg-white hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all duration-700">
                                 <Shield className="w-8 h-8 text-brand-gold mb-6" />
-                                <h4 className="text-lg font-serif font-bold text-brand-charcoal mb-4">Availability Note</h4>
+                                <h4 className="text-lg font-serif font-bold text-brand-charcoal mb-4">{prepSection?.title}</h4>
                                 <p className="text-sm text-brand-muted font-light leading-relaxed opacity-80">
-                                    I prioritize engagements that align with building scalable systems and sustainable impact. For speaking requests, please include date and domain focus.
+                                    {prepSection?.description}
                                 </p>
                             </div>
 
                             <div className="flex items-center gap-3 pl-2">
                                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Active Consultation Status</span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Currently Booking Calls</span>
                             </div>
                         </motion.div>
 
-                        {/* Main: Calendar Intake */}
+                        {/* Main: Calendar Booking */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -95,13 +113,13 @@ export default function ContactPage() {
                                             <Calendar className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-serif font-bold text-brand-charcoal">Strategic Intake</h3>
-                                            <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Google Appointment Scheduling</p>
+                                            <h3 className="text-2xl font-serif font-bold text-brand-charcoal">{bookingSection?.title}</h3>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">{bookingSection?.description}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-brand-muted">
-                                        <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-brand-gold" /> 45 Minute Deep-Dive</div>
-                                        <div className="flex items-center gap-2"><Globe className="w-4 h-4 text-brand-gold" /> Remote Protocol</div>
+                                        <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-brand-gold" /> {bookingSection?.items?.[0]}</div>
+                                        <div className="flex items-center gap-2"><Globe className="w-4 h-4 text-brand-gold" /> {bookingSection?.items?.[1]}</div>
                                     </div>
                                 </div>
 
@@ -118,7 +136,7 @@ export default function ContactPage() {
                 </div>
             </section>
 
-            {/* Narrative CTA Section */}
+            {/* Bottom CTA */}
             <section className="py-40 bg-brand-charcoal relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
@@ -129,14 +147,14 @@ export default function ContactPage() {
                         transition={{ duration: 1 }}
                     >
                         <h2 className="text-4xl md:text-6xl font-serif italic text-white/90 leading-tight mb-16">
-                            "The most expensive decision is waiting for the perfect moment. Let's create the momentum now."
+                            &ldquo;{content.finalCta.title}&rdquo;
                         </h2>
                         <div className="flex flex-col items-center">
                             <div className="w-16 h-[1px] bg-brand-gold/30 mb-8" />
-                            <div className="flex items-center gap-8 group">
-                                <span className="text-brand-gold font-bold uppercase tracking-[0.4em] text-xs transition-all group-hover:tracking-[0.6em]">Secure Your Evolution</span>
+                            <Link href={content.finalCta.button.href} className="flex items-center gap-8 group">
+                                <span className="text-brand-gold font-bold uppercase tracking-[0.4em] text-xs transition-all group-hover:tracking-[0.6em]">{content.finalCta.button.label}</span>
                                 <ArrowUpRight className="w-6 h-6 text-brand-gold transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                            </div>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>

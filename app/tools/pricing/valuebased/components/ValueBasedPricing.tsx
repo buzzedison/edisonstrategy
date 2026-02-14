@@ -48,7 +48,7 @@ const ValueBasedPricing = () => {
 
   const saveTemplate = async () => {
     if (!user) {
-      alert("You must be logged in to save your templates.");
+      alert("Sign in to save this.");
       return;
     }
 
@@ -141,21 +141,21 @@ const ValueBasedPricing = () => {
             labels: Array.from({ length: 10 }, (_, i) => `Option ${i + 1}`),
             datasets: [
               {
-                label: "Competitor Prices",
+                label: "Competitor prices",
                 data: competitorPrices,
                 borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 2,
                 fill: false,
               },
               {
-                label: "Perceived Value",
+                label: "Perceived value",
                 data: perceivedValues,
                 borderColor: "rgba(75, 192, 192, 1)",
                 borderWidth: 2,
                 fill: false,
               },
               {
-                label: "Recommended Price",
+                label: "Recommended price",
                 data: recommendedPrices,
                 borderColor: "rgba(54, 162, 235, 1)",
                 borderWidth: 2,
@@ -168,7 +168,7 @@ const ValueBasedPricing = () => {
             scales: {
               x: { 
                 display: true, 
-                title: { display: true, text: "Options" } 
+                title: { display: true, text: "Scenario" } 
               },
               y: { 
                 display: true, 
@@ -201,59 +201,59 @@ const ValueBasedPricing = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 pt-24 md:pt-24">
-      <h1 className="text-3xl font-bold mb-6">Value-Based Pricing Calculator</h1>
+      <h1 className="text-3xl font-bold mb-6">Value-Based Price Calculator</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block mb-2">Customer Segment</label>
+          <label className="block mb-2">Customer segment</label>
           <input
             type="text"
             value={customerSegment}
             onChange={(e) => setCustomerSegment(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="e.g. Luxury, Budget, Business, Youth"
+            placeholder="e.g. Premium, Budget, SMB"
           />
           <p className="text-sm text-gray-600 mt-1">
-            Suggestions: High-end consumers, Budget-conscious shoppers, Small businesses, Tech-savvy millennials
+            Example: Premium buyers, budget buyers, or small business teams.
           </p>
         </div>
         <div>
-          <label className="block mb-2">Perceived Value ($)</label>
+          <label className="block mb-2">Perceived value ($)</label>
           <input
             type="number"
             value={perceivedValue}
             onChange={(e) => setPerceivedValue(Number(e.target.value))}
             className="w-full p-2 border rounded"
-            placeholder="Enter perceived value"
+            placeholder="What customers think it's worth"
           />
           <p className="text-sm text-gray-600 mt-1">
-            Suggestions: 100 for budget items, 500 for mid-range, 1000+ for luxury items
+            Enter an estimate of what this offer is worth to your target customer.
           </p>
         </div>
         <div>
-          <label className="block mb-2">Cost Per Unit ($)</label>
+          <label className="block mb-2">Cost per unit ($)</label>
           <input
             type="number"
             value={costPerUnit}
             onChange={(e) => setCostPerUnit(Number(e.target.value))}
             className="w-full p-2 border rounded"
-            placeholder="Enter cost per unit"
+            placeholder="Your cost per unit"
           />
           <p className="text-sm text-gray-600 mt-1">
-            Suggestions: 20 for low-cost items, 100 for mid-range, 300+ for high-end products
+            Include production, fulfillment, and handling costs.
           </p>
         </div>
         <div>
-          <label className="block mb-2">Competitor Price ($)</label>
+          <label className="block mb-2">Competitor price ($)</label>
           <input
             type="number"
             value={competitorPrice}
             onChange={(e) => setCompetitorPrice(Number(e.target.value))}
             className="w-full p-2 border rounded"
-            placeholder="Enter competitor price"
+            placeholder="Closest competitor price"
           />
           <p className="text-sm text-gray-600 mt-1">
-            Suggestions: Check online marketplaces or industry reports for accurate competitor pricing
+            Use a realistic market number from similar offers.
           </p>
         </div>
       </div>
@@ -262,7 +262,7 @@ const ValueBasedPricing = () => {
         onClick={calculatePrice}
         className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
       >
-        Calculate Price
+        Calculate recommended price
       </button>
 
       {recommendedPrice > 0 && (
@@ -273,12 +273,12 @@ const ValueBasedPricing = () => {
           className="mt-8 p-6 bg-gray-100 rounded-lg"
           ref={resultsRef}
         >
-          <h2 className="text-2xl font-bold mb-4">Results</h2>
+          <h2 className="text-2xl font-bold mb-4">Your result</h2>
           <p className="mb-2">
-            <strong>Recommended Price:</strong> ${recommendedPrice.toFixed(2)}
+            <strong>Recommended price:</strong> ${recommendedPrice.toFixed(2)}
           </p>
           <p className="mb-2">
-            <strong>Profit Margin:</strong> {profitMargin.toFixed(2)}%
+            <strong>Profit margin:</strong> {profitMargin.toFixed(2)}%
           </p>
         </motion.div>
       )}
@@ -292,19 +292,19 @@ const ValueBasedPricing = () => {
           onClick={saveTemplate}
           className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-4"
         >
-          Save Template
+          Save
         </button>
         <button
           onClick={exportPDF}
           className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
         >
-          Export as PDF
+          Download PDF
         </button>
       </div>
 
       {savedTemplates.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Saved Templates</h2>
+          <h2 className="text-2xl font-bold mb-4">Saved templates</h2>
           <ul>
             {savedTemplates.map((template, index) => (
               <li key={index} className="mb-2">
@@ -312,7 +312,7 @@ const ValueBasedPricing = () => {
                   onClick={() => loadTemplate(template)}
                   className="text-blue-500 hover:underline"
                 >
-                  {template.customer_segment || `Template ${index + 1}`}
+                  {template.customer_segment || `Saved set ${index + 1}`}
                 </button>
               </li>
             ))}

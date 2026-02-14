@@ -117,7 +117,7 @@ export default function StartupLaunchPage() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Launch Strategy</h3>
               <p className="text-gray-600 mb-6">
-                Strategic roadmap from MVP to market entry. Define your go-to-market strategy, 
+                Clear roadmap from MVP to market entry. Define your go-to-market plan, 
                 timing, and launch sequence for maximum impact.
               </p>
               <ul className="space-y-3 mb-6">

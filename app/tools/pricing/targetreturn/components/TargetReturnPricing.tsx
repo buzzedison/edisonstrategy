@@ -52,7 +52,7 @@ const TargetReturnCalculator = () => {
 
   const saveTemplate = async () => {
     if (!user) {
-      alert("You must be logged in to save your templates.");
+      alert("Sign in to save this.");
       return;
     }
 
@@ -147,7 +147,7 @@ const TargetReturnCalculator = () => {
             labels: salesVolumes,
             datasets: [
               {
-                label: "Total Cost",
+                label: "Total cost",
                 data: totalCosts,
                 borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 2,
@@ -168,7 +168,7 @@ const TargetReturnCalculator = () => {
               x: { 
                 type: 'linear',
                 display: true, 
-                title: { display: true, text: "Sales Volume" } 
+                title: { display: true, text: "Units sold" } 
               },
               y: { 
                 type: 'linear',
@@ -209,7 +209,7 @@ const TargetReturnCalculator = () => {
           transition={{ duration: 0.6 }}
           className="text-5xl font-bold mb-12 text-center text-gray-800"
         >
-          Target Return Pricing Calculator
+          Target Return Price Calculator
         </motion.h2>
 
         <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl p-8">
@@ -218,10 +218,10 @@ const TargetReturnCalculator = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold mb-4">Enter Your Values</h3>
+            <h3 className="text-2xl font-bold mb-4">Enter your numbers</h3>
 
             <div className="mb-4">
-              <label className="block font-bold mb-2">Product Name</label>
+              <label className="block font-bold mb-2">Product name</label>
               <input
                 type="text"
                 value={productName}
@@ -231,7 +231,7 @@ const TargetReturnCalculator = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block font-bold mb-2">Cost per Unit</label>
+              <label className="block font-bold mb-2">Cost per unit</label>
               <input
                 type="number"
                 value={costPerUnit}
@@ -241,7 +241,7 @@ const TargetReturnCalculator = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block font-bold mb-2">Desired ROI (%)</label>
+              <label className="block font-bold mb-2">Target profit (%)</label>
               <input
                 type="number"
                 value={desiredROI}
@@ -251,7 +251,7 @@ const TargetReturnCalculator = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block font-bold mb-2">Expected Sales Volume</label>
+              <label className="block font-bold mb-2">Expected units sold</label>
               <input
                 type="number"
                 value={expectedSalesVolume}
@@ -261,7 +261,7 @@ const TargetReturnCalculator = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block font-bold mb-2">Fixed Costs</label>
+              <label className="block font-bold mb-2">Fixed costs</label>
               <input
                 type="number"
                 value={fixedCosts}
@@ -274,7 +274,7 @@ const TargetReturnCalculator = () => {
               onClick={calculateSellingPrice}
               className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
             >
-              Calculate Selling Price
+              Calculate price
             </button>
           </motion.div>
 
@@ -287,24 +287,24 @@ const TargetReturnCalculator = () => {
               className="mt-8"
             >
               <h3 className="text-3xl font-bold mb-6">
-                Calculated Selling Price: ${sellingPrice.toFixed(2)}
+                Recommended price: ${sellingPrice.toFixed(2)}
               </h3>
               <p className="text-xl mb-4">
-                Break-even Point: {breakEvenPoint.toFixed(2)} units
+                Break-even: {breakEvenPoint.toFixed(2)} units
               </p>
 
               <button
                 onClick={saveTemplate}
                 className="px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-300"
               >
-                Save Template
+                Save
               </button>
 
               <button
                 onClick={exportPDF}
                 className="px-6 py-3 ml-4 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-300"
               >
-                Download as PDF
+                Download PDF
               </button>
             </motion.div>
           )}
@@ -315,21 +315,18 @@ const TargetReturnCalculator = () => {
             transition={{ duration: 0.6 }}
             className="mt-8"
           >
-            <h3 className="text-2xl font-bold mb-4">Saved Templates</h3>
+            <h3 className="text-2xl font-bold mb-4">Saved templates</h3>
             <ul>
               {savedTemplates.map((template) => (
                 <li key={template.id} className="mb-4">
                   <p>
-                    Product: {template.product_name} - Cost per Unit: ${template.cost_per_unit} - 
-                    Desired ROI: {template.desired_roi}% - Sales Volume: {template.expected_sales_volume} - 
-                    Fixed Costs: ${template.fixed_costs} - Selling Price: ${template.selling_price.toFixed(2)} - 
-                    Break-even Point: {template.break_even_point.toFixed(2)} units
+                    {template.product_name || "Untitled"} | Price: ${template.selling_price.toFixed(2)} | Break-even: {template.break_even_point.toFixed(2)} units
                   </p>
                   <button
                     onClick={() => loadTemplate(template)}
                     className="px-4 py-2 bg-blue-500 text-white rounded-full"
                   >
-                    Load Template
+                    Load
                   </button>
                 </li>
               ))}
@@ -343,13 +340,10 @@ const TargetReturnCalculator = () => {
             transition={{ duration: 0.6 }}
             className="mt-8"
           >
-            <h3 className="text-2xl font-bold mb-4">Interactive Graph</h3>
+            <h3 className="text-2xl font-bold mb-4">Sales chart</h3>
             <canvas ref={chartRef} className="w-full h-96"></canvas>
             <p className="mt-4 text-gray-600">
-              This chart displays the relationship between sales volume, total costs, and revenue. 
-              The blue line represents revenue at different sales volumes, while the red line shows total costs. 
-              The point where these lines intersect is the break-even point. 
-              Any sales volume beyond this point results in profit, while below this point represents a loss.
+              This chart shows when revenue passes total cost. Where the lines meet is your break-even point.
             </p>
           </motion.div>
         </div>

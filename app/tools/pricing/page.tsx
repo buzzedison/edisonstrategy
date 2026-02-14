@@ -18,7 +18,7 @@ const PricingToolsLandingPage = () => {
             Pricing Tools
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover powerful pricing strategies with our intuitive calculators. Price your products with confidence and precision.
+            Pick a pricing method and get a clear number fast.
           </p>
         </motion.div>
 
@@ -39,7 +39,7 @@ const PricingToolsLandingPage = () => {
                 {tool.description}
               </p>
               <Link href={tool.link} className="inline-block px-6 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors duration-300 shadow-md hover:shadow-lg">
-                Try Now
+                Open Tool
               </Link>
             </motion.div>
           ))}
@@ -52,27 +52,27 @@ const PricingToolsLandingPage = () => {
 const pricingTools = [
   {
     name: "Cost-Plus Pricing",
-    description: "Calculate prices based on product cost and desired markup.",
+    description: "Set your price from cost and markup.",
     link: "/tools/pricing/costpricing"
   },
   {
     name: "Target Return Pricing",
-    description: "Set prices to achieve a specific ROI based on costs and sales volume.",
+    description: "Set a price based on the profit target you want.",
     link: "/tools/pricing/targetreturn"
   },
   {
     name: "Value-Based Pricing",
-    description: "Determine prices based on perceived product value to customers.",
+    description: "Set a price based on what customers think it is worth.",
     link: "/tools/pricing/valuebased"
   },
   {
     name: "Dynamic Pricing",
-    description: "Adjust prices in real-time based on demand, supply, and other factors.",
+    description: "Adjust price using demand and supply.",
     link: "/tools/pricing/dynamicpricing"
   },
   {
     name: "Bundle Pricing",
-    description: "Calculate optimal prices for product bundles and apply discounts.",
+    description: "Price product bundles with a discount.",
     link: "/tools/pricing/bundlepricing"
   }
 ];

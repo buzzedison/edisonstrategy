@@ -24,9 +24,9 @@ const ProblemItem: React.FC<ProblemItemProps> = ({ children }) => (
 
 const ProblemSection = () => {
   const problems = [
-    "Are you constantly second-guessing your prices, afraid of scaring customers away?",
-    "Do you struggle to justify premium rates, even though you know you deliver exceptional value?",
-    "Are you tired of competing on price and watching your profits dwindle?"
+    "Do you keep second-guessing your prices because you fear losing customers?",
+    "Do you find it hard to explain why your offer is worth more?",
+    "Are you stuck competing on price and making less profit?"
   ];
 
   return (
@@ -43,7 +43,7 @@ const ProblemSection = () => {
             Is This <span className="text-blue-500">You?</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Recognize yourself in these common pricing challenges?
+            If this sounds like you, this book will help.
           </p>
         </motion.div>
 
@@ -61,14 +61,14 @@ const ProblemSection = () => {
           className="text-center"
         >
           <p className="text-2xl font-semibold text-gray-800 mb-8 max-w-2xl mx-auto">
-            It's time to break free from the fear of pricing and step into your full potential.
+            You can price with clarity and confidence.
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1"
           >
-            Discover Your Solution
+            See the Solution
           </motion.button>
         </motion.div>
       </div>

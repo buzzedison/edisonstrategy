@@ -1,41 +1,44 @@
 "use client";
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   {
-    name: 'Frameworks',
+    name: 'Services',
     path: '/services',
     submenu: [
-      { name: 'Services', path: '/services' },
-      { name: 'Portfolio', path: '/portfolio' },
+      { name: 'Growth Strategy', path: '/services' },
+      { name: 'Website Development', path: '/services/webdev' },
+      { name: 'Mobile App Development', path: '/development' },
+      { name: 'Founder Coaching', path: '/coaching' },
     ]
   },
   {
-    name: 'Library',
+    name: 'Insights',
     path: '/insights',
     submenu: [
-      { name: 'All Articles', path: '/insights' },
+      { name: 'Latest Insights', path: '/insights' },
       { name: 'Books', path: '/books' },
-      { name: 'Resources', path: '/tools/pricing' },
+      { name: 'Free Tools', path: '/tools/pricing' },
     ]
   },
-  { name: 'Ventures', path: '/ventures' },
   {
-    name: 'Reflections',
-    path: '/insights?tag=faith',
+    name: 'Speaking',
+    path: '/speaking',
     submenu: [
-      { name: 'Faith', path: '/insights?tag=faith' },
-      { name: 'Wellness', path: '/insights?tag=wellness' },
-      { name: 'Community', path: '/events' },
+      { name: 'Speaking Overview', path: '/speaking' },
+      { name: 'Podcasts', path: '/speaking#podcasts' },
+      { name: 'Spaces/Clubhouse', path: '/speaking#spaces' },
+      { name: 'Speaking Topics', path: '/speaking#topics' },
+      { name: 'Events', path: '/events' },
     ]
   },
+  { name: 'Portfolio', path: '/portfolio' },
   { name: 'About', path: '/about' },
   { name: 'Contact', path: '/contact' },
 ];
@@ -139,7 +142,7 @@ export default function Navbar() {
 
             <Link href="/contact" className="ml-2">
               <button className="px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-brand-charcoal rounded-none hover:bg-black transition-all shadow-sm flex items-center gap-2 group">
-                Get Started
+                Book Free Call
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
@@ -201,7 +204,7 @@ export default function Navbar() {
                 </Link>
                 <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                   <button className="w-full px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-white bg-brand-charcoal rounded-none flex items-center justify-center gap-3">
-                    Start Your Project
+                    Book Free Call
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>

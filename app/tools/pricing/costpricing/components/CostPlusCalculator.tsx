@@ -63,7 +63,7 @@ const CostPlusCalculator = () => {
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
         pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
         pdf.save(`${companyName || "Company"}_Cost_Plus_Pricing.pdf`);
-        setStatusMessage("PDF downloaded successfully!");
+        setStatusMessage("PDF downloaded.");
         setTimeout(() => setStatusMessage(""), 3000);
       });
     }
@@ -71,12 +71,12 @@ const CostPlusCalculator = () => {
 
   const saveCalculation = async () => {
     if (!user) {
-      setStatusMessage("You must be logged in to save your calculations.");
+      setStatusMessage("Sign in to save this calculation.");
       setTimeout(() => setStatusMessage(""), 3000);
       return;
     }
   
-    setStatusMessage("Saving calculation...");
+    setStatusMessage("Saving...");
 
     const { data, error } = await supabase.from("pricing_calculations").insert([
       {
@@ -97,7 +97,7 @@ const CostPlusCalculator = () => {
       console.error("Error saving calculation:", error.message);
       setStatusMessage(`Error: ${error.message}`);
     } else {
-      setStatusMessage("Calculation saved successfully!");
+      setStatusMessage("Saved.");
       fetchSavedCalculations();
     }
   
@@ -115,7 +115,7 @@ const CostPlusCalculator = () => {
 
     if (error) {
       console.error("Error fetching calculations:", error);
-      setStatusMessage("Error fetching saved calculations. Please try again.");
+      setStatusMessage("Could not load saved calculations. Please try again.");
     } else {
       setSavedCalculations(data);
     }
@@ -134,7 +134,7 @@ const CostPlusCalculator = () => {
     setIndirectCostItems(calc.indirect_cost_items);
     setProductionQuantity(calc.production_quantity);
     setMarkupPercentage(calc.markup_percentage);
-    setStatusMessage("Calculation loaded successfully!");
+    setStatusMessage("Calculation loaded.");
     setTimeout(() => setStatusMessage(""), 3000);
   };
 
@@ -144,7 +144,7 @@ const CostPlusCalculator = () => {
 
   const renderCostSection = (type: "direct" | "indirect") => {
     const items = type === "direct" ? directCostItems : indirectCostItems;
-    const title = type === "direct" ? "Direct Costs" : "Indirect Costs (Overhead)";
+    const title = type === "direct" ? "Direct costs" : "Indirect costs (overhead)";
 
     return (
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -179,7 +179,7 @@ const CostPlusCalculator = () => {
           onClick={() => addCostItem(type)}
           className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
         >
-          Add {type === "direct" ? "Direct" : "Indirect"} Cost Item
+          Add {type === "direct" ? "Direct" : "Indirect"} Cost
         </button>
       </motion.div>
     );
@@ -189,7 +189,7 @@ const CostPlusCalculator = () => {
     <section className="bg-gradient-to-br from-gray-50 to-gray-100 py-12">
       <div className="container mx-auto px-4">
         <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl font-bold mb-8 text-center text-gray-800">
-          Cost-Plus Pricing Calculator
+          Cost-Plus Price Calculator
         </motion.h2>
 
         <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl p-6">
@@ -206,7 +206,7 @@ const CostPlusCalculator = () => {
           )}
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold">Company Information</h3>
+            <h3 className="text-2xl font-bold">Company info</h3>
             {!user && (
               <button
                 onClick={signIn}
@@ -222,7 +222,7 @@ const CostPlusCalculator = () => {
               type="text"
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
-              placeholder="Company Name"
+              placeholder="Company name"
               className="w-full px-3 py-2 bg-gray-100 border-b-2 border-gray-300 focus:border-blue-500 transition-colors duration-300 outline-none mb-3"
             />
             <input
@@ -242,11 +242,11 @@ const CostPlusCalculator = () => {
           </div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-6">
-            <h3 className="text-2xl font-bold mb-3">Production Quantity and Markup</h3>
+            <h3 className="text-2xl font-bold mb-3">Units and markup</h3>
             <div className="flex space-x-4">
               <div className="flex-1">
                 <label htmlFor="productionQuantity" className="block font-bold mb-2">
-                  Production Quantity
+                  Number of units
                 </label>
                 <input
                   type="number"
@@ -258,7 +258,7 @@ const CostPlusCalculator = () => {
               </div>
               <div className="flex-1">
                 <label htmlFor="markupPercentage" className="block font-bold mb-2">
-                  Markup Percentage
+                  Markup (%)
                 </label>
                 <input
                   type="number"
@@ -272,22 +272,22 @@ const CostPlusCalculator = () => {
           </motion.div>
 
           <motion.div ref={resultsRef} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 rounded-3xl text-white mb-6">
-            <h3 className="text-2xl font-bold mb-4">Calculation Results for {companyName || "Your Company"}</h3>
+            <h3 className="text-2xl font-bold mb-4">Results for {companyName || "Your company"}</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="font-bold text-lg">Total Cost for {productionQuantity} Units:</p>
+                <p className="font-bold text-lg">Total cost for {productionQuantity} units:</p>
                 <p className="text-xl">{currency}{totalCostForQuantity.toFixed(2)}</p>
               </div>
               <div>
-                <p className="font-bold text-lg">Cost Per Unit:</p>
+                <p className="font-bold text-lg">Cost per unit:</p>
                 <p className="text-xl">{currency}{unitCost.toFixed(2)}</p>
               </div>
               <div>
-                <p className="font-bold text-lg">Markup Amount Per Unit:</p>
+                <p className="font-bold text-lg">Markup per unit:</p>
                 <p className="text-xl">{currency}{markupAmount.toFixed(2)}</p>
               </div>
               <div>
-                <p className="font-bold text-lg">Selling Price Per Unit:</p>
+                <p className="font-bold text-lg">Selling price per unit:</p>
                 <p className="text-2xl font-bold">{currency}{sellingPricePerUnit.toFixed(2)}</p>
               </div>
             </div>
@@ -295,23 +295,23 @@ const CostPlusCalculator = () => {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-4">
             <button onClick={downloadPDF} className="px-4 py-2 bg-green-500 text-white rounded-full">
-              Download Results as PDF
+              Download PDF
             </button>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-6">
             <button onClick={saveCalculation} className="px-4 py-2 bg-green-500 text-white rounded-full">
-              Save Calculation
+              Save
             </button>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mt-8">
-            <h3 className="text-2xl font-bold mb-4">Saved Calculations</h3>
+            <h3 className="text-2xl font-bold mb-4">Saved calculations</h3>
             <ul>
               {savedCalculations.map((calc) => (
                 <li key={calc.id} className="mb-4">
                   <p>{calc.company_name} - {calc.selling_price} {calc.currency}</p>
-                  <button onClick={() => loadCalculation(calc)} className="px-4 py-2 bg-blue-500 text-white rounded-full">Edit</button>
+                  <button onClick={() => loadCalculation(calc)} className="px-4 py-2 bg-blue-500 text-white rounded-full">Load</button>
                 </li>
               ))}
             </ul>

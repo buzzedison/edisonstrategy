@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed:marketing-pages": "node scripts/seed-marketing-pages.mjs",
+    "seed:landing-page": "node scripts/seed-landing-page.mjs",
+    "seed:all": "npm run seed:marketing-pages && npm run seed:landing-page"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

@@ -1,127 +1,120 @@
-"use client";
-
-import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { ArrowUpRight, CheckCircle2, MessageSquare, ShieldCheck, Target, Users } from 'lucide-react';
+import { getMarketingPageContent } from '@/lib/marketingPages';
 
-const LeadershipCoachingPage = () => {
-  const coachingAreas = [
-    {
-      title: "Vision & Strategy",
-      description: "Craft a compelling vision for the future, develop a clear roadmap for success, and inspire your team to achieve shared goals.",
-      icon: "🎯"
-    },
-    {
-      title: "Communication & Influence",
-      description: "Master the art of communication, build trust and rapport, and effectively influence stakeholders at all levels.",
-      icon: "💬"
-    },
-    {
-      title: "Empowerment & Delegation",
-      description: "Develop your team's potential, delegate effectively, and create a culture of ownership and accountability.",
-      icon: "🚀"
-    },
-    {
-      title: "Personal Growth & Resilience",
-      description: "Cultivate self-awareness, manage stress effectively, and build the resilience to navigate challenges with grace and determination.",
-      icon: "🌱"
-    }
-  ];
+export default async function LeadershipCoachingPage() {
+  const content = await getMarketingPageContent('services-leadership');
+  const areasSection = content.sections.find((section) => section.id === 'areas');
+  const outcomesSection = content.sections.find((section) => section.id === 'outcomes');
+  const icons = [Target, MessageSquare, Users, ShieldCheck];
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20 mt-2 lg:mt-12"
-        >
-          <h1 className="text-6xl font-extrabold text-gray-900 mb-6">
-            Lead with Purpose. <br /> <span className="text-blue-600">Create Lasting Impact.</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Partner with Edison for personalized leadership coaching that empowers you to achieve extraordinary results and inspire positive change.
-          </p>
-          <a 
-            href="/contact" 
-            className="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Begin Your Leadership Journey
-          </a>
-        </motion.div>
-
-        <div className="flex flex-col lg:flex-row items-center justify-between mb-24">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:w-1/2 mb-12 lg:mb-0"
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-blue-200 rounded-full transform -rotate-6"></div>
-              <Image 
-                src="/image/edisonlead.png" 
-                alt="Edison interacting with leaders" 
-                width={600} 
-                height={400} 
-                className="rounded-lg shadow-2xl relative z-10"
-              />
+    <div className="bg-background min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
+      <section className="pt-40 pb-24 px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-stone/25 blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-8">{content.hero.eyebrow}</p>
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.95] mb-8">
+              {content.hero.titleLine1} <br />
+              <span className="text-gray-400 italic">{content.hero.emphasizedTitle}</span>
+            </h1>
+            <p className="text-xl text-brand-muted font-light leading-relaxed max-w-2xl mb-10">
+              {content.hero.description}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href={content.hero.primaryCta.href}
+                className="inline-flex items-center gap-2 bg-brand-charcoal text-white px-8 py-4 text-sm font-bold uppercase tracking-wider hover:bg-black transition-colors"
+              >
+                {content.hero.primaryCta.label}
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              {content.hero.secondaryCta && (
+                <Link
+                  href={content.hero.secondaryCta.href}
+                  className="inline-flex items-center gap-2 border border-brand-charcoal/20 text-brand-charcoal px-8 py-4 text-sm font-bold uppercase tracking-wider hover:border-brand-charcoal transition-colors"
+                >
+                  {content.hero.secondaryCta.label}
+                </Link>
+              )}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:w-1/2 lg:pl-16"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Transform Your Leadership, Elevate Your Impact</h2>
-            <p className="text-xl text-gray-600 mb-6">
-              True leadership extends beyond titles and positions—it has the power to transform teams, organizations, and even entire communities.
-            </p>
-            <p className="text-xl text-gray-600">
-              As an experienced founder and leader driven by purpose, I understand the challenges and rewards of leading with impact. I'm here to guide you in developing your unique leadership style, maximizing your strengths, and achieving results that align with your values.
-            </p>
-          </motion.div>
+          <div className="bg-brand-stone/35 border border-brand-stone/60 p-4">
+            <Image
+              src={content.hero.imageUrl || '/image/edisonlead.png'}
+              alt={content.hero.imageAlt || 'Edison coaching leaders'}
+              width={700}
+              height={520}
+              className="w-full h-[420px] object-cover"
+              priority
+            />
+          </div>
         </div>
+      </section>
 
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Guiding You to Lead with Confidence and Purpose</h2>
+      <section className="py-24 px-6 lg:px-8 bg-brand-stone/20 border-y border-brand-stone/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal tracking-tight mb-4">
+              {areasSection?.title}
+            </h2>
+            <p className="text-lg text-brand-muted max-w-3xl mx-auto">
+              {areasSection?.description}
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-24">
-          {coachingAreas.map((area, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="text-4xl mb-4">{area.icon}</div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">{area.title}</h3>
-              <p className="text-gray-600">{area.description}</p>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {(areasSection?.cards || []).map((item, index) => {
+              const Icon = icons[index] || Target;
+              return (
+              <article key={item.title} className="bg-white border border-gray-100 p-8">
+                <div className="w-12 h-12 bg-brand-stone flex items-center justify-center mb-6">
+                  <Icon className="w-6 h-6 text-brand-charcoal" />
+                </div>
+                <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-3">{item.title}</h3>
+                <p className="text-brand-muted">{item.description}</p>
+              </article>
+            )})}
+          </div>
         </div>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-20 px-8 rounded-3xl shadow-2xl"
-        >
-          <h2 className="text-4xl font-bold mb-8">Ready to Embark on a Transformative Leadership Journey?</h2>
-          <p className="text-xl mb-12 max-w-3xl mx-auto">Invest in your growth, empower your team, and create a lasting legacy.</p>
-          <a 
-            href="/contact" 
-            className="inline-block px-12 py-4 bg-white text-blue-600 font-bold text-lg rounded-full hover:bg-gray-100 transition duration-300 transform hover:scale-105 shadow-lg"
+      <section className="py-24 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white border border-brand-stone/60 p-10 md:p-12">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal tracking-tight mb-8">
+              {outcomesSection?.title}
+            </h2>
+            <div className="space-y-4">
+              {(outcomesSection?.items || []).map((item) => (
+                <p key={item} className="flex items-start gap-3 text-lg text-brand-muted">
+                  <CheckCircle2 className="w-5 h-5 text-brand-gold mt-1" />
+                  {item}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-28 px-6 lg:px-8 bg-brand-charcoal relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl md:text-6xl font-serif italic text-white/90 leading-tight mb-10">
+            {content.finalCta.title}
+          </h2>
+          <Link
+            href={content.finalCta.button.href}
+            className="inline-flex items-center gap-2 bg-white text-brand-charcoal px-10 py-4 text-sm font-bold uppercase tracking-wider hover:bg-brand-stone transition-colors"
           >
-            Schedule Your Complimentary Consultation
-          </a>
-        </motion.div>
-      </div>
+            {content.finalCta.button.label}
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
     </div>
   );
-};
-
-export default LeadershipCoachingPage;
+}

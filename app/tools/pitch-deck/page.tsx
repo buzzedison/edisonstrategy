@@ -247,8 +247,8 @@ export default function PitchDeckGenerator() {
                     <div className="w-full max-w-5xl mx-auto animate-fade-in-up">
                         {/* Template Selection */}
                         <div className="text-center mb-8">
-                            <h2 className="text-3xl font-bold text-gray-900 mb-4 font-serif">Choose Your Style</h2>
-                            <p className="text-gray-500">Select a template structure for your pitch deck.</p>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-4 font-serif">Pick a Deck Style</h2>
+                            <p className="text-gray-500">Choose the layout that fits your startup story.</p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -261,7 +261,7 @@ export default function PitchDeckGenerator() {
                                     <LayoutTemplate className="w-5 h-5" />
                                 </div>
                                 <h3 className="text-lg font-bold text-gray-900 mb-1">Sequoia Capital</h3>
-                                <p className="text-sm text-gray-500">The gold standard for Series A.</p>
+                                <p className="text-sm text-gray-500">Clear structure for serious fundraising.</p>
                             </button>
 
                             {/* YC Template */}
@@ -273,7 +273,7 @@ export default function PitchDeckGenerator() {
                                     <Target className="w-5 h-5" />
                                 </div>
                                 <h3 className="text-lg font-bold text-gray-900 mb-1">Y Combinator</h3>
-                                <p className="text-sm text-gray-500">Minimalist for seed stage.</p>
+                                <p className="text-sm text-gray-500">Simple and focused for early-stage founders.</p>
                             </button>
 
                             {/* Modern Template */}
@@ -285,14 +285,14 @@ export default function PitchDeckGenerator() {
                                     <Sparkles className="w-5 h-5" />
                                 </div>
                                 <h3 className="text-lg font-bold text-gray-900 mb-1">Modern Bold</h3>
-                                <p className="text-sm text-gray-500">High impact dark mode.</p>
+                                <p className="text-sm text-gray-500">Bold visuals with a modern look.</p>
                             </button>
                         </div>
 
                         {/* Industry Selection */}
                         <div className="text-center mb-6">
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">What&apos;s your industry?</h3>
-                            <p className="text-gray-500 text-sm">This helps AI generate more relevant content (optional)</p>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">What do you build?</h3>
+                            <p className="text-gray-500 text-sm">Optional, but this helps AI write better first drafts.</p>
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
@@ -319,7 +319,7 @@ export default function PitchDeckGenerator() {
                                 onClick={handleNext}
                                 className="inline-flex items-center px-8 py-3 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-200"
                             >
-                                Continue with {template === 'yc' ? 'Y Combinator' : template.charAt(0).toUpperCase() + template.slice(1)} Template
+                                Continue with {template === 'yc' ? 'Y Combinator' : template.charAt(0).toUpperCase() + template.slice(1)} style
                                 <span className="ml-2">&rarr;</span>
                             </button>
                         </div>
@@ -328,8 +328,8 @@ export default function PitchDeckGenerator() {
             case 1:
                 return (
                     <WizardStep
-                        title="Company Basics"
-                        description="Let's start with the fundamentals of your startup."
+                        title="Company basics"
+                        description="Start with the key details."
                         currentStep={1}
                         totalSteps={totalSteps}
                         onNext={handleNext}
@@ -337,87 +337,87 @@ export default function PitchDeckGenerator() {
                         isNextDisabled={!formData.companyName}
                     >
                         <div className="space-y-6">
-                            {renderEnhanceableInput('companyName', 'Company Name', 'e.g. Acme Corp')}
-                            {renderEnhanceableInput('tagline', 'One-Liner / Tagline', 'e.g. The Uber for Dog Walking')}
+                            {renderEnhanceableInput('companyName', 'Company name', 'e.g. Acme')}
+                            {renderEnhanceableInput('tagline', 'One-line pitch', 'e.g. We help teams ship faster')}
                         </div>
                     </WizardStep>
                 );
             case 2:
                 return (
                     <WizardStep
-                        title="The Problem & Solution"
-                        description="Define the pain point and how you solve it."
+                        title="Problem and solution"
+                        description="What problem do you solve, and how?"
                         currentStep={2}
                         totalSteps={totalSteps}
                         onNext={handleNext}
                         onBack={handleBack}
                     >
                         <div className="space-y-6">
-                            {renderEnhanceableTextarea('problem', 'The Problem', 'What is the specific pain point your customers face?')}
-                            {renderEnhanceableTextarea('solution', 'Your Solution', 'How does your product solve this problem uniquely?')}
+                            {renderEnhanceableTextarea('problem', 'Problem', 'What pain are your customers dealing with?')}
+                            {renderEnhanceableTextarea('solution', 'Solution', 'How does your product solve it better?')}
                         </div>
                     </WizardStep>
                 );
             case 3:
                 return (
                     <WizardStep
-                        title="Market & Competition"
-                        description="Show the opportunity and who else is playing."
+                        title="Market and competition"
+                        description="Who is this for, and who else is in the market?"
                         currentStep={3}
                         totalSteps={totalSteps}
                         onNext={handleNext}
                         onBack={handleBack}
                     >
                         <div className="space-y-6">
-                            {renderEnhanceableTextarea('market', 'Market Opportunity', 'Who is your target audience? How big is the market (TAM/SAM/SOM)?', 3)}
-                            {renderEnhanceableTextarea('competition', 'Competition', 'Who are your competitors and why are you better?', 3)}
+                            {renderEnhanceableTextarea('market', 'Market', 'Who are your customers and how big is the market?', 3)}
+                            {renderEnhanceableTextarea('competition', 'Competition', 'Who else is solving this, and what is your edge?', 3)}
                         </div>
                     </WizardStep>
                 );
             case 4:
                 return (
                     <WizardStep
-                        title="Business Model & Go-to-Market"
-                        description="How you make money and get customers."
+                        title="Revenue and growth plan"
+                        description="How you make money and win customers."
                         currentStep={4}
                         totalSteps={totalSteps}
                         onNext={handleNext}
                         onBack={handleBack}
                     >
                         <div className="space-y-6">
-                            {renderEnhanceableTextarea('businessModel', 'Business Model', 'How do you make money? (e.g. SaaS subscription, marketplace fee)', 3)}
-                            {renderEnhanceableTextarea('goToMarket', 'Go-to-Market Strategy', 'How will you acquire customers? (e.g. SEO, Direct Sales, Partnerships)', 3)}
+                            {renderEnhanceableTextarea('businessModel', 'Business model', 'How do you make money? (e.g. subscription, transaction fee)', 3)}
+                            {renderEnhanceableTextarea('goToMarket', 'Go-to-market', 'How will people discover and buy from you?', 3)}
                         </div>
                     </WizardStep>
                 );
             case 5:
                 return (
                     <WizardStep
-                        title="Traction & Milestones"
-                        description="Prove that people want what you're building."
+                        title="Traction and progress"
+                        description="Show proof that people want this."
                         currentStep={5}
                         totalSteps={totalSteps}
                         onNext={handleNext}
                         onBack={handleBack}
                     >
                         <div className="space-y-6">
-                            {renderEnhanceableTextarea('traction', 'Key Metrics / Traction', 'Revenue, active users, retention rate, partnerships, or key product milestones.', 5)}
+                            {renderEnhanceableTextarea('traction', 'Traction', 'Share revenue, users, retention, partnerships, or key wins.', 5)}
                         </div>
                     </WizardStep>
                 );
             case 6:
                 return (
                     <WizardStep
-                        title="Team & Ask"
-                        description="Who is building this and what do you need?"
+                        title="Team and fundraise ask"
+                        description="Who is building this, and what are you raising?"
                         currentStep={6}
                         totalSteps={totalSteps}
                         onNext={handleNext}
                         onBack={handleBack}
                     >
                         <div className="space-y-6">
-                            {renderEnhanceableTextarea('team', 'The Team', 'Key founders and their relevant experience.', 3)}
-                            {renderEnhanceableTextarea('ask', 'The Ask', 'How much are you raising and what will you use it for?', 3)}
+                            {renderEnhanceableTextarea('team', 'Team', 'Who are the founders and why are they right for this?', 3)}
+                            {renderEnhanceableTextarea('ask', 'Ask', 'How much are you raising, and where will it go?', 3)}
                         </div>
                     </WizardStep>
                 );
@@ -434,13 +434,13 @@ export default function PitchDeckGenerator() {
                     <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
                         <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 mb-6 border border-blue-200">
                             <Sparkles className="w-4 h-4 mr-2" />
-                            <span className="text-xs font-bold tracking-wide uppercase">AI-Powered Generator</span>
+                            <span className="text-xs font-bold tracking-wide uppercase">AI Deck Helper</span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">
-                            Build Your <span className="text-blue-600">Perfect Pitch</span>
+                            Build Your <span className="text-blue-600">Pitch Deck</span>
                         </h1>
                         <p className="text-xl text-gray-600 leading-relaxed mb-8">
-                            Answer a few questions and we&apos;ll generate a structured, investor-ready pitch deck outline for you.
+                            Answer a few questions to create a clear pitch deck outline you can present.
                         </p>
 
                         {/* Action Bar */}
@@ -454,12 +454,12 @@ export default function PitchDeckGenerator() {
                                 {isGenerating ? (
                                     <>
                                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Generating...
+                                        Writing...
                                     </>
                                 ) : (
                                     <>
                                         <Sparkles className="w-4 h-4 mr-2" />
-                                        Auto-Generate with AI
+                                        Fill Empty Sections with AI
                                     </>
                                 )}
                             </button>
@@ -478,7 +478,7 @@ export default function PitchDeckGenerator() {
                                     onClick={handleClearDraft}
                                     className="text-xs text-gray-400 hover:text-red-500 transition-colors"
                                 >
-                                    Clear Draft
+                                    Reset Form
                                 </button>
                             )}
                         </div>

@@ -38,9 +38,9 @@ const HeroPricing = () => {
             transition={{ duration: 0.8 }}
             className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight mt-24"
           >
-        Claim Your{" "}
+        Build Your{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-blue-400">
-              Pricing Power
+              Pricing Confidence
             </span>
           </motion.h1>
           <motion.h2
@@ -49,7 +49,7 @@ const HeroPricing = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-2xl md:text-3xl font-bold mb-8 text-blue-200"
           >
-            Charge What You're Worth & Attract Premium Clients
+            Price Clearly and Grow Profitably
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -57,7 +57,7 @@ const HeroPricing = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-blue-100"
           >
-            Tired of undercharging and undervaluing your expertise? This book is your secret weapon to unlock hidden profits and build a thriving business that pays you what you deserve.
+            If pricing feels confusing, this book gives you a practical system to set better prices and explain your value.
           </motion.p>
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -65,7 +65,7 @@ const HeroPricing = () => {
             onClick={openModal}
             className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 px-10 rounded-full text-xl font-semibold shadow-lg hover:from-pink-600 hover:to-purple-700 transition duration-300 transform hover:-translate-y-1"
           >
-            Order Your Copy Now!
+            Get the Book
           </motion.button>
         </div>
       </div>

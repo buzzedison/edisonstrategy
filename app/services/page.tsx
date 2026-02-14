@@ -6,6 +6,7 @@ import { ArrowRight, TrendingUp, Brain, Target, Shield, Zap, Globe, Cpu, Users, 
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import SignatureOffers from './components/SignatureOffers';
+import { getDefaultMarketingPageContent, getMarketingPageContent, type MarketingPageContent } from '@/lib/marketingPages';
 
 const StrategicPillar = ({
   title,
@@ -39,7 +40,7 @@ const StrategicPillar = ({
         </div>
 
         <div className="space-y-4 mb-14 mt-auto">
-          <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-charcoal/30 mb-6">Core Focus Areas</h4>
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-charcoal/30 mb-6">What You Get</h4>
           <div className="grid grid-cols-1 gap-4">
             {services.map((service, i) => (
               <div key={i} className="flex items-center gap-4 text-brand-muted font-light group/item">
@@ -51,7 +52,7 @@ const StrategicPillar = ({
         </div>
 
         <Link href="/contact" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-brand-charcoal hover:text-brand-gold transition-colors">
-          Inquire Strategy <ArrowUpRight className="w-3.5 h-3.5" />
+          Book a Free Call <ArrowUpRight className="w-3.5 h-3.5" />
         </Link>
       </div>
     </motion.div>
@@ -59,41 +60,25 @@ const StrategicPillar = ({
 };
 
 export default function ServicesPage() {
-  const pillars = [
-    {
-      title: "Systems That Scale",
-      subtitle: "Navigating the intersection of ambition and execution. I build the foundational infrastructure needed to scale without chaos.",
-      icon: Target,
-      services: [
-        "Business Model Design",
-        "Market Positioning Strategy",
-        "Strategic Roadmapping",
-        "Operational Infrastructure"
-      ]
-    },
-    {
-      title: "Smart Workflows",
-      subtitle: "Engineering the human-centric systems that power sustainable revenue and market dominance.",
-      icon: TrendingUp,
-      services: [
-        "Revenue Systems Design",
-        "Marketing Funnel Architecture",
-        "Automation Tech Stack",
-        "Customer Journey Design"
-      ]
-    },
-    {
-      title: "Long-Term Growth",
-      subtitle: "Transforming strategic vision into robust, enduring systems. Built for speed, stability, and high impact.",
-      icon: Cpu,
-      services: [
-        "Growth Loop Engineering",
-        "Performance Dashboards",
-        "Tech Architecture Advisory",
-        "Scale Readiness Audits"
-      ]
+  const [content, setContent] = React.useState<MarketingPageContent>(() => getDefaultMarketingPageContent('services'));
+
+  React.useEffect(() => {
+    async function fetchPageContent() {
+      const pageContent = await getMarketingPageContent('services');
+      setContent(pageContent);
     }
-  ];
+    fetchPageContent();
+  }, []);
+
+  const pillarsSection = content.sections.find((section) => section.id === 'pillars');
+  const quoteSection = content.sections.find((section) => section.id === 'quote');
+  const pillarIcons = [Target, TrendingUp, Cpu];
+  const pillars = (pillarsSection?.cards || []).map((card, index) => ({
+    title: card.title,
+    subtitle: card.description || '',
+    services: card.bullets || [],
+    icon: pillarIcons[index] || Target,
+  }));
 
   return (
     <div className="bg-background min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
@@ -109,7 +94,7 @@ export default function ServicesPage() {
               className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12"
             >
               <Shield className="h-3.5 w-3.5 mr-2" />
-              Strategic Solutions
+              {content.hero.eyebrow}
             </motion.div>
 
             <motion.h1
@@ -118,8 +103,8 @@ export default function ServicesPage() {
               transition={{ duration: 1, delay: 0.2 }}
               className="text-6xl md:text-8xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.9] mb-12"
             >
-              Engineering <br />
-              <span className="text-gray-400">Exceptional Results.</span>
+              {content.hero.titleLine1} <br />
+              <span className="text-gray-400">{content.hero.emphasizedTitle}</span>
             </motion.h1>
 
             <motion.p
@@ -128,7 +113,7 @@ export default function ServicesPage() {
               transition={{ duration: 1, delay: 0.4 }}
               className="text-2xl md:text-3xl text-brand-muted font-light leading-relaxed max-w-3xl mb-16"
             >
-              I don't just provide services; I build the <span className="text-brand-charcoal font-medium">strategic infrastructure</span> required for long-term growth and market leadership.
+              {content.hero.description}
             </motion.p>
 
             <motion.div
@@ -137,9 +122,9 @@ export default function ServicesPage() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-wrap gap-6"
             >
-              <Link href="/contact">
+              <Link href={content.hero.primaryCta.href}>
                 <Button className="bg-brand-charcoal hover:bg-black text-white px-12 py-8 rounded-none text-lg transition-all shadow-sm hover:shadow-2xl">
-                  Build Your Strategy
+                  {content.hero.primaryCta.label}
                   <ArrowRight className="ml-3 h-5 w-5" />
                 </Button>
               </Link>
@@ -153,7 +138,9 @@ export default function ServicesPage() {
         <div className="absolute inset-0 bg-white/40 backdrop-blur-3xl" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-6xl font-serif font-medium text-brand-charcoal mb-8 tracking-tight">Pillars of <span className="text-gray-400 italic">Personal Excellence.</span></h2>
+            <h2 className="text-4xl md:text-6xl font-serif font-medium text-brand-charcoal mb-8 tracking-tight">
+              {(pillarsSection?.title || 'How I Help You Grow.').split('. ')[0]} <span className="text-gray-400 italic">{(pillarsSection?.title || '').split('. ')[1] || ''}</span>
+            </h2>
             <div className="w-24 h-1 bg-brand-gold mx-auto" />
           </div>
 
@@ -179,12 +166,12 @@ export default function ServicesPage() {
             transition={{ duration: 1 }}
           >
             <h2 className="text-4xl md:text-6xl font-serif italic text-white/90 leading-tight mb-16 px-4">
-              "Simple systems grow faster. I help you turn complicated ideas into a clear plan that works every day."
+              "{quoteSection?.title}"
             </h2>
             <div className="flex flex-col items-center">
               <div className="w-12 h-1 bg-brand-gold mb-6" />
               <p className="text-brand-gold font-bold uppercase tracking-[0.4em] text-xs">Edison Ade</p>
-              <p className="text-white/30 text-xs mt-2 font-medium">STRATEGIST & ADVISOR</p>
+              <p className="text-white/30 text-xs mt-2 font-medium">FOUNDER STRATEGY PARTNER</p>
             </div>
           </motion.div>
         </div>
@@ -197,23 +184,25 @@ export default function ServicesPage() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-brand-gold/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
             <div className="relative z-10 max-w-2xl">
-              <h2 className="text-5xl md:text-6xl font-serif font-bold text-brand-charcoal mb-8 tracking-tight">Ready to build your <br /> <span className="text-gray-400">strategic engine?</span></h2>
+              <h2 className="text-5xl md:text-6xl font-serif font-bold text-brand-charcoal mb-8 tracking-tight">
+                {content.finalCta.title}
+              </h2>
               <p className="text-xl text-brand-muted font-light leading-relaxed mb-12">
-                Join a selective group of founders and leaders who are scaling with precision. Let's discuss your roadmap.
+                {content.finalCta.description}
               </p>
               <div className="flex items-center gap-4">
                 <CheckCircle2 className="w-6 h-6 text-brand-gold" />
-                <span className="text-sm font-bold uppercase tracking-widest text-brand-charcoal">Limited Advisory Slots Available</span>
+                <span className="text-sm font-bold uppercase tracking-widest text-brand-charcoal">Limited Call Slots Each Week</span>
               </div>
             </div>
 
             <div className="relative z-10 flex flex-col items-center">
-              <Link href="/contact">
+              <Link href={content.finalCta.button.href}>
                 <Button className="bg-brand-charcoal hover:bg-black text-white px-16 py-10 rounded-none text-xl transition-all shadow-2xl hover:scale-105 active:scale-95">
-                  Secure Your Consult
+                  {content.finalCta.button.label}
                 </Button>
               </Link>
-              <p className="mt-8 text-brand-muted font-light text-sm italic">"Precision over volume."</p>
+              <p className="mt-8 text-brand-muted font-light text-sm italic">"Simple systems. Better growth."</p>
             </div>
           </div>
         </div>

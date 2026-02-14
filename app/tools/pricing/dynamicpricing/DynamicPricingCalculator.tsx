@@ -68,7 +68,7 @@ const DynamicPricingCalculator = () => {
             labels: Array.from({ length: priceHistory.length }, (_, i) => i + 1),
             datasets: [
               {
-                label: "Dynamic Price Over Time",
+                label: "Price over time",
                 data: priceHistory,
                 borderColor: "rgba(75, 192, 192, 1)",
                 borderWidth: 2,
@@ -79,7 +79,7 @@ const DynamicPricingCalculator = () => {
           options: {
             responsive: true,
             scales: {
-              x: { title: { display: true, text: "Simulation Step" } },
+              x: { title: { display: true, text: "Step" } },
               y: { title: { display: true, text: "Price ($)" } },
             },
           },
@@ -101,12 +101,12 @@ const DynamicPricingCalculator = () => {
 
   const saveCalculation = async () => {
     if (!user) {
-      setStatusMessage("Please log in to save calculations.");
+      setStatusMessage("Sign in to save calculations.");
       return;
     }
 
     if (!calculationName.trim()) {
-      setStatusMessage("Please enter a name for this calculation.");
+      setStatusMessage("Add a name for this calculation.");
       return;
     }
 
@@ -127,7 +127,7 @@ const DynamicPricingCalculator = () => {
     if (error) {
       setStatusMessage(`Error saving calculation: ${error.message}`);
     } else {
-      setStatusMessage("Calculation saved successfully!");
+      setStatusMessage("Calculation saved.");
       fetchSavedCalculations(user.id);
     }
   };
@@ -164,7 +164,7 @@ const DynamicPricingCalculator = () => {
     if (error) {
       setStatusMessage(`Error deleting calculation: ${error.message}`);
     } else {
-      setStatusMessage("Calculation deleted successfully!");
+      setStatusMessage("Calculation deleted.");
       fetchSavedCalculations(user!.id);
     }
   };
@@ -178,15 +178,15 @@ const DynamicPricingCalculator = () => {
           transition={{ duration: 0.6 }}
           className="text-5xl font-bold mb-12 text-center text-gray-800"
         >
-          Dynamic Pricing Calculator
+          Dynamic Price Calculator
         </motion.h2>
 
         <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl p-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h3 className="text-2xl font-bold mb-4">Enter Pricing Factors</h3>
+            <h3 className="text-2xl font-bold mb-4">Enter your numbers</h3>
 
             <div className="mb-4">
-              <label className="block font-bold mb-2">Base Price ($)</label>
+              <label className="block font-bold mb-2">Base price ($)</label>
               <input
                 type="number"
                 value={basePrice}
@@ -196,7 +196,7 @@ const DynamicPricingCalculator = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block font-bold mb-2">Demand Level</label>
+              <label className="block font-bold mb-2">Demand level</label>
               <select
                 value={demandLevel}
                 onChange={(e) => setDemandLevel(e.target.value)}
@@ -209,7 +209,7 @@ const DynamicPricingCalculator = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block font-bold mb-2">Supply Level</label>
+              <label className="block font-bold mb-2">Supply level</label>
               <select
                 value={supplyLevel}
                 onChange={(e) => setSupplyLevel(e.target.value)}
@@ -225,17 +225,17 @@ const DynamicPricingCalculator = () => {
               onClick={calculateDynamicPrice}
               className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
             >
-              Calculate Dynamic Price
+              Update price
             </button>
           </motion.div>
 
           {dynamicPrice > 0 && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mt-8">
-              <h3 className="text-3xl font-bold mb-6">Dynamic Price: ${dynamicPrice.toFixed(2)}</h3>
+              <h3 className="text-3xl font-bold mb-6">Suggested price: ${dynamicPrice.toFixed(2)}</h3>
 
               <div className="flex space-x-4">
                 <button onClick={exportPDF} className="px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-300">
-                  Download Report as PDF
+                  Download PDF
                 </button>
 
                 {user && (
@@ -244,11 +244,11 @@ const DynamicPricingCalculator = () => {
                       type="text"
                       value={calculationName}
                       onChange={(e) => setCalculationName(e.target.value)}
-                      placeholder="Enter calculation name"
+                      placeholder="Name this scenario"
                       className="px-4 py-2 border rounded"
                     />
                     <button onClick={saveCalculation} className="px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors duration-300">
-                      Save Calculation
+                      Save scenario
                     </button>
                   </>
                 )}
@@ -257,7 +257,7 @@ const DynamicPricingCalculator = () => {
           )}
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mt-8">
-            <h3 className="text-2xl font-bold mb-4">Dynamic Price Over Time</h3>
+            <h3 className="text-2xl font-bold mb-4">Price trend</h3>
             <canvas ref={chartRef} className="w-full h-96"></canvas>
           </motion.div>
 
@@ -269,7 +269,7 @@ const DynamicPricingCalculator = () => {
 
           {user && savedCalculations.length > 0 && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mt-8">
-              <h3 className="text-2xl font-bold mb-4">Saved Calculations</h3>
+              <h3 className="text-2xl font-bold mb-4">Saved scenarios</h3>
               <ul className="space-y-2">
                 {savedCalculations.map((calc) => (
                   <li key={calc.id} className="flex items-center justify-between bg-gray-100 p-2 rounded">

@@ -81,7 +81,7 @@ export default function EventsPage() {
               className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 rounded-full text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12"
             >
               <Sparkles className="h-3.5 w-3.5 mr-2 text-brand-gold" />
-              Strategic Assemblies
+              Upcoming Events
             </motion.div>
 
             <motion.h1
@@ -91,7 +91,7 @@ export default function EventsPage() {
               className="text-6xl md:text-8xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.9] mb-12"
             >
               Upcoming <br />
-              <span className="text-gray-400 italic font-normal">Sessions.</span>
+              <span className="text-gray-400 italic font-normal">Events.</span>
             </motion.h1>
 
             <motion.p
@@ -100,7 +100,7 @@ export default function EventsPage() {
               transition={{ duration: 1, delay: 0.4 }}
               className="text-xl md:text-2xl text-brand-muted font-light leading-relaxed max-w-2xl"
             >
-              Curated dialogues and strategic intensives designed to challenge your mental frameworks and amplify your leadership capacity.
+              Join live sessions where I share practical ideas on growth, systems, and execution.
             </motion.p>
           </div>
         </div>
@@ -134,13 +134,13 @@ export default function EventsPage() {
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-40 gap-4">
               <Loader2 className="w-10 h-10 text-brand-charcoal/20 animate-spin" />
-              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-muted text-center">Synchronizing Schedules...</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-muted text-center">Loading events...</p>
             </div>
           ) : filteredEvents.length === 0 ? (
             <div className="text-center py-40 bg-brand-stone/10 rounded-[3rem] border border-dashed border-brand-stone">
-              <p className="text-2xl font-serif italic text-brand-muted">No sessions currently scheduled in this domain.</p>
+              <p className="text-2xl font-serif italic text-brand-muted">No events in this category right now.</p>
               <Link href="/contact" className="mt-8 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-brand-charcoal hover:text-brand-gold transition-colors">
-                Request a Private Briefing <ArrowUpRight className="w-4 h-4" />
+                Request a Private Session <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           ) : (
@@ -162,7 +162,7 @@ export default function EventsPage() {
                         </div>
                         {event.featured && (
                           <span className="text-[10px] font-bold uppercase tracking-widest text-brand-gold bg-brand-stone/50 px-3 py-1 rounded-full">
-                            Key Event
+                            Featured
                           </span>
                         )}
                       </div>
@@ -200,7 +200,7 @@ export default function EventsPage() {
                           target="_blank"
                           className="mt-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-brand-charcoal group-hover:text-brand-gold transition-all"
                         >
-                          Secure Your Seat <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          Register <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </Link>
                       )}
                     </div>
@@ -217,11 +217,11 @@ export default function EventsPage() {
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-serif italic text-white/90 leading-tight mb-16">
-            "True transformation happens in the dialogue between the status quo and the future. Let's meet at the intersection."
+            "Great ideas grow faster when the right people are in the room."
           </h2>
           <div className="flex flex-col items-center">
             <div className="w-16 h-[1px] bg-brand-gold/30 mb-8" />
-            <p className="text-brand-gold font-bold uppercase tracking-[0.4em] text-xs">Architecting Conversations</p>
+            <p className="text-brand-gold font-bold uppercase tracking-[0.4em] text-xs">See You There</p>
           </div>
         </div>
       </section>

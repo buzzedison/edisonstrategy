@@ -37,18 +37,18 @@ const CTASection: React.FC = () => {
   const features = [
     {
       icon: FaBook,
-      title: '"Winning Pricing Strategy" - Your Blueprint for Profitable Pricing',
-      description: 'Unlock the secrets to pricing your services for maximum profitability and client satisfaction.'
+      title: '"Winning Pricing Strategy" - A Practical Pricing Guide',
+      description: 'Learn how to set better prices and improve profitability.'
     },
     {
       icon: FaGift,
       title: 'Bonus #1: Pricing Strategy Template Library',
-      description: 'Get instant access to our comprehensive library of proven pricing templates and frameworks.'
+      description: 'Get ready-to-use templates you can apply immediately.'
     },
     {
       icon: FaGift,
       title: 'Bonus #2: Exclusive Q&A Webinar with the Author',
-      description: 'Join a live session to get your specific pricing questions answered by the expert.'
+      description: 'Join a live session and get your pricing questions answered.'
     }
   ];
 
@@ -70,7 +70,7 @@ const CTASection: React.FC = () => {
             Today!
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Transform your pricing approach and supercharge your business growth
+            Improve your pricing approach and grow with more confidence.
           </p>
         </motion.div>
 
@@ -91,7 +91,7 @@ const CTASection: React.FC = () => {
             <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-2">100% Money-Back Guarantee</h3>
               <p className="text-gray-600">
-                If you're not completely satisfied with the strategies and insights in this book, simply contact us for a full refund. No questions asked.
+                If this book is not useful to you, contact us for a full refund.
               </p>
             </div>
           </motion.div>
@@ -110,7 +110,7 @@ const CTASection: React.FC = () => {
             onClick={openModal}
             className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
-            Order Your Copy Now!
+            Get the Book
           </motion.button>
         </motion.div>
       </div>

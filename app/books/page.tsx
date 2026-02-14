@@ -266,19 +266,19 @@ const BooksPage = () => {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-stone rounded-full text-[10px] font-bold uppercase tracking-widest text-brand-charcoal mb-8"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
-              Strategic Library
+            className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-stone rounded-full text-[10px] font-bold uppercase tracking-widest text-brand-charcoal mb-8"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
+              Books
             </motion.div>
 
             <h1 className="text-5xl md:text-7xl font-serif font-medium text-brand-charcoal mb-8 leading-tight tracking-tight">
-              Books That Change <br />
-              <span className="text-brand-muted italic">Everything.</span>
+              Books to Help You <br />
+              <span className="text-brand-muted italic">Think and Build Better.</span>
             </h1>
 
             <p className="text-xl text-brand-muted max-w-2xl mx-auto font-light leading-relaxed mb-12">
-              From business architecture to high-performance systems — unlock the frameworks that separate winners from dreamers.
+              Practical books on writing, pricing, decision-making, and growth.
             </p>
 
             <div className="flex items-center justify-center gap-8 text-[10px] font-bold uppercase tracking-widest text-brand-muted">
@@ -344,15 +344,15 @@ const BooksPage = () => {
           <section className="mt-32 bg-brand-charcoal text-white rounded-[3rem] p-16 text-center relative overflow-hidden shadow-xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-brand-gold/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
             <div className="relative z-10 max-w-2xl mx-auto">
-              <h3 className="text-3xl md:text-4xl font-serif font-medium mb-6">Ready to Transform?</h3>
+              <h3 className="text-3xl md:text-4xl font-serif font-medium mb-6">Ready to Start Reading?</h3>
               <p className="text-gray-400 mb-10 font-light text-lg">
-                Don't let another year pass by. Start building the systems that will change everything.
+                Pick one book and apply what you learn this week.
               </p>
               <button
                 onClick={handleExploreClick}
                 className="bg-white text-brand-charcoal px-10 py-5 rounded-2xl text-[11px] font-bold uppercase tracking-widest hover:bg-brand-stone transition-all"
               >
-                Browse the Full Library
+                Browse All Books
               </button>
             </div>
           </section>

@@ -71,7 +71,7 @@ export default function VenturesPage() {
         {
             title: "Crowdpen",
             role: "Co-Founder",
-            description: "A digital ecosystem empowering founders and creators to build, scale, and monetize their visions through high-leverage tools.",
+            description: "A platform that helps founders and creators build, grow, and earn from their ideas.",
             link: "https://crowdpen.co",
             icon: Zap,
             tags: ["Scale", "Monetization", "Startup"]
@@ -79,7 +79,7 @@ export default function VenturesPage() {
         {
             title: "Bloop Global",
             role: "Lead Strategist",
-            description: "A world-class digital agency crafting premium web & mobile products, engineered for performance and strategic impact.",
+            description: "A digital agency building websites and mobile apps that are fast, useful, and built to grow.",
             link: "https://bloopglobal.com",
             icon: Globe,
             tags: ["Engineering", "Digital", "Advisory"]
@@ -95,7 +95,7 @@ export default function VenturesPage() {
         {
             title: "African Recovery",
             role: "Executive Director",
-            description: "Driving continental transformation through strategic mentorship, leadership development, and sustainable impact initiatives.",
+            description: "Supporting leaders through mentorship, leadership development, and practical growth programs.",
             link: "https://africanrecovery.org",
             icon: Shield,
             tags: ["Impact", "Mentorship", "Africa"]
@@ -103,7 +103,7 @@ export default function VenturesPage() {
         {
             title: "The Enterprise Village",
             role: "Managing Partner",
-            description: "A flagship startup hub providing the physical and strategic infrastructure for the next generation of African entrepreneurs.",
+            description: "A startup hub helping founders with space, support, and structure to launch and grow.",
             link: "https://enterprisevillage.com", // Assuming domain based on context
             icon: Target,
             tags: ["Infrastructure", "Ecosystem", "Ghana"]
@@ -111,7 +111,7 @@ export default function VenturesPage() {
         {
             title: "Souled Out",
             role: "Convener",
-            description: "A spiritual directive focused on purpose-driven living, spiritual growth, and high-impact ministry for leaders.",
+            description: "A community focused on purpose, growth, and leadership.",
             link: "#", // Direct contact or specific subpage later
             icon: Heart,
             tags: ["Ministry", "Purpose", "Growth"]
@@ -147,7 +147,7 @@ export default function VenturesPage() {
                             className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12"
                         >
                             <Sparkles className="h-3.5 w-3.5 mr-2 text-brand-gold" />
-                            Strategic Portfolio
+                            Projects and Ventures
                         </motion.div>
 
                         <motion.h1
@@ -156,8 +156,8 @@ export default function VenturesPage() {
                             transition={{ duration: 1, delay: 0.2 }}
                             className="text-5xl md:text-7xl font-serif font-medium text-brand-charcoal tracking-tight leading-[1.1] mb-12"
                         >
-                            Ventures & <br />
-                            <span className="text-gray-400 italic">Global Directives.</span>
+                            Ventures I Build <br />
+                            <span className="text-gray-400 italic">and Support.</span>
                         </motion.h1>
 
                         <motion.p
@@ -166,7 +166,7 @@ export default function VenturesPage() {
                             transition={{ duration: 1, delay: 0.4 }}
                             className="text-2xl md:text-3xl text-brand-muted font-light leading-relaxed max-w-3xl mb-16"
                         >
-                            I don't just build companies; I engineer <span className="text-brand-charcoal font-medium">strategic ecosystems</span> that solve complex problems across diverse sectors.
+                            I build and support ventures that solve real problems through strategy, technology, and execution.
                         </motion.p>
                     </div>
                 </div>
@@ -193,11 +193,11 @@ export default function VenturesPage() {
                         transition={{ duration: 1 }}
                     >
                         <h2 className="text-4xl md:text-6xl font-serif italic text-brand-charcoal/80 leading-tight mb-16">
-                            "Leadership is not just about owning the room; it's about building the infrastructure that allows everyone in the room to scale."
+                            "Real leadership is helping people do better work with better systems."
                         </h2>
                         <div className="flex flex-col items-center">
                             <div className="w-16 h-[1px] bg-brand-gold mb-6" />
-                            <p className="text-brand-charcoal font-bold uppercase tracking-[0.4em] text-[10px]">Architecting Outcomes</p>
+                            <p className="text-brand-charcoal font-bold uppercase tracking-[0.4em] text-[10px]">Built for Growth</p>
                         </div>
                     </motion.div>
                 </div>
@@ -210,13 +210,13 @@ export default function VenturesPage() {
                         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
                         <div className="relative z-10 max-w-3xl">
-                            <h2 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 tracking-tight">Expand the <br /> <span className="text-brand-gold italic">Ecosystem.</span></h2>
+                            <h2 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 tracking-tight">Want to Build <br /> <span className="text-brand-gold italic">Something Great?</span></h2>
                             <p className="text-xl text-white/60 font-light leading-relaxed mb-12">
-                                I am always looking for founders, partners, and leaders who are ready to build the extraordinary. Let's discuss your next milestone.
+                                I am open to working with founders, teams, and partners building meaningful products.
                             </p>
 
                             <Link href="/contact" className="inline-flex items-center gap-4 bg-brand-gold hover:bg-white text-brand-charcoal px-16 py-8 rounded-none text-lg font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl">
-                                Initiate Consultation
+                                Book a Call
                                 <ArrowUpRight className="w-6 h-6" />
                             </Link>
                         </div>

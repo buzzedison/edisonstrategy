@@ -191,21 +191,21 @@ const WritersHandbookPage = () => {
                 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight"
                 variants={fadeIn}
               >
-                Write Stories So <span className="text-amber-400">Addictive</span>, Readers Will <span className="text-amber-400">Lose Sleep</span>
+                Write Stories People <span className="text-amber-400">Actually Finish</span>
               </motion.h1>
               
               <motion.h2 
                 className="text-xl lg:text-2xl mb-8 text-red-100"
                 variants={fadeIn}
               >
-                100 Psychological Triggers & Secret Techniques Used by Million-Dollar Authors
+                100 practical writing tips to keep readers engaged from start to finish
               </motion.h2>
               
               <motion.p 
                 className="text-lg mb-8 text-red-100 leading-relaxed"
                 variants={fadeIn}
               >
-                Stop writing books that nobody finishes. Start creating stories so compelling, readers will beg you for more and agents will fight to represent you.
+                Stop guessing what works. Use clear writing techniques to improve your draft and keep readers turning pages.
               </motion.p>
               
               <motion.div className="flex flex-col gap-4 mb-8" variants={fadeIn}>
@@ -294,10 +294,10 @@ const WritersHandbookPage = () => {
           <div className="max-w-6xl mx-auto">
             <motion.div className="text-center mb-16" variants={fadeIn}>
               <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-gray-900">
-                Are You Tired of Writing Books That <span className="text-red-600">Nobody Finishes?</span>
+                Are You Writing but <span className="text-red-600">Not Getting Results?</span>
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Here's the brutal truth most writing coaches won't tell you...
+                If this sounds familiar, this book can help.
               </p>
             </motion.div>
             

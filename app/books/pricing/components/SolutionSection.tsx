@@ -32,23 +32,23 @@ const SolutionSection = () => {
   const features = [
     {
       icon: FaBookOpen,
-      title: "The Hidden Psychology of Pricing",
-      description: "Understand the science behind why customers buy and how to use it to your advantage."
+      title: "Why Customers Buy",
+      description: "Learn what drives buying decisions and how to use it in your pricing."
     },
     {
       icon: FaChartLine,
-      title: "Value-Based Pricing Strategies",
-      description: "Learn how to confidently charge premium prices based on the true value you deliver."
+      title: "Value-Based Pricing",
+      description: "Set prices based on the value you create for the customer."
     },
     {
       icon: FaUsers,
-      title: "Data-Driven Decision Making",
-      description: "Ditch the guesswork and use proven frameworks to set prices that optimize profitability."
+      title: "Data-Backed Decisions",
+      description: "Use simple frameworks instead of guesswork."
     },
     {
       icon: FaComments,
-      title: "Overcoming Pricing Objections",
-      description: "Master the art of communicating your value and handling price objections with ease."
+      title: "Handle Price Objections",
+      description: "Explain your price clearly and respond with confidence."
     }
   ];
 
@@ -69,7 +69,7 @@ const SolutionSection = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Your comprehensive guide to mastering the psychology of pricing and developing strategies that attract dream clients and maximize your revenue.
+            A practical guide to pricing clearly, improving margins, and attracting better-fit clients.
           </p>
         </motion.div>
 
@@ -109,10 +109,10 @@ const SolutionSection = () => {
           className="mt-16 text-center"
         >
           <p className="text-2xl font-semibold text-gray-800 mb-8">
-            And much more inside!
+            Plus more practical examples inside.
           </p>
           <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
-            Get Your Copy Now
+            Get the Book
           </button>
         </motion.div>
       </div>

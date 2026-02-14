@@ -17,8 +17,10 @@ module.exports = {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['var(--font-inter)', 'sans-serif'],
-				serif: ['var(--font-garamond)', 'serif'],
+				sans: ['var(--font-jakarta)', 'var(--font-inter)', 'sans-serif'],
+				serif: ['var(--font-jakarta)', 'var(--font-garamond)', 'serif'],
+				jakarta: ['var(--font-jakarta)', 'sans-serif'],
+				garamond: ['var(--font-garamond)', 'serif'],
 			},
 			colors: {
 				primary: {

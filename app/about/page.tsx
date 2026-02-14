@@ -106,7 +106,7 @@ export default function AboutPage() {
             >
               <div className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12">
                 <Sparkles className="h-3.5 w-3.5 mr-2 text-brand-gold" />
-                Strategic Architect
+                Founder and Builder
               </div>
 
               <h1 className="text-6xl md:text-8xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.9] mb-12">
@@ -120,22 +120,22 @@ export default function AboutPage() {
 
               <div className="space-y-8 text-lg text-brand-muted font-light leading-relaxed max-w-xl">
                 <p>
-                  Specializing in the intersection of business strategy and systems engineering, I partner with founders and organizations to architect scalable growth.
+                  I work with founders and teams to build clear strategy, better systems, and steady growth.
                 </p>
                 <p>
-                  My work is characterized by "Quiet Premium"—a focus on deep impact over noise, building resilient frameworks that sustain long-term excellence.
+                  My focus is practical: fewer bottlenecks, better execution, and results you can sustain.
                 </p>
               </div>
 
               <div className="mt-16 flex flex-wrap gap-8 items-center">
                 <Link href="/contact" className="px-12 py-6 bg-brand-charcoal text-white text-xs font-bold uppercase tracking-widest hover:bg-black transition-all shadow-xl">
-                  Initiate Engagement
+                  Book a Call
                 </Link>
                 <div className="flex items-center gap-4 group cursor-pointer">
                   <div className="w-12 h-12 border border-brand-stone flex items-center justify-center group-hover:bg-brand-stone transition-all">
                     <Play className="w-4 h-4 text-brand-charcoal ml-1" />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Watch Philosophy</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">How I Work</span>
                 </div>
               </div>
             </motion.div>
@@ -195,7 +195,7 @@ export default function AboutPage() {
               <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
                 <div>
                   <div className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-brand-gold mb-12">
-                    <Calendar className="w-4 h-4" /> Next Strategic Briefing
+                    <Calendar className="w-4 h-4" /> Next Event
                   </div>
                   <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-8 tracking-tight">
                     {nextEvent.title}
@@ -222,11 +222,11 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
               <div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-4">Strategic Archives</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-4">Latest Articles</div>
                 <h2 className="text-5xl font-serif font-bold text-brand-charcoal">Selected Insights.</h2>
               </div>
               <Link href="/insights" className="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-brand-muted hover:text-brand-charcoal transition-colors group">
-                Enter the Library <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                View All Insights <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
 
@@ -260,7 +260,7 @@ export default function AboutPage() {
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
               <h2 className="text-5xl font-serif font-bold">Selected Works.</h2>
               <Link href="/portfolio" className="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors group">
-                Examine All Strategies <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                View All Projects <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
 
@@ -303,13 +303,13 @@ export default function AboutPage() {
             transition={{ duration: 1 }}
           >
             <h2 className="text-5xl md:text-7xl font-serif font-bold text-brand-charcoal mb-12 tracking-tight">
-              Let's Architect <br /> your <span className="text-gray-400 italic">Evolution.</span>
+              Let&apos;s Build <br /> your <span className="text-gray-400 italic">Next Growth Step.</span>
             </h2>
             <p className="text-xl text-brand-muted font-light leading-relaxed mb-16 max-w-2xl mx-auto">
-              The status quo is your only competitor. I'm ready to help you engineer a system that makes it obsolete.
+              If you want better focus, stronger systems, and faster execution, I can help.
             </p>
             <Link href="/contact" className="inline-flex items-center gap-8 group">
-              <span className="text-brand-charcoal font-bold uppercase tracking-[0.4em] text-xs">Initiate a Strategic Dialogue</span>
+              <span className="text-brand-charcoal font-bold uppercase tracking-[0.4em] text-xs">Book Free Call</span>
               <div className="w-20 h-[1px] bg-brand-stone group-hover:w-40 group-hover:bg-brand-charcoal transition-all duration-700" />
               <ArrowUpRight className="w-6 h-6 text-brand-charcoal" />
             </Link>
