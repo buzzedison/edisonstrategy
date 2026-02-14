@@ -200,12 +200,7 @@ export const defaultLandingPageContent: LandingPageContent = {
     },
     scrollLabel: 'Scroll',
   },
-  trustBarStats: [
-    { value: '15+', label: 'Years Experience' },
-    { value: '$5M+', label: 'Capital Raised' },
-    { value: '50+', label: 'Startups Advised' },
-    { value: '10k+', label: 'People Impacted' },
-  ],
+  trustBarStats: [],
   brandsSection: {
     eyebrow: 'Brands I Work With',
     title: 'Trusted by founders, teams, and growth-focused brands',

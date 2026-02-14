@@ -151,18 +151,20 @@ export default async function Home() {
 
       <HeroSection content={landingContent.hero} />
 
-      <section className="py-8 px-6 lg:px-8 bg-white border-y border-gray-100">
-        <div className="max-w-7xl mx-auto flex items-center justify-center">
-          <div className="flex flex-wrap justify-center items-center gap-8 text-brand-muted">
-            {landingContent.trustBarStats.map((stat, i) => (
-              <div key={`${stat.value}-${i}`} className="flex items-center gap-3">
-                <span className="text-xl font-serif font-semibold text-brand-charcoal">{stat.value}</span>
-                <span className="text-xs text-brand-muted font-light">{stat.label}</span>
-              </div>
-            ))}
+      {landingContent.trustBarStats.length > 0 ? (
+        <section className="py-8 px-6 lg:px-8 bg-white border-y border-gray-100">
+          <div className="max-w-7xl mx-auto flex items-center justify-center">
+            <div className="flex flex-wrap justify-center items-center gap-8 text-brand-muted">
+              {landingContent.trustBarStats.map((stat, i) => (
+                <div key={`${stat.value}-${i}`} className="flex items-center gap-3">
+                  <span className="text-xl font-serif font-semibold text-brand-charcoal">{stat.value}</span>
+                  <span className="text-xs text-brand-muted font-light">{stat.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <section className="py-20 px-6 lg:px-8 bg-brand-stone/40 border-b border-brand-stone">
         <div className="max-w-7xl mx-auto">
