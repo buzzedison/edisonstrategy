@@ -96,7 +96,9 @@ const HeroSection = ({ content }: HeroSectionProps) => {
                                 </Button>
                             </Link>
 
-                            <p className="text-xs text-brand-muted font-light mt-3 sm:mt-0 sm:self-center sm:ml-2">{content.helperText}</p>
+                            {content.helperText ? (
+                                <p className="text-xs text-brand-muted font-light mt-3 sm:mt-0 sm:self-center sm:ml-2">{content.helperText}</p>
+                            ) : null}
                         </motion.div>
                     </div>
 

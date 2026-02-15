@@ -143,7 +143,7 @@ const landingDefaults = {
     titleLine3: 'and Better Execution',
     description:
       'I help you fix business chaos, build smarter workflows, and grow revenue without burning out your team.',
-    helperText: 'Free 30-min strategy call - Clear next steps',
+    helperText: '',
     primaryCta: {
       label: 'Book a Free Strategy Call',
       href: '/contact',
