@@ -14,36 +14,19 @@ interface BooksSectionProps {
 
 const BooksSection = ({ content }: BooksSectionProps) => {
     return (
-        <section className="py-36 px-6 lg:px-8 bg-background relative">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80px] h-[1px] bg-brand-gold/30" />
-
+        <section className="py-24 px-6 lg:px-8 bg-gray-50/50">
             <div className="max-w-7xl mx-auto">
-                <div className="mb-24 text-center max-w-3xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="inline-flex items-center px-5 py-2 bg-white/80 border border-gray-100 mb-8"
-                    >
-                        <Book className="w-3.5 h-3.5 text-brand-gold mr-2.5" />
-                        <span className="text-[9px] font-bold tracking-[0.25em] text-brand-muted uppercase">{content.badge}</span>
-                    </motion.div>
+                <div className="mb-20 text-center max-w-3xl mx-auto">
+                    <span className="text-[10px] font-bold tracking-[0.25em] text-brand-gold uppercase">{content.badge}</span>
                     <motion.h2
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-5xl font-medium text-brand-charcoal mb-4 font-serif tracking-tight"
+                        className="text-4xl md:text-5xl font-medium text-brand-charcoal mb-6 font-serif tracking-tight mt-4"
                     >
                         {content.title} <span className="italic text-gray-400">{content.emphasizedTitle}</span>
                     </motion.h2>
-                    <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: 60 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2, duration: 0.8 }}
-                        className="h-[1px] bg-brand-gold mx-auto mb-8"
-                    />
                     <motion.p
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -63,7 +46,7 @@ const BooksSection = ({ content }: BooksSectionProps) => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.15 }}
-                            className="group flex flex-col h-full bg-white border border-gray-100/60 shadow-[0_2px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)] transition-all duration-700 overflow-hidden"
+                            className="group flex flex-col h-full bg-white border border-gray-100/50 shadow-sm rounded-sm overflow-hidden hover:shadow-md transition-shadow"
                         >
                             <div className="relative h-64 overflow-hidden">
                                 <Image

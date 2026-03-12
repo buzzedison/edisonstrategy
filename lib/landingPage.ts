@@ -175,9 +175,9 @@ export const defaultLandingPageContent: LandingPageContent = {
   },
   hero: {
     badge: 'For Founders Who Want Real Growth',
-    titleLine1: 'Grow Faster with',
-    emphasizedTitle: 'Simple Systems',
-    titleLine3: 'and Better Execution',
+    titleLine1: 'Grow your company',
+    emphasizedTitle: 'faster',
+    titleLine3: 'with better execution',
     description:
       'I help you fix business chaos, build smarter workflows, and grow revenue without burning out your team.',
     helperText: '',
