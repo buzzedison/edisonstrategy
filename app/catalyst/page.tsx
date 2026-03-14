@@ -1,232 +1,244 @@
-"use client"
+'use client';
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Rocket, Users, Lightbulb, Target, ArrowRight, ChevronRight, Brain, Heart } from 'lucide-react'
-import Link from 'next/link'
-import { motion } from "framer-motion"
+import { useState } from 'react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
-export default function StartupCatalystLanding() {
-  const [activeSection, setActiveSection] = useState('problem')
+const tabs = [
+  {
+    id: 'problem',
+    label: 'The Problem',
+    heading: 'Great ideas stall without the right support.',
+    body: "Starting a business is hard. Founders have great ideas but often struggle to execute them. Building an MVP, raising funding, assembling a team, and getting to market can feel like navigating a maze without a map. Many fail not because the idea isn't good — but because they lack the right guidance, tools, and people around them.",
+  },
+  {
+    id: 'solution',
+    label: 'The Solution',
+    heading: 'A structured path from idea to traction.',
+    body: 'Startup Catalyst Mastermind is a founder-focused program designed to help entrepreneurs turn ideas into MVPs, secure funding, and build businesses that last. Monthly mastermind sessions, hands-on workshops, and a curated network of ambitious founders give you the structure and momentum you need to move fast.',
+  },
+  {
+    id: 'goal',
+    label: 'The Goal',
+    heading: 'Idea to MVP. MVP to funded. Funded to growing.',
+    body: "We're not here to give you generic advice or motivational speeches. The goal is concrete: help you move from idea to first customers, get funded, and build a company that compounds. Every session, every framework, every connection is designed to drive one thing — real results.",
+  },
+];
+
+const pillars = [
+  {
+    number: '01',
+    title: 'Monthly Mastermind Sessions',
+    description:
+      'Bring your hardest problem. Leave with a plan. Each session is a structured peer-review where founders share what is blocking them and get direct, actionable feedback from the group.',
+  },
+  {
+    number: '02',
+    title: 'Skill-Building Workshops',
+    description:
+      'Fundraising, team building, product development, sales — practical skills taught in the context of real startups, not textbook scenarios.',
+  },
+  {
+    number: '03',
+    title: 'Founder Therapy',
+    description:
+      '72% of founders admit to mental health struggles. We take this seriously. One dedicated session per month on the psychological side of building — burnout, doubt, identity, and resilience.',
+  },
+];
+
+const reasons = [
+  {
+    title: 'Proven Expertise',
+    body: 'Led by Edison Ade — a founder with 15+ years across Africa, the US, and UK, who has built, failed, rebuilt, and scaled.',
+  },
+  {
+    title: 'Hands-On, Not Motivational',
+    body: 'No keynote-style inspiration. Every session has a clear output. You leave with frameworks, decisions, and next steps.',
+  },
+  {
+    title: 'A Curated Community',
+    body: 'Every member is vetted. You are in a room with people who are serious, moving fast, and willing to help each other win.',
+  },
+  {
+    title: 'Real Results',
+    body: 'Past members have shipped MVPs, raised pre-seed rounds, and grown revenue — within the programme window.',
+  },
+];
+
+export default function CatalystPage() {
+  const [activeTab, setActiveTab] = useState('problem');
+  const active = tabs.find((t) => t.id === activeTab)!;
 
   return (
-    <div className="min-h-screen bg-white text-blue-900">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 w-64 h-64 bg-blue-900 rounded-full opacity-10 transform -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-900 rounded-full opacity-10 transform translate-x-1/2 translate-y-1/2"></div>
-        </div>
-        <div className="relative z-10 text-center">
-          <h1 className="text-6xl md:text-7xl font-bold mb-4 animate-fade-in-up">
-            Startup Catalyst
-            <span className="block text-blue-600">Mastermind</span>
+    <div className="min-h-screen bg-white text-[#1c1c1c] selection:bg-zinc-200 antialiased">
+
+      {/* Hero */}
+      <section className="px-6 lg:px-8 pt-24 lg:pt-36 pb-24 lg:pb-40">
+        <div className="max-w-[76rem] mx-auto text-center">
+          <p className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-6">
+            Startup Catalyst Mastermind
+          </p>
+          <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-serif text-[#1c1c1c] leading-[1.05] tracking-tight mb-6 max-w-3xl mx-auto">
+            Build. Lead.<br />
+            <span className="italic">Succeed.</span>
           </h1>
-          <p className="text-2xl md:text-3xl mb-8 animate-fade-in-up animation-delay-200">
-            Build, Lead, Succeed
+          <p className="text-base font-sans text-zinc-600 leading-relaxed mb-10 max-w-xl mx-auto">
+            A founder mastermind for the serious ones — the ones building real companies, solving real problems, and ready to do the work.
           </p>
-          <Link href="https://airtable.com/appSFdtBZ0mhEzlyF/pag9uDaL9FhNYGYNP/form">
-            <Button className="text-lg px-8 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition duration-300 animate-fade-in-up animation-delay-400">
-              Apply Now <ChevronRight className="ml-2" />
-            </Button>
-          </Link>
-        </div>
-      </section>
-
-      {/* Interactive Problem & Solution Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-blue-50">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="md:w-1/2 mb-8 md:mb-0">
-              <h2 className="text-4xl font-bold mb-8 text-center md:text-left">The Startup Journey</h2>
-              <div className="flex flex-col space-y-4">
-                <Button
-                  variant={activeSection === 'problem' ? 'default' : 'outline'}
-                  className="justify-start text-left"
-                  onClick={() => setActiveSection('problem')}
-                >
-                  The Problem
-                </Button>
-                <Button
-                  variant={activeSection === 'solution' ? 'default' : 'outline'}
-                  className="justify-start text-left"
-                  onClick={() => setActiveSection('solution')}
-                >
-                  The Solution
-                </Button>
-                <Button
-                  variant={activeSection === 'goal' ? 'default' : 'outline'}
-                  className="justify-start text-left"
-                  onClick={() => setActiveSection('goal')}
-                >
-                  The Goal
-                </Button>
-              </div>
-            </div>
-            <div className="md:w-1/2 bg-blue-900 text-white p-8 rounded-lg shadow-xl">
-              {activeSection === 'problem' && (
-                <div className="animate-fade-in">
-                  <h3 className="text-2xl font-bold mb-4">The Problem</h3>
-                  <p>
-                    Starting a business is hard. Founders have great ideas but often struggle to execute them. Building an MVP, raising funding, assembling a team, and getting to market can feel like navigating a maze without a map. Many fail, not because the idea isn't good, but because they lack the right guidance, tools, and support.
-                  </p>
-                </div>
-              )}
-              {activeSection === 'solution' && (
-                <div className="animate-fade-in">
-                  <h3 className="text-2xl font-bold mb-4">The Solution</h3>
-                  <p>
-                    Startup Catalyst Mastermind is a founder-focused program designed to help entrepreneurs turn ideas into MVPs, secure funding, and build businesses that succeed. Through monthly mastermind sessions, skill-building workshops, and a powerful network of like-minded founders, we provide the structure and mentorship you need to move fast and make progress.
-                  </p>
-                </div>
-              )}
-              {activeSection === 'goal' && (
-                <div className="animate-fade-in">
-                  <h3 className="text-2xl font-bold mb-4">The Goal</h3>
-                  <p>
-                    We're not here to give you generic advice or motivational speeches. The goal is simple: help you move from idea to MVP, get funded, and start building a company that lasts. We're committed to providing actionable insights and support that drive real results for your startup.
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Founder Therapy Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 via-white to-purple-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center gap-12">
-              <div className="md:w-1/2">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-3xl transform rotate-3"></div>
-                  <Card className="border-0 shadow-xl bg-white relative z-10">
-                    <CardContent className="p-8">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-2xl">
-                          <Brain className="w-8 h-8 text-white" />
-                        </div>
-                        <Heart className="w-8 h-8 text-red-500 animate-pulse" />
-                      </div>
-                      <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                        Founder Therapy
-                      </h2>
-                      <p className="text-gray-600 mb-6">
-                        Burnout-proofing your hustle. Because your startup won't thrive if you're barely alive.
-                      </p>
-                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                        <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4" />
-                          <span>35 Seats</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Target className="w-4 h-4" />
-                          <span>Feb 22, 2025</span>
-                        </div>
-                      </div>
-                      <Link href="/catalyst/founder-therapy">
-                        <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
-                          Learn More <ArrowRight className="ml-2" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-              <div className="md:w-1/2">
-                <h3 className="text-4xl font-bold mb-6">Why Founder Mental Health Matters</h3>
-                <p className="text-xl text-gray-600 mb-8">
-                  72% of founders admit to mental health struggles. It's time to break the silence and build sustainable success.
-                </p>
-                <ul className="space-y-4">
-                  <li className="flex items-center gap-3 text-gray-700">
-                    <span className="h-2 w-2 bg-blue-600 rounded-full"></span>
-                    Real stories from founders who crashed and rebuilt
-                  </li>
-                  <li className="flex items-center gap-3 text-gray-700">
-                    <span className="h-2 w-2 bg-purple-600 rounded-full"></span>
-                    Practical tools for sustainable growth
-                  </li>
-                  <li className="flex items-center gap-3 text-gray-700">
-                    <span className="h-2 w-2 bg-red-600 rounded-full"></span>
-                    A supportive community that gets it
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-12 text-center">How It Works</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: Rocket, title: "Monthly Mastermind Meetings", description: "Share challenges, get actionable feedback, and learn from others on the same journey." },
-              { icon: Lightbulb, title: "Workshops That Solve Real Problems", description: "Learn practical skills in team building, leadership, product development, and fundraising." },
-              { icon: Users, title: "A Community That Has Your Back", description: "Access a curated group of ambitious founders who understand your challenges." }
-            ].map((item, index) => (
-              <Card key={index} className="bg-blue-900 text-white border-blue-800 overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                <CardContent className="p-6 relative">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-800 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500"></div>
-                  <item.icon className="w-12 h-12 mb-4 text-blue-300 relative z-10" />
-                  <h3 className="text-xl font-bold mb-2 relative z-10">{item.title}</h3>
-                  <p className="text-blue-100 relative z-10">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Join Section */}
-      <section className="py-16 bg-blue-900 text-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-12 text-center">Why Join Startup Catalyst?</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              { title: "Proven Expertise", description: "Hosted by Edison Ade, a founder with 15+ years of experience building and scaling successful businesses." },
-              { title: "Hands-On Guidance", description: "Learn practical frameworks for tackling the hardest parts of starting up—from idea to launch to growth." },
-              { title: "A Clear Path Forward", description: "Stop guessing what to do next. Get actionable steps that move your business forward." },
-              { title: "Real Results", description: "Build your MVP, attract the right team, pitch with confidence, and launch with purpose." }
-            ].map((item, index) => (
-              <div key={index} className="flex items-start group">
-                <div className="mr-4 bg-blue-800 p-2 rounded-full group-hover:bg-blue-600 transition-colors duration-300">
-                  <Target className="w-6 h-6 text-blue-300" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-blue-100">{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Apply Section */}
-      <section className="py-16 bg-blue-900 text-white text-center">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-8">Ready to Catalyze Your Startup?</h2>
-          <p className="text-xl mb-8">Applications opens January 27, 2024. 
-            <Link href="/catalyst/founder-therapy" className="text-blue-300 hover:text-blue-200 transition-colors ml-1">
-              Program starts in February 22, 2025
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="https://airtable.com/appSFdtBZ0mhEzlyF/pag9uDaL9FhNYGYNP/form"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-[#1c1c1c] text-white px-8 py-4 rounded-full text-[13px] font-sans font-semibold tracking-wide hover:bg-zinc-800 transition-colors"
+            >
+              Apply Now
+              <ArrowRight className="w-4 h-4" />
             </Link>
-          </p>
-          <Link href="https://airtable.com/appSFdtBZ0mhEzlyF/pag9uDaL9FhNYGYNP/form">
-            <Button className="text-lg px-8 py-3 rounded-full bg-white text-blue-900 hover:bg-blue-100 transition duration-300">
-              Apply Now <ArrowRight className="ml-2" />
-            </Button>
-          </Link>
-          <p className="mt-8 text-blue-300">
-            In partnership with The Enterprise Village, Bloop Global, and Taskwit.
-          </p>
+            <Link
+              href="/catalyst/founder-therapy"
+              className="inline-flex items-center justify-center gap-2 border border-zinc-200 text-[#1c1c1c] px-8 py-4 rounded-full text-[13px] font-sans font-semibold tracking-wide hover:bg-zinc-50 transition-colors"
+            >
+              Founder Therapy Session
+            </Link>
+          </div>
         </div>
       </section>
+
+      {/* Problem / Solution / Goal — tabbed */}
+      <section className="px-6 lg:px-8 py-24 lg:py-40 bg-[#f4f2ec]">
+        <div className="max-w-[76rem] mx-auto">
+          <div className="mb-12">
+            <p className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-4">
+              The Startup Journey
+            </p>
+            <h2 className="text-4xl lg:text-[48px] font-serif text-[#1c1c1c] leading-[1.1] tracking-tight">
+              Why most founders<br />
+              <span className="italic">don&apos;t make it.</span>
+            </h2>
+          </div>
+
+          <div className="grid lg:grid-cols-[320px_1fr] gap-8 lg:gap-16">
+            {/* Tabs */}
+            <div className="flex flex-row lg:flex-col gap-3">
+              {tabs.map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => setActiveTab(t.id)}
+                  className={`px-5 py-3 rounded-full text-[12px] font-sans font-semibold text-left transition-colors ${
+                    activeTab === t.id
+                      ? 'bg-[#1c1c1c] text-white'
+                      : 'border border-zinc-300 text-zinc-600 hover:border-zinc-400 bg-white'
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Panel */}
+            <div className="bg-white rounded-2xl border border-zinc-100 p-8 lg:p-12 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+              <h3 className="text-2xl lg:text-3xl font-serif text-[#1c1c1c] mb-4">{active.heading}</h3>
+              <p className="text-[15px] font-sans text-zinc-600 leading-relaxed">{active.body}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Programme Pillars */}
+      <section className="px-6 lg:px-8 py-24 lg:py-40">
+        <div className="max-w-[76rem] mx-auto">
+          <div className="mb-16 lg:mb-24">
+            <p className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-4">
+              How It Works
+            </p>
+            <h2 className="text-4xl lg:text-[48px] font-serif text-[#1c1c1c] leading-[1.1] tracking-tight max-w-xl">
+              Three pillars.<br />
+              <span className="italic">One clear path forward.</span>
+            </h2>
+          </div>
+
+          <div className="flex flex-col divide-y divide-zinc-100">
+            {pillars.map((p) => (
+              <div
+                key={p.number}
+                className="grid lg:grid-cols-[120px_1fr] gap-6 lg:gap-16 py-12 lg:py-14 group"
+              >
+                <span className="text-5xl font-serif italic text-zinc-200 group-hover:text-zinc-300 transition-colors leading-none">
+                  {p.number}.
+                </span>
+                <div>
+                  <h3 className="text-2xl font-serif text-[#1c1c1c] mb-4">{p.title}</h3>
+                  <p className="text-[15px] font-sans text-zinc-600 leading-relaxed max-w-xl">{p.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Join */}
+      <section className="px-6 lg:px-8 py-24 lg:py-40 bg-[#f4f2ec]">
+        <div className="max-w-[76rem] mx-auto">
+          <div className="mb-16">
+            <p className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-4">
+              Why Startup Catalyst
+            </p>
+            <h2 className="text-4xl lg:text-[48px] font-serif text-[#1c1c1c] leading-[1.1] tracking-tight max-w-xl">
+              Built for founders<br />
+              <span className="italic">by a founder.</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+            {reasons.map((r) => (
+              <div
+                key={r.title}
+                className="bg-white rounded-2xl p-8 lg:p-10 border border-zinc-100 shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
+              >
+                <h3 className="text-xl font-serif text-[#1c1c1c] mb-3">{r.title}</h3>
+                <p className="text-[14px] font-sans text-zinc-600 leading-relaxed">{r.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="px-6 lg:px-8 py-24 lg:py-40">
+        <div className="max-w-[76rem] mx-auto">
+          <div className="bg-[#1c1c1c] rounded-3xl px-8 py-16 lg:px-20 lg:py-24 text-center">
+            <p className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-4">
+              Ready to Apply
+            </p>
+            <h2 className="text-3xl lg:text-[48px] font-serif text-white leading-[1.1] tracking-tight mb-4 max-w-2xl mx-auto">
+              Stop waiting for the right moment.<br />
+              <span className="italic">This is it.</span>
+            </h2>
+            <p className="text-[15px] font-sans text-zinc-400 mb-10 max-w-md mx-auto">
+              In partnership with Enterprise Village, Bloop Global, and Taskwit.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="https://airtable.com/appSFdtBZ0mhEzlyF/pag9uDaL9FhNYGYNP/form"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[#1c1c1c] px-8 py-4 rounded-full text-[13px] font-sans font-semibold tracking-wide hover:bg-zinc-100 transition-colors"
+              >
+                Apply Now
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/catalyst/founder-therapy"
+                className="inline-flex items-center justify-center gap-2 border border-zinc-700 text-zinc-400 px-8 py-4 rounded-full text-[13px] font-sans font-semibold tracking-wide hover:border-zinc-500 hover:text-zinc-300 transition-colors"
+              >
+                Founder Therapy Session
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
-  )
+  );
 }

@@ -1,139 +1,199 @@
-// app/page.tsx
-import Image from 'next/image'
-import Link from 'next/link'
-import ProblemSection from './components/ProblemStatement'
+import Link from 'next/link';
+import Image from 'next/image';
+import type { Metadata } from 'next';
+import { ArrowRight } from 'lucide-react';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'Founders Circle | Community for Ambitious Founders | Buzzedison',
+  description:
+    'Founders Circle is an exclusive community designed to connect, support, and empower founders throughout their entrepreneurial journeys. Join serious builders across Africa and beyond.',
+};
+
+const offerings = [
+  {
+    number: '01',
+    title: 'Curated Community',
+    description:
+      'Members are hand-selected based on their ambition, experience, and willingness to support fellow founders. Quality over quantity — always.',
+  },
+  {
+    number: '02',
+    title: 'Peer-to-Peer Learning',
+    description:
+      'Regular events, workshops, and focused forums where founders share real expertise, not sanitised success stories.',
+  },
+  {
+    number: '03',
+    title: 'Expert Access',
+    description:
+      'Mentors, investors, and operators who have done it — offering guidance and honest feedback, not motivational noise.',
+  },
+  {
+    number: '04',
+    title: 'Exclusive Events',
+    description:
+      'Private gatherings, workshops, and retreats built around deep work and genuine connection — not networking theatre.',
+  },
+];
+
+export default function FoundersPage() {
   return (
-    <>
-    <div className="w-full">
-       {/* Hero Section */}
-<section className="w-full bg-gradient-to-r from-purple-900 to-indigo-900 text-white py-32 px-4 sm:px-6 lg:px-8">
-  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-    <div>
-      <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
-        <span className="block xl:inline">Empowering Founders,</span>{' '}
-        <span className="block text-purple-400 xl:inline">Together</span>
-      </h1>
-      <p className="mt-3 text-base text-purple-200 sm:mt-5 sm:text-lg sm:max-w-xl md:mt-5 md:text-xl">
-        Founders Circle is an exclusive community designed to connect, support, and empower founders throughout their entrepreneurial journeys. Join a collaborative space to share knowledge, navigate challenges, and unlock new opportunities.
-      </p>
-      <div className="mt-8 sm:flex sm:justify-center lg:justify-start">
-        <div className="rounded-md shadow">
-          <Link href="https://airtable.com/app6sLDmnMh84vOP4/pagUnNFYcByTVbday/form" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-purple-900 bg-white hover:bg-purple-50 md:py-4 md:text-lg md:px-10">
-            Join the Circle
-          </Link>
-        </div>
-        <div className="mt-3 sm:mt-0 sm:ml-3">
-          <Link href="#what-we-offer" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-800 hover:bg-purple-700 md:py-4 md:text-lg md:px-10">
-            Learn More
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="relative">
-      <Image 
-        src="/image/founders.png"
-        alt="Founders collaborating"
-        width={500}
-        height={300}
-        className="rounded-2xl shadow-xl sm:h-64 md:h-64 lg:w-full lg:h-96 object-cover object-center"
-      />
-    </div>
-  </div>
-</section>
-    </div>
-    <div className="w-full flex pb-12 sm:pb-24 flex-col items-center justify-between px-4 sm:px-24">
-  {/* What We Offer Section */}
-  <section id="what-we-offer" className="py-12 sm:py-24 pb-0 bg-white">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center">
-        <h2 className="text-base text-purple-600 font-semibold tracking-wide uppercase">What We Offer</h2>
-        <p className="mt-2 text-2xl  leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          A Better Way to Grow Your Startup
-        </p>
-      </div>
+    <div className="min-h-screen bg-white text-[#1c1c1c] selection:bg-zinc-200 antialiased">
 
-      <div className="mt-8">
-        <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-x-8 md:gap-y-10">
-          {/* Feature items */}
-          {[
-            {
-              title: "Curated Community",
-              description: "We hand-select members based on their experience, ambition, and commitment to supporting fellow founders. This ensures a high-quality network of like-minded individuals.",
-              icon: (
-                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              ),
-            },
-            {
-              title: "Peer-to-Peer Learning",
-              description: "Regular events, workshops, and online forums provide opportunities for founders to share their expertise, learn from each other's experiences, and gain valuable insights.",
-              icon: (
-                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-              ),
-            },
-            {
-              title: "Expert Guidance",
-              description: "Access experienced mentors, investors, and industry leaders who offer guidance, feedback, and support to help you navigate your entrepreneurial journey.",
-              icon: (
-                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                </svg>
-              ),
-            },
-            {
-              title: "Exclusive Events",
-              description: "Attend private gatherings, workshops, and retreats designed to foster deep connections and facilitate collaboration with fellow founders and industry leaders.",
-              icon: (
-                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              ),
-            },
-          ].map((feature, index) => (
-            <div key={index} className="relative">
-              <dt>
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-                  {feature.icon}
-                </div>
-                <p className="ml-16 text-lg leading-6 font-medium text-gray-900">{feature.title}</p>
-              </dt>
-              <dd className="mt-2 ml-16 text-base text-gray-500">
-                {feature.description}
-              </dd>
+      {/* Hero */}
+      <section className="px-6 lg:px-8 pt-20 lg:pt-24 mb-24 lg:mb-40">
+        <div className="max-w-[76rem] mx-auto rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-sm">
+          {/* Left */}
+          <div className="flex-1 bg-[#f4f2ec] px-8 py-16 lg:px-20 lg:py-28 flex flex-col justify-center text-center md:text-left">
+            <p className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-6">
+              Founders Circle
+            </p>
+            <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-serif text-[#1c1c1c] leading-[1.1] tracking-tight mb-6">
+              Empowering Founders,<br />
+              <span className="italic">Together.</span>
+            </h1>
+            <p className="text-base font-sans text-zinc-600 leading-relaxed mb-10 max-w-md mx-auto md:mx-0">
+              An exclusive community designed to connect, support, and elevate founders throughout their entrepreneurial journeys. A collaborative space to share knowledge, navigate challenges, and unlock new opportunities.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+              <Link
+                href="https://airtable.com/app6sLDmnMh84vOP4/pagUnNFYcByTVbday/form"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-[#1c1c1c] text-white px-8 py-4 rounded-full text-[13px] font-sans font-semibold tracking-wide hover:bg-zinc-800 transition-colors"
+              >
+                Join the Circle
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="#offerings"
+                className="inline-flex items-center justify-center gap-2 border border-zinc-300 text-[#1c1c1c] px-8 py-4 rounded-full text-[13px] font-sans font-semibold tracking-wide hover:bg-zinc-50 transition-colors"
+              >
+                Learn More
+              </a>
             </div>
-          ))}
-        </dl>
-      </div>
-    </div>
-  </section>
-</div>
-    <section>
-<ProblemSection/>
-</section>
-    <div>
- 
-         {/* CTA Section */}
-      <section className="bg-purple-600">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            <span className="block">Ready to Accelerate Your Startup Journey?</span>
-            <span className="block text-purple-200">Join Founders Circle today.</span>
-          </h2>
-          <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
-            <div className="inline-flex rounded-md shadow">
-              <Link href="https://airtable.com/app6sLDmnMh84vOP4/pagUnNFYcByTVbday/form" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-purple-600 bg-white hover:bg-purple-50">
-                Become a Member
+          </div>
+
+          {/* Right image */}
+          <div className="md:w-5/12 relative min-h-[360px] lg:min-h-full">
+            <Image
+              src="/image/founders.png"
+              alt="Founders collaborating"
+              fill
+              className="object-cover object-center"
+              priority
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Offerings */}
+      <section id="offerings" className="px-6 lg:px-8 py-24 lg:py-40 bg-[#f4f2ec]">
+        <div className="max-w-[76rem] mx-auto">
+          <div className="mb-16 lg:mb-24">
+            <p className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-4">
+              What We Offer
+            </p>
+            <h2 className="text-4xl lg:text-[48px] font-serif text-[#1c1c1c] leading-[1.1] tracking-tight max-w-xl">
+              A better way<br />
+              <span className="italic">to grow your startup.</span>
+            </h2>
+          </div>
+
+          <div className="flex flex-col divide-y divide-zinc-200">
+            {offerings.map((o) => (
+              <div
+                key={o.number}
+                className="grid lg:grid-cols-[120px_1fr] gap-6 lg:gap-16 py-12 lg:py-14 group"
+              >
+                <span className="text-5xl font-serif italic text-zinc-300 group-hover:text-zinc-400 transition-colors leading-none">
+                  {o.number}.
+                </span>
+                <div>
+                  <h3 className="text-2xl font-serif text-[#1c1c1c] mb-4">{o.title}</h3>
+                  <p className="text-[15px] font-sans text-zinc-600 leading-relaxed max-w-xl">{o.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Also explore */}
+      <section className="px-6 lg:px-8 py-24 lg:py-40">
+        <div className="max-w-[76rem] mx-auto">
+          <div className="mb-16">
+            <p className="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-4">
+              Go Deeper
+            </p>
+            <h2 className="text-4xl lg:text-[48px] font-serif text-[#1c1c1c] leading-[1.1] tracking-tight">
+              More ways to<br />
+              <span className="italic">level up.</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+            <div className="bg-[#f4f2ec] rounded-2xl p-8 lg:p-10 flex flex-col justify-between min-h-[240px]">
+              <div>
+                <p className="text-[10px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-3">Programme</p>
+                <h3 className="text-2xl font-serif text-[#1c1c1c] mb-4">Startup Catalyst Mastermind</h3>
+                <p className="text-[14px] font-sans text-zinc-600 leading-relaxed">
+                  A structured 12-week programme for founders who want to move from idea to traction — fast.
+                </p>
+              </div>
+              <Link
+                href="/catalyst"
+                className="mt-8 inline-flex items-center gap-2 text-[12px] font-sans font-bold uppercase tracking-[0.1em] text-[#1c1c1c] hover:text-zinc-500 transition-colors"
+              >
+                See the Programme <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+
+            <div className="bg-[#f4f2ec] rounded-2xl p-8 lg:p-10 flex flex-col justify-between min-h-[240px]">
+              <div>
+                <p className="text-[10px] font-sans font-bold uppercase tracking-[0.15em] text-zinc-400 mb-3">Coaching</p>
+                <h3 className="text-2xl font-serif text-[#1c1c1c] mb-4">1-on-1 Founder Coaching</h3>
+                <p className="text-[14px] font-sans text-zinc-600 leading-relaxed">
+                  Private sessions built around your specific stage and challenges — strategy, systems, clarity.
+                </p>
+              </div>
+              <Link
+                href="/coaching"
+                className="mt-8 inline-flex items-center gap-2 text-[12px] font-sans font-bold uppercase tracking-[0.1em] text-[#1c1c1c] hover:text-zinc-500 transition-colors"
+              >
+                Book a Session <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
           </div>
         </div>
       </section>
+
+      {/* CTA */}
+      <section className="px-6 lg:px-8 pb-32 lg:pb-48">
+        <div className="max-w-[76rem] mx-auto">
+          <div className="bg-[#1c1c1c] rounded-3xl px-8 py-16 lg:px-20 lg:py-20 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+            <div className="max-w-xl">
+              <h2 className="text-3xl lg:text-[40px] font-serif text-white leading-[1.1] tracking-tight mb-4">
+                Ready to accelerate<br />
+                <span className="italic">your startup journey?</span>
+              </h2>
+              <p className="text-[15px] font-sans text-zinc-400">
+                Join a community of serious founders who are building real things and helping each other win.
+              </p>
+            </div>
+            <Link
+              href="https://airtable.com/app6sLDmnMh84vOP4/pagUnNFYcByTVbday/form"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white text-[#1c1c1c] px-8 py-4 rounded-full text-[13px] font-sans font-semibold tracking-wide hover:bg-zinc-100 transition-colors flex-shrink-0"
+            >
+              Become a Member
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
     </div>
-    </>
-  )
+  );
 }

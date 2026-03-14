@@ -28,7 +28,7 @@ export default async function Home() {
 
       <main>
         {/* Hero Section */}
-        <section className="px-6 lg:px-8 mt-2 lg:mt-6 mb-24 lg:mb-40">
+        <section className="px-6 lg:px-8 pt-20 lg:pt-24 mb-24 lg:mb-40">
           <div className="max-w-[76rem] mx-auto rounded-none overflow-hidden flex flex-col md:flex-row shadow-sm">
             {/* Left Content Area */}
             <div className="flex-1 bg-[#f4f2ec] px-8 py-16 lg:px-20 lg:py-28 flex flex-col justify-center text-center md:text-left">
