@@ -6,6 +6,33 @@ export interface LinkField {
   href: string
 }
 
+export interface ProblemSection {
+  heading: string
+  intro: string
+  painPoints: string[]
+  quote: string
+  quoteCta: LinkField
+}
+
+export interface PackageItem {
+  tag: string
+  name: string
+  forWhom: string
+  description: string
+  features: string[]
+  outcome: string
+  ctaLabel: string
+  ctaHref: string
+  featured?: boolean
+}
+
+export interface PackagesSection {
+  eyebrow: string
+  title: string
+  subtitle: string
+  packages: PackageItem[]
+}
+
 export interface LandingPageContent {
   seo: {
     personName: string
@@ -87,6 +114,8 @@ export interface LandingPageContent {
       ctaLabel: string
     }>
   }
+  problemSection: ProblemSection
+  packagesSection: PackagesSection
   booksSection: {
     badge: string
     title: string
@@ -317,6 +346,73 @@ export const defaultLandingPageContent: LandingPageContent = {
       },
     ],
   },
+  problemSection: {
+    heading: 'Does This Sound Familiar?',
+    intro: "You're smart. You work hard. Your business is moving — but not fast enough. And when you zoom out, you can't tell if the problem is your team, your offer, your market, or you.",
+    painPoints: [
+      "You're generating revenue, but growth feels random.",
+      "Your team is busy, but the most important things aren't getting done.",
+      "You keep making decisions based on gut feeling — not a system.",
+      "You've read the books. You've been to the trainings. Still stuck.",
+    ],
+    quote: "The founders who break through aren't the ones who work harder. They're the ones who finally get clear.",
+    quoteCta: { label: "Let's fix that", href: '/contact' },
+  },
+  packagesSection: {
+    eyebrow: 'How I Can Help',
+    title: 'Three ways to work together.',
+    subtitle: 'All packages: Custom pricing. Start with a free strategy call.',
+    packages: [
+      {
+        tag: '4 Weeks',
+        name: 'Accelerator Sprint',
+        forWhom: "Founders with a big idea who need to know if it's worth betting on.",
+        description: 'Four weeks of focused work turns momentum without direction into a validated roadmap you can actually execute.',
+        features: [
+          'Business model validation',
+          'Market positioning — who this is for, and why you',
+          'Go-to-market roadmap — first, next, and later',
+          'Strategic priority support',
+        ],
+        outcome: 'You leave knowing exactly what your next 90 days look like.',
+        ctaLabel: 'Apply for the Sprint',
+        ctaHref: '/contact',
+        featured: false,
+      },
+      {
+        tag: '8 Weeks',
+        name: 'MVP Builder',
+        forWhom: "Non-technical founders who need to ship without burning their budget.",
+        description: "You shouldn't need to become a developer to build a digital product. Right architecture, right team, right launch plan.",
+        features: [
+          'Full tech architecture for your business needs',
+          'Lean development — build what matters',
+          'Market launch support',
+          'Post-launch iteration framework',
+        ],
+        outcome: 'A market-ready product built for real users — not a demo.',
+        ctaLabel: 'Apply for MVP Builder',
+        ctaHref: '/contact',
+        featured: true,
+      },
+      {
+        tag: 'Quarterly Retainer',
+        name: 'Strategy Partner',
+        forWhom: 'Mission-driven founders who need a thinking partner every week.',
+        description: 'The gap between strategy and execution keeps showing up. This is the closest thing to a fractional COO/CTO.',
+        features: [
+          'Weekly strategy sessions',
+          'Go-to-market execution — co-pilot level',
+          'Custom revenue systems',
+          'Performance dashboards',
+        ],
+        outcome: 'A business that runs on systems, not on you.',
+        ctaLabel: 'Apply for Strategy Partner',
+        ctaHref: '/contact',
+        featured: false,
+      },
+    ],
+  },
   booksSection: {
     badge: 'Books',
     title: 'Strategic',
@@ -521,6 +617,19 @@ const LANDING_PAGE_QUERY = groq`*[_type == "landingPage" && _id == "landingPage"
       isNew
     }
   },
+  problemSection{
+    heading,
+    intro,
+    painPoints,
+    quote,
+    quoteCta{label, href}
+  },
+  packagesSection{
+    eyebrow,
+    title,
+    subtitle,
+    packages[]{tag, name, forWhom, description, features, outcome, ctaLabel, ctaHref, featured}
+  },
   testimonialsSection{
     badge,
     introTitle,
@@ -632,6 +741,20 @@ export function mergeLandingPageContent(
       ...defaultLandingPageContent.contentHubSection,
       ...(content?.contentHubSection ?? {}),
       items: pickArray(content?.contentHubSection?.items, defaultLandingPageContent.contentHubSection.items),
+    },
+    problemSection: {
+      ...defaultLandingPageContent.problemSection,
+      ...(content?.problemSection ?? {}),
+      painPoints: pickArray(content?.problemSection?.painPoints, defaultLandingPageContent.problemSection.painPoints),
+      quoteCta: {
+        ...defaultLandingPageContent.problemSection.quoteCta,
+        ...(content?.problemSection?.quoteCta ?? {}),
+      },
+    },
+    packagesSection: {
+      ...defaultLandingPageContent.packagesSection,
+      ...(content?.packagesSection ?? {}),
+      packages: pickArray(content?.packagesSection?.packages, defaultLandingPageContent.packagesSection.packages),
     },
     booksSection: {
       ...defaultLandingPageContent.booksSection,

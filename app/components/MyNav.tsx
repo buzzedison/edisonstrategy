@@ -10,17 +10,21 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   {
-    name: 'Services',
+    name: 'What I Do',
     path: '/services',
     submenu: [
       { name: 'Growth Strategy', path: '/consulting' },
-      { name: 'Website Development', path: '/services/webdev' },
-      { name: 'Mobile App Development', path: '/development' },
-      { name: 'Founder Coaching', path: '/coaching' },
+      { name: 'Accelerator Sprint', path: '/services' },
+      { name: 'MVP Builder', path: '/development' },
+      { name: 'Strategy Partner', path: '/coaching' },
     ]
   },
   {
-    name: 'Insights',
+    name: "Work I've Built",
+    path: '/portfolio',
+  },
+  {
+    name: 'Resources',
     path: '/insights',
     submenu: [
       { name: 'Latest Insights', path: '/insights' },
@@ -37,9 +41,7 @@ const navItems = [
       { name: 'Events', path: '/events' },
     ]
   },
-  { name: 'Portfolio', path: '/portfolio' },
   { name: 'About', path: '/about' },
-  { name: 'Contact', path: '/contact' },
 ];
 
 function DesktopNavItem({ item, pathname }: { item: typeof navItems[0]; pathname: string }) {
@@ -78,7 +80,6 @@ function DesktopNavItem({ item, pathname }: { item: typeof navItems[0]; pathname
             )}
           />
         )}
-        {/* Active underline */}
         <span
           className={cn(
             "absolute -bottom-0.5 left-0 h-[2px] bg-[#1c1c1c] transition-all duration-300",
@@ -94,7 +95,6 @@ function DesktopNavItem({ item, pathname }: { item: typeof navItems[0]; pathname
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            // Extra top padding creates a hover bridge to prevent dropdown from closing
             className="absolute top-full left-1/2 -translate-x-1/2 pt-3"
           >
             <div className="w-56 bg-white shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-xl py-2 border border-zinc-100 overflow-hidden">
@@ -219,7 +219,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
@@ -238,7 +237,7 @@ export default function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="max-w-[76rem] mx-auto px-6 lg:px-8">
+      <div className="max-w-[88rem] mx-auto px-6 lg:px-16">
         <div className="flex items-center justify-between">
 
           {/* Logo */}
@@ -261,18 +260,12 @@ export default function Navbar() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <Link
-              href="/signin"
-              className="text-[12px] font-sans font-semibold uppercase tracking-[0.08em] text-zinc-500 hover:text-[#1c1c1c] transition-colors"
-            >
-              Sign In
-            </Link>
+          <div className="hidden lg:flex items-center">
             <Link
               href="/contact"
               className="px-5 py-2.5 text-[12px] font-sans font-semibold uppercase tracking-[0.05em] text-white bg-[#1c1c1c] rounded-full hover:bg-zinc-800 transition-colors shadow-sm flex items-center gap-2"
             >
-              Work With Me
+              Book a Strategy Call
               <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
@@ -313,18 +306,11 @@ export default function Navbar() {
 
               <div className="flex flex-col gap-3 pt-6 border-t border-zinc-100 mt-2">
                 <Link
-                  href="/signin"
-                  className="w-full px-6 py-3.5 text-sm font-medium text-zinc-600 border border-zinc-200 rounded-full flex items-center justify-center bg-zinc-50 hover:bg-zinc-100 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Sign In
-                </Link>
-                <Link
                   href="/contact"
                   className="w-full px-6 py-3.5 text-sm font-semibold text-white bg-[#1c1c1c] rounded-full flex items-center justify-center gap-2 hover:bg-zinc-800 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Work With Me
+                  Book a Strategy Call
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

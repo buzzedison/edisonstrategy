@@ -347,6 +347,72 @@ export default defineType({
     }),
 
     defineField({
+      name: 'problemSection',
+      title: 'Problem Section',
+      type: 'object',
+      fields: [
+        defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+        defineField({ name: 'intro', title: 'Intro Paragraph', type: 'text', rows: 4 }),
+        defineField({
+          name: 'painPoints',
+          title: 'Pain Points',
+          type: 'array',
+          of: [defineArrayMember({ type: 'string' })],
+        }),
+        defineField({ name: 'quote', title: 'Closing Quote', type: 'text', rows: 3 }),
+        defineField({
+          name: 'quoteCta',
+          title: 'Quote CTA',
+          type: 'object',
+          fields: [
+            defineField({ name: 'label', title: 'Label', type: 'string' }),
+            defineField({ name: 'href', title: 'Link', type: 'string' }),
+          ],
+        }),
+      ],
+    }),
+
+    defineField({
+      name: 'packagesSection',
+      title: 'Packages Section',
+      type: 'object',
+      fields: [
+        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string' }),
+        defineField({ name: 'title', title: 'Title', type: 'string' }),
+        defineField({ name: 'subtitle', title: 'Subtitle', type: 'string' }),
+        defineField({
+          name: 'packages',
+          title: 'Packages',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              type: 'object',
+              fields: [
+                defineField({ name: 'tag', title: 'Duration / Tag', type: 'string' }),
+                defineField({ name: 'name', title: 'Package Name', type: 'string' }),
+                defineField({ name: 'forWhom', title: 'Who It\'s For', type: 'text', rows: 2 }),
+                defineField({ name: 'description', title: 'Description', type: 'text', rows: 4 }),
+                defineField({
+                  name: 'features',
+                  title: 'Features',
+                  type: 'array',
+                  of: [defineArrayMember({ type: 'string' })],
+                }),
+                defineField({ name: 'outcome', title: 'Outcome', type: 'string' }),
+                defineField({ name: 'ctaLabel', title: 'CTA Label', type: 'string' }),
+                defineField({ name: 'ctaHref', title: 'CTA Link', type: 'string' }),
+                defineField({ name: 'featured', title: 'Mark as Featured (Most Popular)', type: 'boolean' }),
+              ],
+              preview: {
+                select: { title: 'name', subtitle: 'tag' },
+              },
+            }),
+          ],
+        }),
+      ],
+    }),
+
+    defineField({
       name: 'testimonialsSection',
       title: 'Testimonials Section',
       type: 'object',
