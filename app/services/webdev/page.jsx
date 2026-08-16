@@ -15,7 +15,7 @@ export default async function WebDevelopmentPage() {
         <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-14 items-center">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-8">{content.hero.eyebrow}</p>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-brand-charcoal leading-[0.95] tracking-tight mb-8">
+            <h1 className="page-display mb-8 max-w-5xl text-brand-charcoal">
               {content.hero.titleLine1} <br />
               <span className="text-gray-400 italic">{content.hero.emphasizedTitle}</span>
             </h1>
@@ -59,7 +59,7 @@ export default async function WebDevelopmentPage() {
       <section className="py-24 px-6 lg:px-8 bg-brand-stone/20 border-y border-brand-stone/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal tracking-tight mb-4">
+            <h2 className="section-display mb-4 text-brand-charcoal">
               {offers?.title}
             </h2>
             <p className="text-lg text-brand-muted max-w-3xl mx-auto">
@@ -75,7 +75,7 @@ export default async function WebDevelopmentPage() {
                 <div className="w-12 h-12 bg-brand-stone flex items-center justify-center mb-6">
                   <Icon className="w-6 h-6 text-brand-charcoal" />
                 </div>
-                <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-3">{offer.title}</h3>
+                <h3 className="mb-3 text-2xl font-semibold tracking-[-0.035em] text-brand-charcoal">{offer.title}</h3>
                 <p className="text-brand-muted mb-6">{offer.description}</p>
                 <ul className="space-y-3">
                   {(offer.bullets || []).map((point) => (
@@ -95,7 +95,7 @@ export default async function WebDevelopmentPage() {
         <div className="max-w-7xl mx-auto">
           <div className="bg-brand-charcoal p-12 md:p-16 text-white flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="max-w-2xl">
-              <h2 className="text-4xl md:text-5xl font-serif font-bold leading-tight mb-4">
+              <h2 className="section-display mb-4">
                 {content.finalCta.title}
               </h2>
               <p className="text-white/75 text-lg">

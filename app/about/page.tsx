@@ -1,321 +1,69 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import {
-  ArrowUpRight,
-  Sparkles,
-  Target,
-  Zap,
-  Users,
-  Building,
-  Brain,
-  Calendar,
-  MapPin,
-  Clock,
-  BookOpen,
-  ArrowRight,
-  TrendingUp,
-  Shield,
-  Play
-} from 'lucide-react';
 import Link from 'next/link';
-import { client } from '@/sanity/lib/client';
-import { groq } from 'next-sanity';
-import { urlFor } from '@/sanity/lib/image';
-import { supabase } from '@/lib/supabaseClient';
+import { ArrowRight } from 'lucide-react';
 
-interface Event {
-  _id: string;
-  title: string;
-  date: string;
-  location: string;
-  time: string;
-  type: string;
-}
-
-interface Post {
-  id: string;
-  title: string;
-  slug: string;
-  meta_description: string;
-  created_at: string;
-  tags: string[];
-}
-
-interface PortfolioItem {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  mainImage: any;
-  excerpt: string;
-}
+const record = [
+  { value: '7', label: 'Companies built' },
+  { value: '7,400+', label: 'Founders trained' },
+  { value: '15', label: 'Countries reached' },
+  { value: '$5M+', label: 'Capital raised' },
+];
 
 export default function AboutPage() {
-  const [nextEvent, setNextEvent] = useState<Event | null>(null);
-  const [latestInsights, setLatestInsights] = useState<Post[]>([]);
-  const [featuredWorks, setFeaturedWorks] = useState<PortfolioItem[]>([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // Fetch next event from Sanity
-        const upcomingEvent = await client.fetch(groq`
-          *[_type == "event" && date >= now()] | order(date asc)[0] {
-            _id, title, date, location, time, type
-          }
-        `);
-        setNextEvent(upcomingEvent);
-
-        // Fetch latest insights from Supabase
-        const { data: posts } = await supabase
-          .from('posts')
-          .select('id, title, slug, meta_description, created_at, tags')
-          .neq('content', '<p><br></p>')
-          .order('created_at', { ascending: false })
-          .limit(3);
-        setLatestInsights((posts || []) as Post[]);
-
-        // Fetch featured portfolio from Sanity
-        const works = await client.fetch(groq`
-          *[_type == "portfolio" && featured == true] | order(projectDate desc)[0..2] {
-            _id, title, slug, mainImage, excerpt
-          }
-        `);
-        setFeaturedWorks(works);
-      } catch (error) {
-        console.error('Error fetching dynamic About data:', error);
-      }
-    }
-    fetchData();
-  }, []);
-
   return (
-    <div className="bg-background min-h-screen selection:bg-brand-charcoal selection:text-brand-stone">
-      {/* Hero Section: Portrait-led Editorial */}
-      <section className="pt-40 pb-32 px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-stone/20 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-24 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
-            >
-              <div className="inline-flex items-center px-4 py-1.5 bg-brand-stone border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-12">
-                <Sparkles className="h-3.5 w-3.5 mr-2 text-brand-gold" />
-                Founder and Builder
-              </div>
-
-              <h1 className="text-6xl md:text-8xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.9] mb-12">
-                Edison <br />
-                <span className="text-gray-400 italic">Ade.</span>
+    <div className="min-h-screen bg-[#f4f2ec] text-[#1c1c1c] selection:bg-[#1c1c1c] selection:text-white">
+      <main>
+        <section className="px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pb-24 lg:pt-40">
+          <div className="mx-auto grid max-w-[92rem] gap-12 lg:grid-cols-[1.08fr_.92fr] lg:items-end lg:gap-20">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">Edison Ade · Founder and operator</p>
+              <h1 className="page-display mt-7 max-w-5xl">
+                I have spent my career turning ideas into things that have to work.
               </h1>
-
-              <p className="text-2xl md:text-3xl text-brand-muted font-light leading-relaxed mb-12">
-                I build the <span className="text-brand-charcoal font-medium underline decoration-brand-gold/30 underline-offset-8">systems</span> that turn vision into high-leverage outcomes.
+              <p className="mt-10 max-w-2xl text-lg leading-8 text-black/60">
+                Companies. Products. Programmes. Teams. The kind of work where a clever answer is useless unless people can execute it on Monday.
               </p>
-
-              <div className="space-y-8 text-lg text-brand-muted font-light leading-relaxed max-w-xl">
-                <p>
-                  I work with founders and teams to build clear strategy, better systems, and steady growth.
-                </p>
-                <p>
-                  My focus is practical: fewer bottlenecks, better execution, and results you can sustain.
-                </p>
-              </div>
-
-              <div className="mt-16 flex flex-wrap gap-8 items-center">
-                <Link href="/contact" className="px-12 py-6 bg-brand-charcoal text-white text-xs font-bold uppercase tracking-widest hover:bg-black transition-all shadow-xl">
-                  Book a Call
-                </Link>
-                <div className="flex items-center gap-4 group cursor-pointer">
-                  <div className="w-12 h-12 border border-brand-stone flex items-center justify-center group-hover:bg-brand-stone transition-all">
-                    <Play className="w-4 h-4 text-brand-charcoal ml-1" />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">How I Work</span>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2 }}
-              className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] overflow-hidden bg-brand-stone shadow-xl"
-            >
-              <Image
-                src="/image/edisonnew.jpg"
-                alt="Edison Ade"
-                fill
-                priority
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/40 to-transparent" />
-            </motion.div>
+            </div>
+            <div className="relative min-h-[520px] overflow-hidden rounded-[1.5rem] bg-[#1c1c1c] lg:min-h-[680px] lg:rounded-[2rem]">
+              <Image src="/image/edisonnew.jpg" alt="Edison Ade" fill priority sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover object-center grayscale-[12%]" />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Core Directives: The 3 Pillars */}
-      <section className="py-24 bg-brand-stone/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              { icon: Shield, title: "Systems That Scale", desc: "Engineering the operational infrastructure needed to support rapid expansion without friction." },
-              { icon: Zap, title: "Smart Workflows", desc: "Eliminating digital waste through intelligent process automation and high-efficiency tooling." },
-              { icon: TrendingUp, title: "Long-Term Growth", desc: "Drafting strategic blueprints that ensure consistency, profitability, and market leadership." }
-            ].map((pillar, idx) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.2 }}
-                className="p-10 bg-white border border-gray-100 hover:shadow-2xl hover:shadow-brand-charcoal/5 transition-all"
-              >
-                <pillar.icon className="w-10 h-10 text-brand-gold mb-8" />
-                <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-4">{pillar.title}</h3>
-                <p className="text-brand-muted font-light leading-relaxed">{pillar.desc}</p>
-              </motion.div>
+        <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+          <div className="mx-auto grid max-w-[92rem] gap-12 border-y border-black/20 py-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-24 lg:py-20">
+            <h2 className="section-display max-w-lg">The work changed. The question did not.</h2>
+            <div className="max-w-2xl space-y-7 text-lg leading-8 text-black/65">
+              <p>I started by building my own companies. That taught me what most advice leaves out: decisions are made with imperfect information, systems meet real people, and growth exposes every shortcut you took earlier.</p>
+              <p>Since then, I have worked with founders across Africa and the diaspora to find the decision underneath the noise—then turn that decision into a product, operating system, or plan the team can carry.</p>
+              <p>I am most useful when the business has momentum but the old way of running it no longer fits. When the founder is still the answer to every question. When there are more opportunities than conviction. When the next move matters too much to guess.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 py-14 sm:px-8 lg:px-12 lg:py-20">
+          <div className="mx-auto grid max-w-[92rem] grid-cols-2 border-y border-black/15 lg:grid-cols-4">
+            {record.map((stat, index) => (
+              <div key={stat.label} className={`py-8 ${index % 2 ? 'border-l border-black/15 pl-5' : 'pr-5'} ${index > 1 ? 'border-t border-black/15 lg:border-t-0' : ''} lg:border-l lg:px-8 first:lg:border-l-0 first:lg:pl-0`}>
+                <p className="text-4xl font-semibold tracking-[-0.05em]">{stat.value}</p>
+                <p className="mt-1 text-xs font-medium text-black/48">{stat.label}</p>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Next Briefing: Dynamic Sanity Event */}
-      {nextEvent && (
-        <section className="py-32 px-6 lg:px-8 bg-background border-y border-brand-stone/50">
-          <div className="max-w-7xl mx-auto">
-            <div className="bg-brand-charcoal p-12 md:p-24 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-
-              <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
-                <div>
-                  <div className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-brand-gold mb-12">
-                    <Calendar className="w-4 h-4" /> Next Event
-                  </div>
-                  <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-8 tracking-tight">
-                    {nextEvent.title}
-                  </h2>
-                  <div className="flex flex-wrap gap-8 text-white/60 text-sm font-light uppercase tracking-widest">
-                    <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-brand-gold" /> {nextEvent.location}</div>
-                    <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-brand-gold" /> {nextEvent.time}</div>
-                  </div>
-                </div>
-                <div className="flex justify-start lg:justify-end">
-                  <Link href="/events" className="px-12 py-6 bg-white text-brand-charcoal text-xs font-bold uppercase tracking-widest hover:bg-brand-stone transition-all">
-                    Register for Session
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
-      )}
 
-      {/* Selected Insights: Dynamic Supabase Posts */}
-      {latestInsights.length > 0 && (
-        <section className="py-24 px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-              <div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-4">Latest Articles</div>
-                <h2 className="text-5xl font-serif font-bold text-brand-charcoal">Selected Insights.</h2>
-              </div>
-              <Link href="/insights" className="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-brand-muted hover:text-brand-charcoal transition-colors group">
-                View All Insights <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+        <section className="px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+          <div className="mx-auto max-w-[92rem] rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-12 lg:flex lg:items-end lg:justify-between lg:gap-20 lg:rounded-[2rem] lg:p-20">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/40">What I believe</p>
+              <h2 className="closing-display mt-7 max-w-4xl">A founder should remain important without remaining the bottleneck.</h2>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              {latestInsights.map((post, idx) => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="group cursor-pointer"
-                >
-                  <Link href={`/insights/${post.slug}`}>
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-brand-gold mb-6">{post.tags?.[0]}</div>
-                    <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-4 group-hover:text-brand-gold transition-colors duration-500">{post.title}</h3>
-                    <p className="text-sm text-brand-muted font-light leading-relaxed mb-8 line-clamp-2">{post.meta_description}</p>
-                    <div className="w-12 h-[1px] bg-brand-stone group-hover:w-24 group-hover:bg-brand-charcoal transition-all duration-700" />
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Selected Works Strip: Sanity Portfolio */}
-      {featuredWorks.length > 0 && (
-        <section className="py-24 bg-brand-charcoal text-white relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-              <h2 className="text-5xl font-serif font-bold">Selected Works.</h2>
-              <Link href="/portfolio" className="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors group">
-                View All Projects <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-              {featuredWorks.map((work, idx) => (
-                <motion.div
-                  key={work._id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                >
-                  <Link href={`/portfolio/${work.slug.current}`} className="group block">
-                    <div className="relative aspect-[4/3] overflow-hidden mb-8 bg-white/5">
-                      {work.mainImage && (
-                        <Image
-                          src={urlFor(work.mainImage).url()}
-                          alt={work.title}
-                          fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
-                        />
-                      )}
-                    </div>
-                    <h3 className="text-2xl font-serif font-bold group-hover:text-brand-gold transition-colors">{work.title}</h3>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Narrative CTA */}
-      <section className="py-40 px-6 lg:px-8 bg-background text-center">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-          >
-            <h2 className="text-5xl md:text-7xl font-serif font-bold text-brand-charcoal mb-12 tracking-tight">
-              Let&apos;s Build <br /> your <span className="text-gray-400 italic">Next Growth Step.</span>
-            </h2>
-            <p className="text-xl text-brand-muted font-light leading-relaxed mb-16 max-w-2xl mx-auto">
-              If you want better focus, stronger systems, and faster execution, I can help.
-            </p>
-            <Link href="/contact" className="inline-flex items-center gap-8 group">
-              <span className="text-brand-charcoal font-bold uppercase tracking-[0.4em] text-xs">Book Free Call</span>
-              <div className="w-20 h-[1px] bg-brand-stone group-hover:w-40 group-hover:bg-brand-charcoal transition-all duration-700" />
-              <ArrowUpRight className="w-6 h-6 text-brand-charcoal" />
+            <Link href="/contact" className="group mt-10 inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-[#f4f2ec] px-7 py-4 text-sm font-semibold text-[#1c1c1c] lg:mt-0">
+              Bring me the problem <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

@@ -94,7 +94,7 @@ const PostCard = ({
                 </div>
               )}
 
-              <h1 className="text-4xl lg:text-5xl font-serif leading-tight text-brand-charcoal transition-colors duration-300">
+              <h1 className="text-3xl font-semibold leading-[1.08] tracking-[-0.04em] text-brand-charcoal transition-colors duration-300 lg:text-4xl">
                 {post.title}
               </h1>
 
@@ -142,7 +142,7 @@ const PostCard = ({
               </span>
             )}
 
-            <h2 className="text-2xl font-serif leading-tight text-brand-charcoal transition-colors duration-300">
+            <h2 className="text-2xl font-semibold leading-tight tracking-[-0.035em] text-brand-charcoal transition-colors duration-300">
               {post.title}
             </h2>
 
@@ -343,10 +343,10 @@ function InsightsContent() {
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12">
               <div>
                 <div className="inline-flex items-center px-4 py-1.5 bg-white border border-gray-100 text-[10px] font-bold tracking-widest text-brand-muted uppercase mb-4">
-                  <BookOpen className="h-3.5 w-3.5 mr-2 text-brand-gold" />
+                  <BookOpen className="h-3.5 w-3.5 mr-2 text-brand-charcoal/40" />
                   Strategic Library
                 </div>
-                <h1 className="text-5xl md:text-6xl font-serif text-brand-charcoal mb-4 tracking-tight">Articles.</h1>
+                <h1 className="page-display mb-4 text-brand-charcoal">Articles.</h1>
                 <p className="text-brand-muted font-light text-lg">Analysis and frameworks for the modern builder.</p>
               </div>
               <div className="w-full lg:max-w-md">

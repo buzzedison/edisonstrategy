@@ -16,7 +16,7 @@ export default async function LeadershipCoachingPage() {
         <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-14 items-center">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-muted mb-8">{content.hero.eyebrow}</p>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-brand-charcoal tracking-tight leading-[0.95] mb-8">
+            <h1 className="page-display mb-8 max-w-5xl text-brand-charcoal">
               {content.hero.titleLine1} <br />
               <span className="text-gray-400 italic">{content.hero.emphasizedTitle}</span>
             </h1>
@@ -58,7 +58,7 @@ export default async function LeadershipCoachingPage() {
       <section className="py-24 px-6 lg:px-8 bg-brand-stone/20 border-y border-brand-stone/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal tracking-tight mb-4">
+            <h2 className="section-display mb-4 text-brand-charcoal">
               {areasSection?.title}
             </h2>
             <p className="text-lg text-brand-muted max-w-3xl mx-auto">
@@ -74,7 +74,7 @@ export default async function LeadershipCoachingPage() {
                 <div className="w-12 h-12 bg-brand-stone flex items-center justify-center mb-6">
                   <Icon className="w-6 h-6 text-brand-charcoal" />
                 </div>
-                <h3 className="text-2xl font-serif font-bold text-brand-charcoal mb-3">{item.title}</h3>
+                <h3 className="mb-3 text-2xl font-semibold tracking-[-0.035em] text-brand-charcoal">{item.title}</h3>
                 <p className="text-brand-muted">{item.description}</p>
               </article>
             )})}
@@ -85,7 +85,7 @@ export default async function LeadershipCoachingPage() {
       <section className="py-24 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="bg-white border border-brand-stone/60 p-10 md:p-12">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal tracking-tight mb-8">
+            <h2 className="section-display mb-8 text-brand-charcoal">
               {outcomesSection?.title}
             </h2>
             <div className="space-y-4">
@@ -103,7 +103,7 @@ export default async function LeadershipCoachingPage() {
       <section className="py-28 px-6 lg:px-8 bg-brand-charcoal relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-gold/10 blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-serif italic text-white/90 leading-tight mb-10">
+          <h2 className="closing-display mb-10 text-white/90">
             {content.finalCta.title}
           </h2>
           <Link

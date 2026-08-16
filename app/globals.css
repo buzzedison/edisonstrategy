@@ -2,6 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Shared editorial typography for public marketing pages. */
+.page-display {
+  font-family: var(--font-jakarta), var(--font-inter), sans-serif;
+  font-size: clamp(3.1rem, 6vw, 6.25rem);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.section-display {
+  font-family: var(--font-jakarta), var(--font-inter), sans-serif;
+  font-size: clamp(2.45rem, 4.25vw, 4.6rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.052em;
+  text-wrap: balance;
+}
+
+.closing-display {
+  font-family: var(--font-jakarta), var(--font-inter), sans-serif;
+  font-size: clamp(2.7rem, 5.25vw, 5.4rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.058em;
+  text-wrap: balance;
+}
+
 /* 
 :root {
   --foreground-rgb: 0, 0, 0;
