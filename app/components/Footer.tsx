@@ -8,6 +8,8 @@ const links = [
   { name: 'Services', path: '/services' },
   { name: 'Work', path: '/portfolio' },
   { name: 'Insights', path: '/insights' },
+  { name: 'Scorecard', path: '/founder-scorecard' },
+  { name: 'Weekly letter', path: '/master-the-system' },
   { name: 'About', path: '/about' },
 ];
 

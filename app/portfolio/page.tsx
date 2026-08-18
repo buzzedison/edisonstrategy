@@ -4,6 +4,19 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { groq } from 'next-sanity';
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
+import type { Metadata } from 'next';
+
+const title = 'Selected Work: Products, Companies & Growth Systems';
+const description = 'Explore companies, digital products, and operating systems Edison Ade has helped build across markets and sectors.';
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords: ['Edison Ade portfolio', 'startup growth', 'product strategy work', 'venture building'],
+  alternates: { canonical: '/portfolio' },
+  openGraph: { title, description, url: '/portfolio', type: 'website' },
+  twitter: { card: 'summary_large_image', title, description },
+};
 
 interface PortfolioItem {
   _id: string;

@@ -49,7 +49,7 @@ const pillars = [
 const reasons = [
   {
     title: 'Proven Expertise',
-    body: 'Led by Edison Ade — a founder with 15+ years across Africa, the US, and UK, who has built, failed, rebuilt, and scaled.',
+    body: 'Led by Edison Ade — a founder with 15+ years building across different markets, who has built, failed, rebuilt, and scaled.',
   },
   {
     title: 'Hands-On, Not Motivational',

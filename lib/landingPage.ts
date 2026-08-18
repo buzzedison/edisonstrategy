@@ -203,7 +203,7 @@ export const defaultLandingPageContent: LandingPageContent = {
     description: 'I help founders turn hard-won momentum into a business that can make better decisions, move faster, and grow beyond them.',
   },
   hero: {
-    badge: 'Founder, operator and strategy partner · Accra → Worldwide',
+    badge: 'Founder, operator and strategy partner',
     titleLine1: 'Your business has outgrown',
     emphasizedTitle: 'guesswork.',
     titleLine3: '',
@@ -212,7 +212,7 @@ export const defaultLandingPageContent: LandingPageContent = {
     helperText: 'Bring the messy version. We’ll find the signal.',
     primaryCta: {
       label: 'Find the Real Constraint',
-      href: '/contact',
+      href: '/founder-scorecard',
     },
     secondaryCta: {
       label: 'See How I Work',

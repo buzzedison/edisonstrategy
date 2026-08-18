@@ -137,16 +137,16 @@ const landingDefaults = {
     description: 'I help founders grow with simple systems, strong execution, and practical insights.',
   },
   hero: {
-    badge: 'Business Growth Strategist · Accra → Worldwide',
-    titleLine1: 'Growth isn\u2019t magic.',
-    emphasizedTitle: 'It\u2019s a system.',
+    badge: 'Founder, operator and strategy partner',
+    titleLine1: 'Your business has outgrown',
+    emphasizedTitle: 'guesswork.',
     titleLine3: '',
     description:
-      'I help founders and growing teams cut through chaos, fix what\u2019s actually broken, and build revenue that compounds \u2014 without burning anyone out. I\u2019ve done it for my own companies. I\u2019ll do it with you.',
+      'When every important decision still lands on your desk, growth becomes a more expensive version of chaos. I help you turn hard-won momentum into a company that can think, sell, and move without waiting on you.',
     helperText: 'No pitch. No pressure. 30 minutes, real clarity.',
     primaryCta: {
-      label: 'Book a Free Strategy Call',
-      href: '/contact',
+      label: 'Find the Real Constraint',
+      href: '/founder-scorecard',
     },
     secondaryCta: {
       label: 'See Services',

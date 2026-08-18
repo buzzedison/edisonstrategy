@@ -13,27 +13,30 @@ const garamond = EB_Garamond({ subsets: ['latin'], variable: '--font-garamond' }
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.buzzedison.com'),
   title: {
-    default: 'Buzzedison | Build a Business That Scales with Smart Systems',
+    default: 'Edison Ade | Build Beyond Founder-Dependent Growth',
     template: '%s | Buzzedison'
   },
-  description: 'Buzzedison helps founders grow their business with AI and smart systems. Learn how to save time, scale faster, and build something that lasts.',
-  keywords: ['business growth', 'smart systems', 'scaling a startup', 'founder systems', 'business strategy', 'AI automation'],
-  authors: [{ name: 'Buzzedison' }],
-  creator: 'Buzzedison',
+  description: 'Edison Ade helps founders replace founder-dependent growth with clearer strategy, smarter systems, and products built to scale.',
+  keywords: ['Edison Ade', 'founder strategy', 'business systems', 'startup growth', 'founder operating systems', 'strategy partner'],
+  authors: [{ name: 'Edison Ade', url: 'https://www.buzzedison.com/about' }],
+  creator: 'Edison Ade',
   publisher: 'Buzzedison',
+  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://www.buzzedison.com',
-    title: 'Buzzedison | Build Your Legacy. Scale Your Impact.',
-    description: 'Expert guidance for leaders to build profitable and purposeful businesses. Discover strategies for sustainable growth and effective leadership.',
+    siteName: 'Buzzedison',
+    title: 'Your Business Has Outgrown Guesswork',
+    description: 'Strategy and operating partnership for founders with traction who need clearer priorities, stronger systems, and products built to scale.',
     images: [
       {
-        url: 'https://www.buzzedison.com/edisonnewb.jpg',
+        url: '/image/edisonnewb.jpg',
         width: 1200,
         height: 630,
-        alt: 'Buzzedison - Empowering Leaders',
+        alt: 'Edison Ade, founder, operator and strategy partner',
       },
     ],
   },
@@ -41,9 +44,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@buzzedison',
     creator: '@buzzedison',
-    title: 'Buzzedison | Build Your Legacy. Scale Your Impact.',
-    description: 'Expert guidance for leaders to build profitable and purposeful businesses. Discover strategies for sustainable growth and effective leadership.',
-    images: ['https://www.buzzedison.com/edisonnewb.jpg'],
+    title: 'Your Business Has Outgrown Guesswork',
+    description: 'Strategy and operating partnership for founders with traction who need clearer priorities, stronger systems, and products built to scale.',
+    images: ['/image/edisonnewb.jpg'],
   },
   robots: {
     index: true,
@@ -55,11 +58,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-site-verification-code',
-    yandex: 'your-yandex-verification-code',
-
   },
 };
 

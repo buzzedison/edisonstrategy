@@ -1,5 +1,17 @@
 import Link from 'next/link';
 import { ArrowUpRight, Clock } from 'lucide-react';
+import type { Metadata } from 'next';
+
+const title = 'Work With Edison Ade: Book a Strategy Conversation';
+const description = 'Bring the business decision you cannot afford to keep circling. Book a focused conversation with Edison Ade or send the problem directly.';
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: '/contact' },
+  openGraph: { title, description, url: '/contact', type: 'website' },
+  twitter: { card: 'summary_large_image', title, description },
+};
 
 export default function ContactPage() {
   return (

@@ -1,5 +1,18 @@
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import type { Metadata } from 'next';
+
+const title = 'Founder Strategy, MVP Building & Growth Systems';
+const description = 'Three focused ways to work with Edison Ade: clarify the next move, build the right product, or create systems that reduce founder dependency.';
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords: ['founder strategy services', 'MVP builder', 'startup growth systems', 'fractional strategy partner'],
+  alternates: { canonical: '/services' },
+  openGraph: { title, description, url: '/services', type: 'website' },
+  twitter: { card: 'summary_large_image', title, description },
+};
 
 const engagements = [
   {

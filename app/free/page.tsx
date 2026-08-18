@@ -95,7 +95,7 @@ export default function FreePage() {
           <div className="bg-white/5 border border-white/10 p-8 text-left mb-10">
             <p className="font-sans text-[10px] font-bold uppercase tracking-widest text-brand-gold mb-4">While you wait</p>
             <p className="font-sans text-white/70 font-light leading-relaxed">
-              I&apos;ll be sending you a short follow-up series over the next two weeks — practical frameworks, real case studies, and the exact systems I use with founders across Africa and the diaspora. Every email is useful. Unsubscribe anytime.
+              I&apos;ll be sending you a short follow-up series over the next two weeks — practical frameworks, real case studies, and the exact systems I use with founders across markets and sectors. Every email is useful. Unsubscribe anytime.
             </p>
           </div>
           <Link
@@ -409,7 +409,7 @@ export default function FreePage() {
               </h2>
               <div className="font-sans space-y-5 text-brand-muted font-light leading-relaxed max-w-2xl">
                 <p>
-                  Edison is Africa&apos;s most practical systems thinker — Managing Partner of Enterprise Village, founder of Taskwit (7,400+ alumni), and Executive Director of African Recovery. He has spent over a decade helping founders and organisations build the infrastructure to scale.
+                  Edison is a practical systems thinker — Managing Partner of Enterprise Village, founder of Taskwit (7,400+ alumni), and Executive Director of African Recovery. He has spent over a decade helping founders and organisations build the infrastructure to scale.
                 </p>
                 <p>
                   This playbook distils the exact AI and automation systems used across five operating ventures — from $300 cohorts to $100,000 technology contracts — into a framework any ambitious founder can deploy in under 30 days.

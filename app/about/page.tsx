@@ -1,6 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import type { Metadata } from 'next';
+
+const title = 'About Edison Ade: Founder, Operator & Strategy Partner';
+const description = 'Meet Edison Ade, a founder and operator helping entrepreneurs turn difficult decisions into products, systems, and companies their teams can carry.';
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords: ['Edison Ade', 'entrepreneur', 'business strategist', 'startup operator'],
+  alternates: { canonical: '/about' },
+  openGraph: { title, description, url: '/about', type: 'profile' },
+  twitter: { card: 'summary_large_image', title, description },
+};
 
 const record = [
   { value: '7', label: 'Companies built' },
@@ -35,7 +48,7 @@ export default function AboutPage() {
             <h2 className="section-display max-w-lg">The work changed. The question did not.</h2>
             <div className="max-w-2xl space-y-7 text-lg leading-8 text-black/65">
               <p>I started by building my own companies. That taught me what most advice leaves out: decisions are made with imperfect information, systems meet real people, and growth exposes every shortcut you took earlier.</p>
-              <p>Since then, I have worked with founders across Africa and the diaspora to find the decision underneath the noise—then turn that decision into a product, operating system, or plan the team can carry.</p>
+              <p>Since then, I have worked with founders across markets and sectors to find the decision underneath the noise—then turn that decision into a product, operating system, or plan the team can carry.</p>
               <p>I am most useful when the business has momentum but the old way of running it no longer fits. When the founder is still the answer to every question. When there are more opportunities than conviction. When the next move matters too much to guess.</p>
             </div>
           </div>

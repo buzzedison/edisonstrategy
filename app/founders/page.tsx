@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Founders Circle | Community for Ambitious Founders | Buzzedison',
   description:
-    'Founders Circle is an exclusive community designed to connect, support, and empower founders throughout their entrepreneurial journeys. Join serious builders across Africa and beyond.',
+    'Founders Circle is an exclusive community designed to connect, support, and empower founders throughout their entrepreneurial journeys. Join serious builders across markets and industries.',
 };
 
 const offerings = [

@@ -43,7 +43,7 @@ const client = createClient({ projectId, dataset, apiVersion: '2025-03-30', toke
 
 const set = {
   // Hero
-  'hero.badge': 'Founder, operator and strategy partner · Accra → Worldwide',
+  'hero.badge': 'Founder, operator and strategy partner',
   'hero.titleLine1': 'Your business has outgrown',
   'hero.emphasizedTitle': 'guesswork.',
   'hero.titleLine3': '',
@@ -51,6 +51,7 @@ const set = {
     'When every important decision still lands on your desk, growth becomes a more expensive version of chaos. I help you turn hard-won momentum into a company that can think, sell, and move without waiting on you.',
   'hero.helperText': 'Bring the messy version. We’ll find the signal.',
   'hero.primaryCta.label': 'Find the Real Constraint',
+  'hero.primaryCta.href': '/founder-scorecard',
   'hero.secondaryCta.label': 'See How I Work',
   'aboutSection.cta.label': 'Why I Do This',
 

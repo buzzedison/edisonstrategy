@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, firstName, lastName } = await request.json();
+    const { email, firstName, lastName, source, fields } = await request.json();
 
     if (!email) {
       return NextResponse.json(
@@ -12,6 +12,22 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      return NextResponse.json(
+        { error: 'Enter a valid email address' },
+        { status: 400 }
+      );
+    }
+
+    const safeFields = fields && typeof fields === 'object'
+      ? Object.fromEntries(
+          Object.entries(fields)
+            .filter(([, value]) => typeof value === 'string' || typeof value === 'number')
+            .map(([key, value]) => [key, String(value).slice(0, 120)])
+        )
+      : {};
 
     // Kit API configuration
     const KIT_API_KEY = process.env.KIT_API_KEY;
@@ -39,6 +55,10 @@ export async function POST(request: NextRequest) {
         email,
         first_name: firstName || '',
         last_name: lastName || '',
+        fields: {
+          ...safeFields,
+          ...(source ? { signup_source: String(source).slice(0, 80) } : {}),
+        },
       }),
     });
 

@@ -2,9 +2,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
+const title = 'Edison Ade Speaking: Founders, AI & Business Systems';
+const description = 'Book Edison Ade for keynotes, podcasts, and leadership conversations about founder dependency, AI, growth systems, and building from context.';
+
+export const metadata = {
+  title,
+  description,
+  keywords: ['Edison Ade speaker', 'business systems speaker', 'startup keynote speaker', 'AI business speaker'],
+  alternates: { canonical: '/speaking' },
+  openGraph: { title, description, url: '/speaking', type: 'website' },
+  twitter: { card: 'summary_large_image', title, description },
+};
+
 const topics = [
   ['Building beyond the founder', 'How leaders create companies that keep their judgment without keeping every decision.'],
-  ['Africa’s next business advantage', 'What builders can see when they stop importing assumptions and start designing from context.'],
+  ['Context is a business advantage', 'What builders can see when they stop importing assumptions and start designing from what is actually true.'],
   ['AI after the excitement', 'Where intelligent tools create actual leverage—and where they simply make noise faster.'],
   ['From idea to operating system', 'The decisions, habits, and infrastructure that turn early momentum into durable growth.'],
 ];
@@ -20,7 +32,7 @@ export default function SpeakingPage() {
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">Speaking · Podcasts · Leadership rooms</p>
               <h1 className="page-display mt-7 max-w-5xl">Ideas should still be useful after the applause.</h1>
-              <p className="mt-10 max-w-2xl text-lg leading-8 text-black/60">I speak about the decisions behind growth: what founders carry, what teams need, and what becomes possible when we build from the realities of African markets instead of around them.</p>
+              <p className="mt-10 max-w-2xl text-lg leading-8 text-black/60">I speak about the decisions behind growth: what founders carry, what teams need, and what becomes possible when we build from the realities of the market instead of inherited assumptions.</p>
               <Link href="/contact" className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#1c1c1c] px-6 py-3.5 text-sm font-semibold text-white">Discuss your audience <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></Link>
             </div>
             <div className="relative min-h-[480px] overflow-hidden rounded-[1.5rem] bg-[#1c1c1c] lg:min-h-[650px] lg:rounded-[2rem]">
