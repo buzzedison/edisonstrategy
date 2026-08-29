@@ -1,6 +1,7 @@
 // app/api/newsletter/route.ts
 
 import { NextRequest, NextResponse } from 'next/server';
+import { recordNewsletterSignup, updateNewsletterDelivery } from '@/lib/newsletterSubscribers';
 
 export async function POST(request: NextRequest) {
   try {
@@ -44,6 +45,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Store the subscriber first so the admin dashboard remains the source of record,
+    // even if Kit is temporarily unavailable.
+    const subscriberRecordId = await recordNewsletterSignup({
+      email,
+      firstName,
+      lastName,
+      source,
+      fields: safeFields,
+    });
+
     // Subscribe to Kit
     const kitResponse = await fetch(`https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`, {
       method: 'POST',
@@ -66,11 +77,20 @@ export async function POST(request: NextRequest) {
 
     if (!kitResponse.ok) {
       console.error('Kit API error:', kitData);
+      await updateNewsletterDelivery(subscriberRecordId, 'error', {
+        error: kitData.message || 'Failed to subscribe',
+      });
       return NextResponse.json(
         { error: kitData.message || 'Failed to subscribe' },
         { status: kitResponse.status }
       );
     }
+
+    await updateNewsletterDelivery(subscriberRecordId, 'subscribed', {
+      kitSubscriberId: kitData.subscription?.subscriber?.id
+        ? String(kitData.subscription.subscriber.id)
+        : undefined,
+    });
 
     console.log('Successfully subscribed to Kit:', { email, subscriber_id: kitData.subscription?.subscriber?.id });
 

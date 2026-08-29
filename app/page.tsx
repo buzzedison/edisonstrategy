@@ -25,23 +25,23 @@ const offers = [
   {
     number: '01',
     name: 'Accelerator Sprint',
-    timing: 'Four weeks',
+    timing: 'Flagship · Four weeks',
     forWhom: 'For founders with traction, too many priorities, and no clear answer to “what now?”',
-    description: 'We identify the constraint, sharpen the position, and create one decisive 90-day plan.',
+    description: 'We identify the constraint holding the business back and turn it into one focused 90-day execution plan.',
   },
   {
     number: '02',
     name: 'MVP Builder',
-    timing: 'Eight weeks',
-    forWhom: 'For non-technical founders who need to build the right product before investing in the wrong one.',
-    description: 'We turn the business case into a focused MVP with the right scope, architecture, and learning goals.',
+    timing: 'Typically eight weeks',
+    forWhom: 'For founders who know what must be built but need help shipping it.',
+    description: 'We turn the business case into a focused product real customers can use, test, and pay for.',
   },
   {
     number: '03',
     name: 'Strategy Partner',
-    timing: 'Quarterly',
-    forWhom: 'For founders carrying the company’s hardest decisions alone.',
-    description: 'A recurring operating partnership across growth, product, systems, team structure, and what to stop doing.',
+    timing: 'Selective · 12 weeks',
+    forWhom: 'For established founders whose company returns to them for every hard decision.',
+    description: 'An operating partnership that transfers judgment into the team and reduces founder dependency.',
   },
 ];
 
@@ -183,26 +183,33 @@ export default async function Home() {
           <div className="mx-auto max-w-[92rem]">
             <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-24">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/42">Ways to work together</p>
-                <h2 className="section-display mt-6 max-w-xl">The right strategy should change what happens on Monday morning.</h2>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/42">The default starting point</p>
+                <h2 className="section-display mt-6 max-w-xl">Start by finding the constraint.</h2>
+                <p className="mt-6 max-w-lg text-base leading-7 text-black/55">Most founders begin with the Accelerator Sprint. The diagnosis determines whether the next move is a product build, an operating partnership, or execution by your own team.</p>
               </div>
-              <div className="border-t border-black/20">
-                {offers.map((offer) => (
-                  <Link key={offer.name} href="/services" className="group grid gap-5 border-b border-black/20 py-8 sm:grid-cols-[3rem_.8fr_1.2fr_auto] sm:gap-7 lg:py-10">
-                    <span className="text-xs font-semibold text-black/32">{offer.number}</span>
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-black/38">{offer.timing}</p>
-                      <h3 className="mt-2 text-2xl font-semibold tracking-[-0.035em]">{offer.name}</h3>
-                    </div>
-                    <div>
-                      <p className="font-medium leading-7">{offer.forWhom}</p>
-                      <p className="mt-3 text-sm leading-6 text-black/55">{offer.description}</p>
-                    </div>
-                    <ArrowUpRight className="h-5 w-5 text-black/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-black" />
-                  </Link>
-                ))}
+              <div>
+                <Link href="/services" className="group block rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-10">
+                  <div className="flex items-start justify-between gap-6">
+                    <div><p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">{offers[0].timing}</p><h3 className="mt-4 text-4xl font-medium tracking-[-0.05em]">{offers[0].name}</h3></div>
+                    <ArrowUpRight className="h-5 w-5 text-white/45 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </div>
+                  <p className="mt-8 max-w-xl text-lg font-medium leading-8 text-white/82">{offers[0].forWhom}</p>
+                  <p className="mt-3 max-w-xl text-sm leading-6 text-white/55">{offers[0].description}</p>
+                  <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold">See the flagship Sprint <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+                </Link>
+                <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/38">What the diagnosis may lead to</p>
+                <div className="mt-3 border-t border-black/20">
+                  {offers.slice(1).map((offer) => (
+                    <Link key={offer.name} href="/services" className="group grid gap-5 border-b border-black/20 py-7 sm:grid-cols-[3rem_.8fr_1.2fr_auto] sm:gap-7">
+                      <span className="text-xs font-semibold text-black/32">{offer.number}</span>
+                      <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-black/38">{offer.timing}</p><h3 className="mt-2 text-xl font-semibold tracking-[-0.035em]">{offer.name}</h3></div>
+                      <div><p className="text-sm font-medium leading-6">{offer.forWhom}</p><p className="mt-2 text-sm leading-6 text-black/55">{offer.description}</p></div>
+                      <ArrowUpRight className="h-5 w-5 text-black/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-black" />
+                    </Link>
+                  ))}
+                </div>
                 <Link href="/services" className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
-                  Choose the right starting point <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  Compare scope, fit, and investment <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
             </div>

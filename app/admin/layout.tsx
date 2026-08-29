@@ -13,7 +13,9 @@ import {
     ChevronRight,
     BarChart3,
     MessageSquare,
-    Library
+    Library,
+    Mail,
+    ClipboardList
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
@@ -21,6 +23,8 @@ import { motion } from 'framer-motion';
 const adminNav = [
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
     { name: 'Insights Library', path: '/admin/insights', icon: Library },
+    { name: 'Subscribers', path: '/admin/subscribers', icon: Mail },
+    { name: 'Applications', path: '/admin/applications', icon: ClipboardList },
     { name: 'New Entry', path: '/admin/insights/new', icon: PenTool },
     { name: 'Analytics', path: '/admin/analytics', icon: BarChart3 },
     { name: 'Comments', path: '/admin/comments', icon: MessageSquare },

@@ -5,7 +5,9 @@ import portfolio from './portfolio'
 import event from './event'
 import landingPage from './landingPage'
 import marketingPage from './marketingPage'
+import newsletterSubscriber from './newsletterSubscriber'
+import clientApplication from './clientApplication'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [landingPage, marketingPage, portfolio, category, event, blockContent],
+  types: [landingPage, marketingPage, portfolio, category, event, newsletterSubscriber, clientApplication, blockContent],
 }

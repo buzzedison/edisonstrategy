@@ -62,6 +62,29 @@ const SocialShare = ({ title, url }: { title: string; url: string }) => {
     );
 };
 
+const FounderScorecardCta = () => (
+    <aside
+        aria-label="Founder Scorecard"
+        className="mt-14 flex flex-col gap-4 border-y border-gray-200 py-6 sm:flex-row sm:items-center sm:justify-between"
+    >
+        <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-muted">
+                Free · Four minutes
+            </p>
+            <p className="mt-1 text-sm leading-6 text-brand-charcoal">
+                Find the operating constraint keeping important decisions on your desk.
+            </p>
+        </div>
+        <Link
+            href="/founder-scorecard"
+            className="group inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-brand-charcoal transition-colors hover:text-brand-gold"
+        >
+            Take the Founder Scorecard
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </Link>
+    </aside>
+);
+
 // Related posts component
 const RelatedPosts = ({ currentPostId, tags }: { currentPostId: number; tags: string[] }) => {
     const [relatedPosts, setRelatedPosts] = useState<Post[]>([]);
@@ -274,6 +297,8 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
           ">
                         <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
                     </div>
+
+                    <FounderScorecardCta />
 
                     {/* Footer Actions */}
                     <div className="mt-20">

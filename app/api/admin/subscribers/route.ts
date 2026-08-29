@@ -1,0 +1,57 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
+import { client } from '@/sanity/lib/client';
+
+export const dynamic = 'force-dynamic';
+
+async function isAdmin(request: NextRequest) {
+  const authHeader = request.headers.get('authorization');
+  const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : '';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!token || !supabaseUrl || !supabaseKey) return false;
+
+  const supabase = createClient(supabaseUrl, supabaseKey, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+  const { data, error } = await supabase.auth.getUser(token);
+  return !error && data.user?.email === 'buzzedison@gmail.com';
+}
+
+export async function GET(request: NextRequest) {
+  if (!(await isAdmin(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const token = process.env.SANITY_API_WRITE_TOKEN || process.env.SANITY_WRITE_TOKEN;
+    const readClient = client.withConfig({ token, useCdn: false });
+    const subscribers = await readClient.fetch(`
+      *[_type == "newsletterSubscriber"] | order(lastSubscribedAt desc) {
+        _id,
+        email,
+        firstName,
+        lastName,
+        latestSource,
+        sources,
+        founderScore,
+        scoreBand,
+        primaryConstraint,
+        kitStatus,
+        firstSubscribedAt,
+        lastSubscribedAt
+      }
+    `);
+
+    return NextResponse.json(
+      { subscribers },
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' } }
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unable to load subscribers';
+    console.error('Admin subscribers API error:', message);
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
