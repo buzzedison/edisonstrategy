@@ -98,7 +98,7 @@ export default async function Home() {
       <main>
         <section className="px-5 pb-8 pt-28 sm:px-8 lg:px-12 lg:pb-12 lg:pt-32">
           <div className="mx-auto grid max-w-[92rem] overflow-hidden rounded-[1.5rem] bg-[#1c1c1c] text-white lg:min-h-[720px] lg:grid-cols-[1.08fr_.92fr] lg:rounded-[2rem]">
-            <div className="flex flex-col justify-between px-7 py-10 sm:px-12 sm:py-14 lg:px-16 lg:py-16 xl:px-20">
+            <div className="flex flex-col justify-center px-7 py-10 sm:px-12 sm:py-14 lg:px-16 lg:py-16 xl:px-20">
               <div>
                 <p className="mb-9 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/48">
                   Founder, operator and strategy partner
@@ -108,7 +108,7 @@ export default async function Home() {
                 </h1>
               </div>
 
-              <div className="mt-14 max-w-xl lg:mt-16">
+              <div className="mt-8 max-w-xl lg:mt-10">
                 <p className="max-w-[34rem] text-base leading-7 text-white/64 sm:text-lg">
                   When every important decision still lands on your desk, growth becomes a more expensive version of chaos. I help you turn hard-won momentum into a company that can think, sell, and move without waiting on you.
                 </p>
@@ -209,7 +209,7 @@ export default async function Home() {
                   ))}
                 </div>
                 <Link href="/services" className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
-                  Compare scope, fit, and investment <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  Compare scope and fit <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
             </div>
@@ -234,7 +234,7 @@ export default async function Home() {
         <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-32">
           <div className="mx-auto grid max-w-[92rem] overflow-hidden rounded-[1.5rem] bg-white lg:grid-cols-[.9fr_1.1fr] lg:rounded-[2rem]">
             <div className="relative min-h-[480px] lg:min-h-[680px]">
-              <Image src="/image/edisonnew.jpg" alt="Edison Ade at work" fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover grayscale-[12%]" />
+              <Image src="/image/edisonnew.png" alt="Edison Ade at work at his desk" fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover object-[center_30%] grayscale-[12%]" />
             </div>
             <div className="flex flex-col justify-between border-t border-black/10 p-8 sm:p-12 lg:border-l lg:border-t-0 lg:p-16 xl:p-20">
               <div>

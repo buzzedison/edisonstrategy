@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -51,8 +50,8 @@ export default function Navbar() {
       )}
     >
       <div className="mx-auto flex h-20 max-w-[98rem] items-center justify-between px-5 sm:px-8 lg:px-12">
-        <Link href="/" aria-label="BuzzEdison home">
-          <Image src="/image/logo.svg" alt="BuzzEdison" width={132} height={40} priority className="h-8 w-auto" />
+        <Link href="/" aria-label="BuzzEdison home" className="text-xl font-semibold tracking-[-0.04em] text-[#1c1c1c]">
+          BuzzEdison
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-8 lg:flex">

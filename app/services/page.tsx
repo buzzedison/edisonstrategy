@@ -29,7 +29,6 @@ const pathways = [
     name: 'MVP Builder',
     problem: 'You know what must be built, but need help shipping it.',
     timing: 'Typical eight-week engagement',
-    price: 'From $3,500',
     promise: 'We turn your business case into a focused product real customers can use, test, and pay for—before unnecessary features consume your budget.',
     deliverables: [
       'Business-case validation',
@@ -52,7 +51,6 @@ const pathways = [
     name: 'Strategy Partner',
     problem: 'The company keeps returning to you for every hard decision.',
     timing: 'Selective 12-week engagement',
-    price: 'From $4,500',
     promise: 'An invitation-only operating partnership that transfers judgment into the team and reduces the company’s dependence on you.',
     deliverables: [
       'Weekly founder strategy session',
@@ -108,9 +106,8 @@ export default function ServicesPage() {
                 <p className="mt-8 max-w-xl text-lg leading-8 text-white/65">In four weeks, we identify the constraint holding the business back and turn it into one focused 90-day execution plan.</p>
               </div>
               <div className="mt-12 border-t border-white/15 pt-8">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/40">Investment</p>
-                <p className="mt-2 text-3xl font-semibold tracking-[-0.04em]">$2,500</p>
-                <p className="mt-2 text-sm leading-6 text-white/45">Fixed scope. One business. One priority. Four focused weeks.</p>
+                <p className="text-xs uppercase tracking-[0.16em] text-white/40">How the Sprint is scoped</p>
+                <p className="mt-3 max-w-md text-sm leading-6 text-white/55">We agree the right scope after our first conversation, based on the constraint and the work actually required.</p>
                 <Link href="/contact?service=accelerator-sprint" className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#f4f2ec] px-6 py-3.5 text-sm font-semibold text-[#1c1c1c]">
                   Apply for the Sprint <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
@@ -170,7 +167,7 @@ export default function ServicesPage() {
             <div className="mx-auto max-w-[92rem]">
               <div className="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-24">
                 <div>
-                  <div className="flex flex-wrap gap-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/40"><span>{offer.timing}</span><span>·</span><span>{offer.price}</span></div>
+                  <div className="flex flex-wrap gap-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/40"><span>{offer.timing}</span></div>
                   <h2 className="section-display mt-6">{offer.name}</h2>
                   <p className="mt-7 max-w-lg text-lg font-medium leading-8">{offer.problem}</p>
                   <p className="mt-4 max-w-lg text-base leading-7 text-black/58">{offer.promise}</p>
