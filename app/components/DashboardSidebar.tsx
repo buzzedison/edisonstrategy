@@ -173,8 +173,8 @@ const DashboardSidebar = ({ isOpen, onToggle }: DashboardSidebarProps) => {
 
       {/* Sidebar */}
       <div className={cn(
-        "fixed left-0 top-0 h-full bg-brand-stone border-r border-gray-100 z-[60] transform transition-all duration-500 ease-out w-80 shadow-2xl overflow-hidden flex flex-col",
-        isOpen ? "translate-x-0" : "-translate-x-full"
+        "fixed left-0 top-0 h-full bg-brand-stone border-r border-gray-100 z-[60] transform transition-all duration-500 ease-out w-80 overflow-hidden flex flex-col",
+        isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
       )}>
         {/* Header */}
         <div className="flex items-center justify-between p-8 border-b border-gray-100 bg-white/30 backdrop-blur-md">
