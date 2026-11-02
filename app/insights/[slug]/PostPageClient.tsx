@@ -215,7 +215,8 @@ export default function PostPageClient({ post: initialPost }: { post: Post }) {
 
     const wordCount = post.content?.replace(/<[^>]*>/g, '').split(/\s+/).length || 0;
     const readingTime = Math.ceil(wordCount / 200);
-    const currentUrl = typeof window !== 'undefined' ? window.location.href : `https://buzzedison.com/insights/${post.slug}`;
+    // always the canonical URL, so server and client render the same share links
+    const currentUrl = `https://buzzedison.com/insights/${post.slug}`;
 
     return (
         <InsightsWithSidebar

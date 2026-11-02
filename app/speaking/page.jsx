@@ -66,7 +66,7 @@ export default function SpeakingPage() {
           <div className="mx-auto grid max-w-[92rem] gap-14 rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-12 lg:grid-cols-2 lg:gap-24 lg:rounded-[2rem] lg:p-20">
             <div>
               <h2 className="section-display max-w-xl">Speaker bio</h2>
-              <p className="mt-8 max-w-xl text-base leading-7 text-white/65 sm:text-lg sm:leading-8">Edison Ade is a founder, operator and strategy partner who helps growing companies outgrow founder-dependent growth. He has built 7 companies, trained more than 7,400 founders across 15 countries, and helped raise over $5M. He also writes and speaks on Christian leadership and apologetics, making the case for faith to thinking professionals.</p>
+              <p className="mt-8 max-w-xl text-base leading-7 text-white/65 sm:text-lg sm:leading-8">Edison Ade is a founder, operator and strategy partner who helps growing companies outgrow founder-dependent growth. He has built 7 companies, trained more than 7,400 founders across 15 countries. He also writes and speaks on Christian leadership and apologetics, making the case for faith to thinking professionals.</p>
               <a href={bookingEmail} className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#f4f2ec] px-6 py-3.5 text-sm font-semibold text-[#1c1c1c]">Book Edison <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></a>
             </div>
             <div className="border-t border-white/20 pt-7">

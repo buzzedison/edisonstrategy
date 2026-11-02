@@ -5,6 +5,8 @@ import type { Metadata } from 'next';
 import { Inter, EB_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
 import NavbarNew from './components/MyNav';
 import Footer from './components/Footer';
+import Cursor from './components/Cursor';
+import PageTransition from './components/PageTransition';
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import { AuthProvider } from '../lib/authContext';
 
@@ -74,6 +76,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
         <AuthProvider>
           <NavbarNew />
+          <Cursor />
+          <PageTransition />
           {children}
           <Footer />
         </AuthProvider>

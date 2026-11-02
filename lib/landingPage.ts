@@ -233,7 +233,6 @@ export const defaultLandingPageContent: LandingPageContent = {
     { value: '7', label: 'Companies Built' },
     { value: '7,400+', label: 'Founders Trained' },
     { value: '15', label: 'Countries Reached' },
-    { value: '$5M+', label: 'Capital Raised' },
   ],
   brandsSection: {
     eyebrow: 'Built & Backed',
@@ -511,7 +510,6 @@ export const defaultLandingPageContent: LandingPageContent = {
     imageUrl: '/image/edisonaboutnew.jpg',
     stats: [
       { value: '15+', label: 'Years of Experience' },
-      { value: '$5M+', label: 'Capital Raised' },
       { value: '10k+', label: 'People Reached' },
     ],
   },

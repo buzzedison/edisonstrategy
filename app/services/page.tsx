@@ -142,7 +142,7 @@ export default function ServicesPage() {
               </div>
               <div className="mt-8 rounded-2xl border border-white/15 p-6">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/38">The experience behind the diagnosis</p>
-                <p className="mt-3 text-lg font-medium">Seven companies built · $5M+ capital raised · 15 countries reached</p>
+                <p className="mt-3 text-lg font-medium">Seven companies built · 7,400+ founders trained · 15 countries reached</p>
               </div>
             </div>
           </div>

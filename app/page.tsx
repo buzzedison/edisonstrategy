@@ -1,7 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Gauge, Mail } from 'lucide-react';
+import StatsBand from '@/app/components/StatsBand';
+import BottleneckGraphic from '@/app/components/graphics/BottleneckGraphic';
+import JethroTree from '@/app/components/graphics/JethroTree';
+import MethodRail from '@/app/components/graphics/MethodRail';
+import { ArrowRight, ArrowUpRight, Compass, Gauge, Hammer, Hourglass, Mail } from 'lucide-react';
 import { getLandingPageContent } from '@/lib/landingPage';
+
+const audienceIcons = [Hourglass, Compass, Hammer];
 
 const audiences = [
   {
@@ -71,13 +77,13 @@ const method = [
 export default async function Home() {
   const content = await getLandingPageContent();
   const portraitSrc = content.hero.portraitImageUrl || '/image/edisonaboutnew.jpg';
-  const stats = content.trustBarStats.length
-    ? content.trustBarStats.slice(0, 4)
+  const cmsStats = content.trustBarStats.filter((stat) => !/capital|raised/i.test(stat.label)).slice(0, 3);
+  const stats = cmsStats.length
+    ? cmsStats
     : [
         { value: '7', label: 'Companies built' },
         { value: '7,400+', label: 'Founders trained' },
         { value: '15', label: 'Countries reached' },
-        { value: '$5M+', label: 'Capital raised' },
       ];
 
   const jsonLd = {
@@ -134,60 +140,59 @@ export default async function Home() {
           </div>
         </section>
 
-        <section aria-label="Track record" className="px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
-          <div className="mx-auto grid max-w-[92rem] grid-cols-2 border-y border-black/15 lg:grid-cols-4">
-            {stats.map((stat, index) => (
-              <div key={stat.label} className={`py-7 ${index % 2 === 0 ? 'pr-5' : 'border-l border-black/15 pl-5'} ${index > 1 ? 'border-t border-black/15 lg:border-t-0' : ''} lg:border-l lg:border-t-0 lg:px-8 first:lg:border-l-0 first:lg:pl-0`}>
-                <p className="text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">{stat.value}</p>
-                <p className="mt-1 text-xs font-medium text-black/50">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <StatsBand stats={stats} title="Built in the real world." />
 
-        <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-32">
-          <div className="mx-auto grid max-w-[92rem] gap-12 lg:grid-cols-[.78fr_1.22fr] lg:gap-24">
+        <section className="px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
+          <div className="mx-auto rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-12 lg:rounded-[2rem] lg:p-16 grid max-w-[92rem] items-center gap-16 lg:grid-cols-[1fr_1fr] lg:gap-24">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/42">When momentum becomes complicated</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/48">When momentum becomes complicated</p>
               <h2 className="section-display mt-6 max-w-xl">Your business is growing. Your way of running it is not.</h2>
+              <div className="mt-10 max-w-xl space-y-5 text-lg leading-8 text-white/75">
+                <p>You have customers, a team and more opportunities than you can chase. You also have a queue of decisions waiting on you.</p>
+                <p>The team is busy, but progress feels uneven.</p>
+                <p className="font-semibold text-white">The problem is rarely effort. It is the system underneath the effort.</p>
+                <Link href="/founder-scorecard" className="group inline-flex items-center gap-2 pt-2 text-sm font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
+                  Find the real constraint in four minutes <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
             </div>
-            <div className="max-w-2xl space-y-6 text-lg leading-8 text-black/62">
-              <p>You have customers, a team and more opportunities than you can chase. You also have a queue of decisions waiting on you.</p>
-              <p>The team is busy, but progress feels uneven.</p>
-              <p className="font-semibold text-black">The problem is rarely effort. It is the system underneath the effort.</p>
-              <Link href="/founder-scorecard" className="group inline-flex items-center gap-2 pt-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
-                Find the real constraint in four minutes <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
+            <BottleneckGraphic />
           </div>
         </section>
 
-        <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-          <div className="mx-auto max-w-[92rem] border-t border-black/20 pt-12">
-            <h2 className="section-display max-w-4xl">This is for founders who have traction—but need a better way to carry it.</h2>
-            <div className="mt-14 grid border-l border-t border-black/15 md:grid-cols-3">
-              {audiences.map((item) => (
-                <article key={item.title} className="min-h-[240px] border-b border-r border-black/15 p-7 sm:p-9 lg:p-10">
-                  <p className="text-xs font-semibold text-black/32">{item.number}</p>
-                  <h3 className="mt-12 text-2xl font-semibold tracking-[-0.035em]">{item.title}</h3>
-                  <p className="mt-3 max-w-xs text-sm leading-6 text-black/55 sm:text-base sm:leading-7">{item.description}</p>
-                </article>
-              ))}
-            </div>
-            <p className="mt-8 max-w-3xl text-sm leading-6 text-black/48">If you are still searching for an idea, I may not be the right partner yet. If you have momentum but the old way of operating is starting to break, we should talk.</p>
-          </div>
-        </section>
-
-        <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-32">
+        <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
           <div className="mx-auto max-w-[92rem]">
+            <h2 className="section-display max-w-4xl">This is for founders who have traction—but need a better way to carry it.</h2>
+            <div className="mt-14 grid gap-5 md:grid-cols-3">
+              {audiences.map((item, i) => {
+                const Icon = audienceIcons[i];
+                return (
+                  <article key={item.title} className="group flex min-h-[300px] flex-col justify-between rounded-[1.5rem] bg-white p-8 transition-transform duration-500 hover:-translate-y-1.5 sm:p-10 lg:rounded-[2rem]">
+                    <span className="grid h-14 w-14 place-items-center rounded-full bg-[#f4f2ec] text-[#1c1c1c] transition-colors duration-500 group-hover:bg-[#1c1c1c] group-hover:text-white">
+                      <Icon className="h-6 w-6" strokeWidth={1.75} />
+                    </span>
+                    <div className="mt-12">
+                      <h3 className="text-2xl font-semibold tracking-[-0.035em] sm:text-[1.65rem]">{item.title}</h3>
+                      <p className="mt-3 max-w-xs text-base leading-7 text-black/60">{item.description}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+            <p className="mt-10 max-w-3xl text-base leading-7 text-black/55">If you are still searching for an idea, I may not be the right partner yet. If you have momentum but the old way of operating is starting to break, we should talk.</p>
+          </div>
+        </section>
+
+        <section className="px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
+          <div className="mx-auto rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-12 lg:rounded-[2rem] lg:p-16 max-w-[92rem]">
             <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-24">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/42">The default starting point</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/48">The default starting point</p>
                 <h2 className="section-display mt-6 max-w-xl">Start by finding the constraint.</h2>
-                <p className="mt-6 max-w-lg text-base leading-7 text-black/55">Most founders begin with the Accelerator Sprint. The diagnosis determines whether the next move is a product build, an operating partnership, or execution by your own team.</p>
+                <p className="mt-6 max-w-lg text-base leading-7 text-white/68">Most founders begin with the Accelerator Sprint. The diagnosis determines whether the next move is a product build, an operating partnership, or execution by your own team.</p>
               </div>
               <div>
-                <Link href="/services" className="group block rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-10">
+                <Link href="/services" className="group block rounded-[1.5rem] bg-[#2a2a2a] p-8 text-white  sm:p-10">
                   <div className="flex items-start justify-between gap-6">
                     <div><p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">{offers[0].timing}</p><h3 className="mt-4 text-4xl font-medium tracking-[-0.05em]">{offers[0].name}</h3></div>
                     <ArrowUpRight className="h-5 w-5 text-white/45 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -196,18 +201,18 @@ export default async function Home() {
                   <p className="mt-3 max-w-xl text-sm leading-6 text-white/55">{offers[0].description}</p>
                   <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold">See the flagship Sprint <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
                 </Link>
-                <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/38">What the diagnosis may lead to</p>
-                <div className="mt-3 border-t border-black/20">
+                <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/48">What the diagnosis may lead to</p>
+                <div className="mt-3 border-t border-white/20">
                   {offers.slice(1).map((offer) => (
-                    <Link key={offer.name} href="/services" className="group grid gap-5 border-b border-black/20 py-7 sm:grid-cols-[3rem_.8fr_1.2fr_auto] sm:gap-7">
-                      <span className="text-xs font-semibold text-black/32">{offer.number}</span>
-                      <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-black/38">{offer.timing}</p><h3 className="mt-2 text-xl font-semibold tracking-[-0.035em]">{offer.name}</h3></div>
-                      <div><p className="text-sm font-medium leading-6">{offer.forWhom}</p><p className="mt-2 text-sm leading-6 text-black/55">{offer.description}</p></div>
-                      <ArrowUpRight className="h-5 w-5 text-black/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-black" />
+                    <Link key={offer.name} href="/services" className="group grid gap-5 border-b border-white/20 py-7 sm:grid-cols-[3rem_.8fr_1.2fr_auto] sm:gap-7">
+                      <span className="text-xs font-semibold text-white/40">{offer.number}</span>
+                      <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/48">{offer.timing}</p><h3 className="mt-2 text-xl font-semibold tracking-[-0.035em]">{offer.name}</h3></div>
+                      <div><p className="text-sm font-medium leading-6">{offer.forWhom}</p><p className="mt-2 text-sm leading-6 text-white/68">{offer.description}</p></div>
+                      <ArrowUpRight className="h-5 w-5 text-white/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
                     </Link>
                   ))}
                 </div>
-                <Link href="/services" className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
+                <Link href="/services" className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold underline decoration-white/35 underline-offset-4 hover:decoration-white">
                   Compare scope and fit <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
@@ -215,65 +220,78 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="bg-[#1c1c1c] px-5 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
+        <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
           <div className="mx-auto max-w-[92rem]">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/40">The method</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">The method</p>
             <h2 className="section-display mt-6 max-w-4xl">The Carry System</h2>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/60">A company you can step away from for a week is not an accident. It is built. This is how.</p>
-            <div className="mt-14 grid border-l border-t border-white/15 md:grid-cols-2 lg:grid-cols-4">
-              {method.map((step) => (
-                <article key={step.title} className="min-h-[280px] border-b border-r border-white/15 p-7 sm:p-9">
-                  <p className="text-xs font-semibold text-white/30">{step.number}</p>
-                  <h3 className="mt-14 text-xl font-semibold tracking-[-0.03em]">{step.title}</h3>
-                  <p className="mt-4 text-sm leading-6 text-white/52">{step.description}</p>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-black/60">A company you can step away from for a week is not an accident. It is built. This is how.</p>
+            <MethodRail steps={method.length} />
+            <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {method.map((step, i) => (
+                <article key={step.title} className="flex min-h-[260px] flex-col justify-between rounded-[1.5rem] bg-white p-7 sm:p-8">
+                  <p className="text-5xl font-semibold tracking-[-0.06em] text-black/15">{i + 1}</p>
+                  <div>
+                    <h3 className="text-2xl font-semibold tracking-[-0.035em]">{step.title}</h3>
+                    <p className="mt-3 text-base leading-7 text-black/60">{step.description}</p>
+                  </div>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-32">
-          <div className="mx-auto grid max-w-[92rem] gap-12 border-b border-black/20 pb-16 lg:grid-cols-[.9fr_1.1fr] lg:gap-24 lg:pb-24">
+        <section className="px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
+          <div className="mx-auto rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-12 lg:rounded-[2rem] lg:p-16 grid max-w-[92rem] items-center gap-16 lg:grid-cols-[1.05fr_.95fr] lg:gap-24">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/42">What I believe</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/48">What I believe</p>
               <h2 className="section-display mt-6 max-w-2xl">The founder bottleneck is 3,000 years old.</h2>
+              <div className="mt-10 max-w-2xl space-y-6 text-lg leading-8 text-white/75">
+                <p>In Exodus 18, Moses sat from morning to evening settling every dispute himself. His father-in-law, Jethro, told him plainly: what you are doing is not good. You will wear yourself out, and the people with you. Raise capable leaders and share the load.</p>
+                <p>I call it the Jethro Principle, and it sits under all my work. Leaders are not meant to be the answer to every question. They are meant to multiply.</p>
+                <p className="font-semibold text-white">A founder should remain important without remaining the bottleneck.</p>
+                <Link href="/faith#jethro-principle" className="group inline-flex items-center gap-2 pt-2 text-sm font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
+                  Read the Jethro Principle <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
             </div>
-            <div className="max-w-2xl space-y-6 text-lg leading-8 text-black/60">
-              <p>In Exodus 18, Moses sat from morning to evening settling every dispute himself. His father-in-law, Jethro, told him plainly: what you are doing is not good. You will wear yourself out, and the people with you. Raise capable leaders and share the load.</p>
-              <p>I call it the Jethro Principle, and it sits under all my work. Leaders are not meant to be the answer to every question. They are meant to multiply.</p>
-              <p className="font-semibold text-black">A founder should remain important without remaining the bottleneck.</p>
-              <Link href="/faith#jethro-principle" className="group inline-flex items-center gap-2 pt-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
-                Read the Jethro Principle <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
+            <div className="flex justify-center"><JethroTree /></div>
           </div>
         </section>
 
-        <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-32">
-          <div className="mx-auto grid max-w-[92rem] overflow-hidden rounded-[1.5rem] bg-white lg:grid-cols-[.9fr_1.1fr] lg:rounded-[2rem]">
-            <div className="relative min-h-[480px] lg:min-h-[680px]">
-              <Image src="/image/edisonnew.png" alt="Edison Ade at work at his desk" fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover object-[center_30%] grayscale-[12%]" />
-            </div>
-            <div className="flex flex-col justify-between border-t border-black/10 p-8 sm:p-12 lg:border-l lg:border-t-0 lg:p-16 xl:p-20">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/40">Built in the real world</p>
-                <h2 className="section-display mt-7 max-w-xl">The work is the argument.</h2>
-                <div className="mt-8 max-w-xl space-y-5 text-base leading-7 text-black/58 sm:text-lg sm:leading-8">
-                  <p>I have built companies, products, teams, communities, and growth systems across markets and sectors.</p>
-                  <p>My work sits at the intersection of strategy and implementation: turning complicated opportunities into decisions, products, and operating systems people can actually use.</p>
-                </div>
+        <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+          <div className="mx-auto grid max-w-[92rem] items-center gap-14 lg:grid-cols-[.85fr_1.15fr] lg:gap-20">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">Built in the real world</p>
+              <h2 className="section-display mt-6 max-w-xl">The work is the argument.</h2>
+              <p className="mt-8 max-w-lg text-lg leading-8 text-black/65">
+                Crowdpen is a platform where writers publish, grow a readership and take part in paid challenges. I took it from idea to a working product with real users.
+              </p>
+              <div className="mt-10 flex items-end gap-5">
+                <p className="text-7xl font-semibold leading-[0.85] tracking-[-0.06em] sm:text-8xl">1,500</p>
+                <p className="pb-1 text-base leading-6 text-black/60">beta users<br />from a standing start</p>
               </div>
-              <Link href="/portfolio" className="group mt-12 inline-flex w-fit items-center gap-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
+              <Link href="/portfolio" className="group mt-12 inline-flex w-fit items-center gap-3 rounded-full bg-[#1c1c1c] px-6 py-3.5 text-sm font-semibold text-white transition-transform active:scale-[0.97]">
                 See the work <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
+
+            <Link href="/portfolio" aria-label="See the Crowdpen case study" className="group relative block pb-10 pl-0 sm:pl-10">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-white transition-transform duration-700 ease-out group-hover:scale-[1.015] lg:rounded-[2rem]">
+                <Image src="/image/crowdpen-ui.jpg" alt="The Crowdpen reading feed, with stories by Edison and other writers" fill sizes="(min-width: 1024px) 56vw, 100vw" className="object-cover object-left-top" />
+              </div>
+              <div className="absolute bottom-0 left-0 w-[42%] max-w-[15rem] overflow-hidden rounded-[1.25rem] ring-8 ring-[#f4f2ec] transition-transform duration-700 ease-out group-hover:-translate-y-2 sm:w-[34%]">
+                <div className="relative aspect-[4/3]">
+                  <Image src="/image/crowdpen-tee.jpg" alt="Edison in a Crowdpen T-shirt in front of a bookshelf shaped like Africa" fill sizes="240px" className="object-cover" />
+                </div>
+              </div>
+            </Link>
           </div>
         </section>
 
-        <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
           <div className="mx-auto max-w-[92rem]">
             <div className="mb-12 max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/42">Start with something useful</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">Start with something useful</p>
               <h2 className="section-display mt-6">You do not need to become a client to leave with more clarity.</h2>
             </div>
             <div className="grid gap-5 lg:grid-cols-2">

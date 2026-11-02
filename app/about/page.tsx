@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import StatsBand from '@/app/components/StatsBand';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -19,7 +20,6 @@ const record = [
   { value: '7', label: 'Companies built' },
   { value: '7,400+', label: 'Founders trained' },
   { value: '15', label: 'Countries reached' },
-  { value: '$5M+', label: 'Capital raised' },
 ];
 
 export default function AboutPage() {
@@ -55,22 +55,13 @@ export default function AboutPage() {
               <h2 className="section-display max-w-lg">What I do now</h2>
               <div className="max-w-2xl space-y-7 text-lg leading-8 text-black/65">
                 <p>I partner with founders who have momentum but whose companies still wait on them for every hard call. Together we find the decision underneath the noise, then turn it into a product, operating system or plan the team can carry.</p>
-                <p>I have built 7 companies, trained more than 7,400 founders across 15 countries, and helped raise over $5M. Recent work includes Crowdpen, a platform for creators that grew from idea to 1,500 beta users.</p>
+                <p>I have built 7 companies, trained more than 7,400 founders across 15 countries. Recent work includes Crowdpen, a platform for creators that grew from idea to 1,500 beta users.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="px-5 py-14 sm:px-8 lg:px-12 lg:py-20">
-          <div className="mx-auto grid max-w-[92rem] grid-cols-2 border-y border-black/15 lg:grid-cols-4">
-            {record.map((stat, index) => (
-              <div key={stat.label} className={`py-8 ${index % 2 ? 'border-l border-black/15 pl-5' : 'pr-5'} ${index > 1 ? 'border-t border-black/15 lg:border-t-0' : ''} lg:border-l lg:px-8 first:lg:border-l-0 first:lg:pl-0`}>
-                <p className="text-4xl font-semibold tracking-[-0.05em]">{stat.value}</p>
-                <p className="mt-1 text-xs font-medium text-black/48">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <StatsBand stats={record} title="The record so far." />
 
         <section className="px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
           <div className="mx-auto max-w-[92rem] rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-12 lg:flex lg:items-end lg:justify-between lg:gap-20 lg:rounded-[2rem] lg:p-20">
