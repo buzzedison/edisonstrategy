@@ -15,10 +15,10 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakart
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.buzzedison.com'),
   title: {
-    default: 'Edison Ade | Build Beyond Founder-Dependent Growth',
+    default: 'Edison Ade · Build Beyond Founder-Dependent Growth',
     template: '%s | Buzzedison'
   },
-  description: 'Edison Ade helps founders replace founder-dependent growth with clearer strategy, smarter systems, and products built to scale.',
+  description: 'Founder strategist and operator helping founders with traction stop being the bottleneck, using The Carry System.',
   keywords: ['Edison Ade', 'founder strategy', 'business systems', 'startup growth', 'founder operating systems', 'strategy partner'],
   authors: [{ name: 'Edison Ade', url: 'https://www.buzzedison.com/about' }],
   creator: 'Edison Ade',

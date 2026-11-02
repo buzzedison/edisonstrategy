@@ -10,13 +10,15 @@ const links = [
   { name: 'Insights', path: '/insights' },
   { name: 'Scorecard', path: '/founder-scorecard' },
   { name: 'Weekly letter', path: '/master-the-system' },
+  { name: 'Faith & Leadership', path: '/faith' },
+  { name: 'Speaking', path: '/speaking' },
   { name: 'About', path: '/about' },
 ];
 
 export default function Footer() {
   const pathname = usePathname();
   const isSpecializedPage =
-    pathname.startsWith('/insights') ||
+    (pathname.startsWith('/insights/') && pathname !== '/insights/') ||
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/bookmarks') ||
     pathname.startsWith('/admin') ||
@@ -42,7 +44,7 @@ export default function Footer() {
               <Link key={link.name} href={link.path} className="transition-colors hover:text-white">{link.name}</Link>
             ))}
             <a href="mailto:ask@buzzedison.com" className="inline-flex items-center gap-1 transition-colors hover:text-white">
-              Email <ArrowUpRight className="h-3.5 w-3.5" />
+              ask@buzzedison.com <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </nav>
         </div>

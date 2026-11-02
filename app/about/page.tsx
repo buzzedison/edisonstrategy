@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 
-const title = 'About Edison Ade: Founder, Operator & Strategy Partner';
-const description = 'Meet Edison Ade, a founder and operator helping entrepreneurs turn difficult decisions into products, systems, and companies their teams can carry.';
+const title = 'About Edison Ade · Founder, Operator, Christian Thinker';
+const description = '7 companies built, 7,400+ founders trained. The story and convictions behind Edison\'s work.';
 
 export const metadata: Metadata = {
-  title,
+  title: { absolute: title },
   description,
   keywords: ['Edison Ade', 'entrepreneur', 'business strategist', 'startup operator'],
   alternates: { canonical: '/about' },
@@ -29,12 +29,12 @@ export default function AboutPage() {
         <section className="px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pb-24 lg:pt-40">
           <div className="mx-auto grid max-w-[92rem] gap-12 lg:grid-cols-[1.08fr_.92fr] lg:items-end lg:gap-20">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">Edison Ade · Founder and operator</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">Edison Ade · Founder, operator, Christian thinker</p>
               <h1 className="page-display mt-7 max-w-5xl">
                 I have spent my career turning ideas into things that have to work.
               </h1>
               <p className="mt-10 max-w-2xl text-lg leading-8 text-black/60">
-                Companies. Products. Programmes. Teams. The kind of work where a clever answer is useless unless people can execute it on Monday.
+                Companies. Products. Programmes. Teams. Work where a clever answer is useless unless people can execute it on Monday.
               </p>
             </div>
             <div className="relative min-h-[520px] overflow-hidden rounded-[1.5rem] bg-[#1c1c1c] lg:min-h-[680px] lg:rounded-[2rem]">
@@ -44,12 +44,19 @@ export default function AboutPage() {
         </section>
 
         <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-          <div className="mx-auto grid max-w-[92rem] gap-12 border-y border-black/20 py-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-24 lg:py-20">
-            <h2 className="section-display max-w-lg">The work changed. The question did not.</h2>
-            <div className="max-w-2xl space-y-7 text-lg leading-8 text-black/65">
-              <p>I started by building my own companies. That taught me what most advice leaves out: decisions are made with imperfect information, systems meet real people, and growth exposes every shortcut you took earlier.</p>
-              <p>Since then, I have worked with founders across markets and sectors to find the decision underneath the noise—then turn that decision into a product, operating system, or plan the team can carry.</p>
-              <p>I am most useful when the business has momentum but the old way of running it no longer fits. When the founder is still the answer to every question. When there are more opportunities than conviction. When the next move matters too much to guess.</p>
+          <div className="mx-auto max-w-[92rem] border-y border-black/20">
+            <div className="grid gap-8 py-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-24 lg:py-20">
+              <h2 className="section-display max-w-lg">Where it started</h2>
+              <div className="max-w-2xl space-y-7 text-lg leading-8 text-black/65">
+                <p>Building my own ventures taught me what most advice leaves out. Decisions are made with imperfect information. Systems meet real people. Growth exposes every shortcut you took earlier.</p>
+              </div>
+            </div>
+            <div className="grid gap-8 border-t border-black/20 py-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-24 lg:py-20">
+              <h2 className="section-display max-w-lg">What I do now</h2>
+              <div className="max-w-2xl space-y-7 text-lg leading-8 text-black/65">
+                <p>I partner with founders who have momentum but whose companies still wait on them for every hard call. Together we find the decision underneath the noise, then turn it into a product, operating system or plan the team can carry.</p>
+                <p>I have built 7 companies, trained more than 7,400 founders across 15 countries, and helped raise over $5M. Recent work includes Crowdpen, a platform for creators that grew from idea to 1,500 beta users.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -69,11 +76,20 @@ export default function AboutPage() {
           <div className="mx-auto max-w-[92rem] rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-12 lg:flex lg:items-end lg:justify-between lg:gap-20 lg:rounded-[2rem] lg:p-20">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/40">What I believe</p>
-              <h2 className="closing-display mt-7 max-w-4xl">A founder should remain important without remaining the bottleneck.</h2>
+              <div className="mt-7 max-w-2xl space-y-6 text-lg leading-8 text-white/65">
+                <p>I am a follower of Jesus, and my faith shapes how I see this work. Scripture is full of leaders who learned they could not carry everything alone, from Moses taking Jethro&rsquo;s advice to Paul entrusting the work to others who would teach others. I believe leaders are called to multiply, not to hoard.</p>
+                <p>That conviction also drives my work in apologetics and Christian leadership. I write and speak for thinking people who want honest answers on faith, work and calling.</p>
+              </div>
+              <h2 className="closing-display mt-12 max-w-4xl">A founder should remain important without remaining the bottleneck.</h2>
             </div>
-            <Link href="/contact" className="group mt-10 inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-[#f4f2ec] px-7 py-4 text-sm font-semibold text-[#1c1c1c] lg:mt-0">
-              Bring me the problem <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
+            <div className="mt-10 flex shrink-0 flex-col gap-4 lg:mt-0">
+              <Link href="/contact" className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#f4f2ec] px-7 py-4 text-sm font-semibold text-[#1c1c1c]">
+                Bring me the problem <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link href="/faith" className="inline-flex w-fit items-center gap-2 px-1 py-2 text-sm font-medium text-white/65 hover:text-white">
+                Faith &amp; Leadership <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </section>
       </main>

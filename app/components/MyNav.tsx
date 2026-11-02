@@ -10,7 +10,8 @@ const navItems = [
   { name: 'Services', path: '/services' },
   { name: 'Work', path: '/portfolio' },
   { name: 'Insights', path: '/insights' },
-  { name: 'Scorecard', path: '/founder-scorecard' },
+  { name: 'Faith & Leadership', path: '/faith' },
+  { name: 'Speaking', path: '/speaking' },
   { name: 'About', path: '/about' },
 ];
 
@@ -20,7 +21,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   const isSpecializedPage =
-    pathname.startsWith('/insights') ||
+    (pathname.startsWith('/insights/') && pathname !== '/insights/') ||
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/bookmarks') ||
     pathname.startsWith('/admin') ||

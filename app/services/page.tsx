@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Check, Minus } from 'lucide-react';
 import type { Metadata } from 'next';
 
-const title = 'Accelerator Sprint: Find the Constraint and Build Your 90-Day Plan';
-const description = 'Start with a four-week Accelerator Sprint to identify the constraint holding your business back and turn it into one focused 90-day execution plan.';
+const title = 'Services · The Carry System';
+const description = 'Accelerator Sprint, MVP Builder and Strategy Partner for founders whose companies still wait on them.';
 
 export const metadata: Metadata = {
-  title,
+  title: { absolute: title },
   description,
   keywords: ['founder strategy sprint', '90-day execution plan', 'MVP builder', 'strategy partner', 'founder dependency'],
   alternates: { canonical: '/services' },
@@ -27,9 +27,12 @@ const sprintDeliverables = [
 const pathways = [
   {
     name: 'MVP Builder',
-    problem: 'You know what must be built, but need help shipping it.',
-    timing: 'Typical eight-week engagement',
-    promise: 'We turn your business case into a focused product real customers can use, test, and pay for—before unnecessary features consume your budget.',
+    number: '02',
+    problem: 'founders who know what must be built but need it shipped.',
+    timing: 'Typically eight weeks',
+    promise: 'a focused product real customers can use, test and pay for, built from the business case, not a feature wish list.',
+    cta: 'Discuss a build',
+    service: 'mvp-builder',
     deliverables: [
       'Business-case validation',
       'Customer and product assumptions',
@@ -49,9 +52,12 @@ const pathways = [
   },
   {
     name: 'Strategy Partner',
-    problem: 'The company keeps returning to you for every hard decision.',
-    timing: 'Selective 12-week engagement',
-    promise: 'An invitation-only operating partnership that transfers judgment into the team and reduces the company’s dependence on you.',
+    number: '03',
+    problem: 'established founders whose company returns to them for every hard decision.',
+    timing: 'Selective · 12 weeks',
+    promise: 'decision-making judgment transferred into your team, operating rhythms that hold, and a calendar with room in it.',
+    cta: 'Apply for a partnership',
+    service: 'strategy-partner',
     deliverables: [
       'Weekly founder strategy session',
       'Decision and priority support between sessions',
@@ -83,11 +89,11 @@ export default function ServicesPage() {
         <section className="px-5 pb-20 pt-32 sm:px-8 lg:px-12 lg:pb-28 lg:pt-40">
           <div className="mx-auto max-w-[92rem] border-b border-black/20 pb-16 lg:grid lg:grid-cols-[1.2fr_.8fr] lg:items-end lg:gap-24 lg:pb-24">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">Decide · Build · Transfer</p>
-              <h1 className="page-display mt-7 max-w-5xl">Find the constraint. Make one decisive next move.</h1>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/45">Services</p>
+              <h1 className="page-display mt-7 max-w-5xl">Every engagement runs on The Carry System.</h1>
             </div>
             <div className="mt-10 lg:mt-0">
-              <p className="max-w-lg text-lg leading-8 text-black/60">I help founders decide what matters, build what is needed, and create companies that can move without depending on them for everything.</p>
+              <p className="max-w-lg text-lg leading-8 text-black/60">Find the constraint. Make the trade-off. Build the system. Stay until it holds. The offer you choose depends on where your constraint sits.</p>
               <Link href="/contact?service=accelerator-sprint" className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#1c1c1c] px-6 py-3.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5">
                 Bring me the problem <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
@@ -100,16 +106,17 @@ export default function ServicesPage() {
             <div className="flex flex-col justify-between p-8 sm:p-12 lg:p-16">
               <div>
                 <div className="flex flex-wrap items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">
-                  <span>Flagship entry offer</span><span className="h-1 w-1 rounded-full bg-white/25" /><span>Four weeks</span>
+                  <span>01</span><span className="h-1 w-1 rounded-full bg-white/25" /><span>Flagship</span><span className="h-1 w-1 rounded-full bg-white/25" /><span>Four weeks</span>
                 </div>
                 <h2 className="mt-7 text-5xl font-medium leading-[.95] tracking-[-0.055em] sm:text-6xl">Accelerator Sprint</h2>
-                <p className="mt-8 max-w-xl text-lg leading-8 text-white/65">In four weeks, we identify the constraint holding the business back and turn it into one focused 90-day execution plan.</p>
+                <p className="mt-8 max-w-xl text-lg leading-8 text-white/80"><span className="text-white/45">For:</span> founders with traction, too many priorities, and no clear answer to &ldquo;what now?&rdquo;</p>
+                <p className="mt-4 max-w-xl text-base leading-7 text-white/65"><span className="text-white/45">You leave with:</span> the one constraint holding the business back, named and agreed, plus a focused 90-day execution plan your team can run.</p>
               </div>
               <div className="mt-12 border-t border-white/15 pt-8">
                 <p className="text-xs uppercase tracking-[0.16em] text-white/40">How the Sprint is scoped</p>
                 <p className="mt-3 max-w-md text-sm leading-6 text-white/55">We agree the right scope after our first conversation, based on the constraint and the work actually required.</p>
                 <Link href="/contact?service=accelerator-sprint" className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#f4f2ec] px-6 py-3.5 text-sm font-semibold text-[#1c1c1c]">
-                  Apply for the Sprint <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  Start with a Sprint <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
             </div>
@@ -167,12 +174,12 @@ export default function ServicesPage() {
             <div className="mx-auto max-w-[92rem]">
               <div className="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-24">
                 <div>
-                  <div className="flex flex-wrap gap-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/40"><span>{offer.timing}</span></div>
+                  <div className="flex flex-wrap gap-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/40"><span>{offer.number}</span><span>·</span><span>{offer.timing}</span></div>
                   <h2 className="section-display mt-6">{offer.name}</h2>
-                  <p className="mt-7 max-w-lg text-lg font-medium leading-8">{offer.problem}</p>
-                  <p className="mt-4 max-w-lg text-base leading-7 text-black/58">{offer.promise}</p>
-                  <Link href={`/contact?service=${offer.name === 'MVP Builder' ? 'mvp-builder' : 'strategy-partner'}`} className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#1c1c1c] px-6 py-3.5 text-sm font-semibold text-white">
-                    Apply for {offer.name} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  <p className="mt-7 max-w-lg text-lg font-medium leading-8"><span className="text-black/45">For:</span> {offer.problem}</p>
+                  <p className="mt-4 max-w-lg text-base leading-7 text-black/58"><span className="text-black/40">You leave with:</span> {offer.promise}</p>
+                  <Link href={`/contact?service=${offer.service}`} className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#1c1c1c] px-6 py-3.5 text-sm font-semibold text-white">
+                    {offer.cta} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
 
@@ -232,11 +239,13 @@ export default function ServicesPage() {
         <section className="px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
           <div className="mx-auto flex max-w-[92rem] flex-col gap-10 border-t border-black/20 pt-12 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-black/40">The default starting point</p>
-              <h2 className="closing-display mt-6 max-w-4xl">If the real constraint is still unclear, start with the Sprint.</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-black/40">Not sure which?</p>
+              <h2 className="closing-display mt-6 max-w-4xl">Start with the free 4-minute Founder Bottleneck Scorecard.</h2>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-black/60">It shows where your constraint sits and gives you three moves for the next seven days.</p>
+              <p className="mt-6 max-w-2xl text-sm leading-6 text-black/48">If you are still searching for an idea, I may not be the right partner yet. If you have momentum but the old way of operating is breaking, we should talk.</p>
             </div>
-            <Link href="/contact?service=accelerator-sprint" className="group inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-[#1c1c1c] px-7 py-4 text-sm font-semibold text-white">
-              Bring me the problem <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            <Link href="/founder-scorecard" className="group inline-flex w-fit shrink-0 items-center gap-3 rounded-full bg-[#1c1c1c] px-7 py-4 text-sm font-semibold text-white">
+              Take the Scorecard <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
         </section>

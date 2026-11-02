@@ -49,22 +49,22 @@ const method = [
   {
     number: '01',
     title: 'Find the constraint',
-    description: 'We identify the one issue making everything else harder.',
+    description: 'The one issue making everything else harder.',
   },
   {
     number: '02',
     title: 'Make the trade-off',
-    description: 'We decide what matters now—and what will deliberately wait.',
+    description: 'What matters now, and what deliberately waits.',
   },
   {
     number: '03',
     title: 'Build the system',
-    description: 'We create the strategy, product, workflow, or operating rhythm your team can actually use.',
+    description: 'Strategy, product, workflow or rhythm your team can run.',
   },
   {
     number: '04',
     title: 'Stay close to reality',
-    description: 'The work continues until the decision is clear and the system holds under pressure.',
+    description: 'We keep going until the system holds under pressure.',
   },
 ];
 
@@ -101,7 +101,7 @@ export default async function Home() {
             <div className="flex flex-col justify-center px-7 py-10 sm:px-12 sm:py-14 lg:px-16 lg:py-16 xl:px-20">
               <div>
                 <p className="mb-9 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/48">
-                  Founder, operator and strategy partner
+                  Founder strategist · Operator · Christian thinker
                 </p>
                 <h1 className="max-w-[760px] text-[clamp(3rem,5.5vw,5.75rem)] font-medium leading-[0.96] tracking-[-0.058em] text-balance">
                   Your business has outgrown guesswork.
@@ -110,11 +110,11 @@ export default async function Home() {
 
               <div className="mt-8 max-w-xl lg:mt-10">
                 <p className="max-w-[34rem] text-base leading-7 text-white/64 sm:text-lg">
-                  When every important decision still lands on your desk, growth becomes a more expensive version of chaos. I help you turn hard-won momentum into a company that can think, sell, and move without waiting on you.
+                  When every important decision still lands on your desk, growth becomes a more expensive version of chaos. I help founders build companies that can think, sell and move without waiting on them.
                 </p>
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
                   <Link href="/founder-scorecard" className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#f4f2ec] px-6 py-3.5 text-sm font-semibold text-[#1c1c1c] transition-transform hover:-translate-y-0.5 hover:bg-white">
-                    Find the real constraint
+                    Find your bottleneck (4 min)
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                   <Link href="/services" className="inline-flex w-fit items-center gap-2 px-1 py-3 text-sm font-medium text-white/65 transition-colors hover:text-white">
@@ -152,10 +152,9 @@ export default async function Home() {
               <h2 className="section-display mt-6 max-w-xl">Your business is growing. Your way of running it is not.</h2>
             </div>
             <div className="max-w-2xl space-y-6 text-lg leading-8 text-black/62">
-              <p>You have customers, ideas, opportunities, and a team.</p>
-              <p>You also have too many decisions waiting for you.</p>
-              <p>Every important approval still lands on your desk. Priorities keep shifting. Your team is busy, but progress feels inconsistent. You are unsure whether the next move is to hire, build, reposition, raise, or stop.</p>
-              <p className="font-semibold text-black">The problem is rarely effort. It is usually the system underneath the effort.</p>
+              <p>You have customers, a team and more opportunities than you can chase. You also have a queue of decisions waiting on you.</p>
+              <p>The team is busy, but progress feels uneven.</p>
+              <p className="font-semibold text-black">The problem is rarely effort. It is the system underneath the effort.</p>
               <Link href="/founder-scorecard" className="group inline-flex items-center gap-2 pt-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
                 Find the real constraint in four minutes <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
@@ -218,7 +217,9 @@ export default async function Home() {
 
         <section className="bg-[#1c1c1c] px-5 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
           <div className="mx-auto max-w-[92rem]">
-            <h2 className="section-display max-w-4xl">Clarity is not the deliverable. It is what enables execution.</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/40">The method</p>
+            <h2 className="section-display mt-6 max-w-4xl">The Carry System</h2>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/60">A company you can step away from for a week is not an accident. It is built. This is how.</p>
             <div className="mt-14 grid border-l border-t border-white/15 md:grid-cols-2 lg:grid-cols-4">
               {method.map((step) => (
                 <article key={step.title} className="min-h-[280px] border-b border-r border-white/15 p-7 sm:p-9">
@@ -227,6 +228,23 @@ export default async function Home() {
                   <p className="mt-4 text-sm leading-6 text-white/52">{step.description}</p>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-32">
+          <div className="mx-auto grid max-w-[92rem] gap-12 border-b border-black/20 pb-16 lg:grid-cols-[.9fr_1.1fr] lg:gap-24 lg:pb-24">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black/42">What I believe</p>
+              <h2 className="section-display mt-6 max-w-2xl">The founder bottleneck is 3,000 years old.</h2>
+            </div>
+            <div className="max-w-2xl space-y-6 text-lg leading-8 text-black/60">
+              <p>In Exodus 18, Moses sat from morning to evening settling every dispute himself. His father-in-law, Jethro, told him plainly: what you are doing is not good. You will wear yourself out, and the people with you. Raise capable leaders and share the load.</p>
+              <p>I call it the Jethro Principle, and it sits under all my work. Leaders are not meant to be the answer to every question. They are meant to multiply.</p>
+              <p className="font-semibold text-black">A founder should remain important without remaining the bottleneck.</p>
+              <Link href="/faith#jethro-principle" className="group inline-flex items-center gap-2 pt-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
+                Read the Jethro Principle <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </div>
           </div>
         </section>
@@ -248,16 +266,6 @@ export default async function Home() {
               <Link href="/portfolio" className="group mt-12 inline-flex w-fit items-center gap-2 text-sm font-semibold underline decoration-black/25 underline-offset-4 hover:decoration-black">
                 See the work <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-32">
-          <div className="mx-auto grid max-w-[92rem] gap-12 border-y border-black/20 py-16 lg:grid-cols-[.9fr_1.1fr] lg:gap-24 lg:py-24">
-            <h2 className="closing-display max-w-3xl">A founder should remain important without remaining the bottleneck.</h2>
-            <div className="max-w-2xl space-y-6 text-lg leading-8 text-black/60">
-              <p>I do not believe founders need more generic advice, more dashboards, or another strategy document that disappears into a folder.</p>
-              <p>They need someone who understands the pressure of making decisions with incomplete information—and who can stay close enough to help turn those decisions into something the team can carry.</p>
             </div>
           </div>
         </section>
@@ -299,12 +307,12 @@ export default async function Home() {
               <h2 className="closing-display mt-7 max-w-4xl">Bring me the decision that keeps following you home.</h2>
             </div>
             <div className="mt-10 lg:mt-0">
-              <p className="max-w-lg text-base leading-7 text-white/58 sm:text-lg sm:leading-8">You do not need a perfect brief. Tell me what is changing, what feels stuck, and why it matters now. We will find the real question together.</p>
+              <p className="max-w-lg text-base leading-7 text-white/58 sm:text-lg sm:leading-8">You don&rsquo;t need a perfect brief. Tell me what is changing, what feels stuck, and why it matters now.</p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <Link href="/contact" className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#f4f2ec] px-6 py-3.5 text-sm font-semibold text-[#1c1c1c] hover:bg-white">
                   Start the conversation <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
-                <Link href="/insights" className="inline-flex w-fit items-center gap-2 px-1 py-3 text-sm font-medium text-white/60 hover:text-white">Read the insights <ArrowUpRight className="h-4 w-4" /></Link>
+                <Link href="/founder-scorecard" className="inline-flex w-fit items-center gap-2 px-1 py-3 text-sm font-medium text-white/60 hover:text-white">Take the Scorecard <ArrowUpRight className="h-4 w-4" /></Link>
               </div>
             </div>
           </div>
