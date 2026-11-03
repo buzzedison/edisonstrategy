@@ -1,11 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import StatsBand from '@/app/components/StatsBand';
+import NewsletterInline from '@/app/components/NewsletterInline';
 import BottleneckGraphic from '@/app/components/graphics/BottleneckGraphic';
 import JethroTree from '@/app/components/graphics/JethroTree';
 import MethodRail from '@/app/components/graphics/MethodRail';
 import { ArrowRight, ArrowUpRight, Compass, Gauge, Hammer, Hourglass, Mail } from 'lucide-react';
 import { getLandingPageContent } from '@/lib/landingPage';
+
+const goals = [
+  { title: 'Stop being the bottleneck', meta: 'Founder Scorecard · Four minutes, free', href: '/founder-scorecard' },
+  { title: 'Know what to do next', meta: 'Accelerator Sprint · Four weeks', href: '/services' },
+  { title: 'Build the right product', meta: 'MVP Builder · About eight weeks', href: '/services' },
+  { title: 'Let your team decide', meta: 'Strategy Partner · Twelve weeks', href: '/services' },
+];
 
 const audienceIcons = [Hourglass, Compass, Hammer];
 
@@ -102,40 +110,50 @@ export default async function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <main>
-        <section className="px-5 pb-8 pt-28 sm:px-8 lg:px-12 lg:pb-12 lg:pt-32">
-          <div className="mx-auto grid max-w-[92rem] overflow-hidden rounded-[1.5rem] bg-[#1c1c1c] text-white lg:min-h-[720px] lg:grid-cols-[1.08fr_.92fr] lg:rounded-[2rem]">
-            <div className="flex flex-col justify-center px-7 py-10 sm:px-12 sm:py-14 lg:px-16 lg:py-16 xl:px-20">
-              <div>
-                <p className="mb-9 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/48">
-                  Founder strategist · Operator · Christian thinker
-                </p>
-                <h1 className="max-w-[760px] text-[clamp(3rem,5.5vw,5.75rem)] font-medium leading-[0.96] tracking-[-0.058em] text-balance">
+        <section className="relative isolate overflow-hidden bg-[#141414] text-white">
+          <div className="mx-auto max-w-[92rem]">
+            <div className="relative flex flex-col justify-end px-5 pb-12 pt-[52svh] sm:px-8 sm:pt-[56svh] lg:min-h-[calc(100svh-9rem)] lg:px-12 lg:pb-20 lg:pt-44">
+              {/* portrait lit on the right, fading into the dark */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[62svh] lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto lg:w-[62%]">
+                <Image src={portraitSrc} alt="Edison Ade, founder, operator and strategy partner" fill priority sizes="(min-width: 1024px) 62vw, 100vw" className="object-cover object-[60%_18%] lg:[mask-image:linear-gradient(to_right,transparent,black_38%)]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-transparent lg:via-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#141414] to-transparent" />
+              </div>
+              <div className="max-w-3xl">
+                <h1 className="text-[clamp(3.25rem,6.6vw,7.25rem)] font-medium leading-[0.94] tracking-[-0.06em] text-balance">
                   Your business has outgrown guesswork.
                 </h1>
-              </div>
-
-              <div className="mt-8 max-w-xl lg:mt-10">
-                <p className="max-w-[34rem] text-base leading-7 text-white/64 sm:text-lg">
-                  When every important decision still lands on your desk, growth becomes a more expensive version of chaos. I help founders build companies that can think, sell and move without waiting on them.
+                <p className="mt-8 max-w-xl text-lg leading-8 text-white/75 sm:text-xl sm:leading-9">
+                  Founder strategist, operator and Christian thinker. I help founders build companies that can think, sell and move without waiting on them.
                 </p>
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <Link href="/founder-scorecard" className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#f4f2ec] px-6 py-3.5 text-sm font-semibold text-[#1c1c1c] transition-transform hover:-translate-y-0.5 hover:bg-white">
+                <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center">
+                  <Link href="/founder-scorecard" className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#f4f2ec] px-8 py-4 text-base font-semibold text-[#1c1c1c] transition-transform active:scale-[0.97] sm:w-fit">
                     Find your bottleneck (4 min)
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Link>
-                  <Link href="/services" className="inline-flex w-fit items-center gap-2 px-1 py-3 text-sm font-medium text-white/65 transition-colors hover:text-white">
-                    See how I work <ArrowUpRight className="h-4 w-4" />
-                  </Link>
+                  <div className="text-sm leading-5 text-white/70">
+                    <p className="font-semibold text-white">{stats[1]?.value ?? '7,400+'} founders trained</p>
+                    <p>{stats[0]?.value ?? '7'} companies built · {stats[2]?.value ?? '15'} countries</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="relative min-h-[460px] lg:min-h-full">
-              <Image src={portraitSrc} alt="Edison Ade, founder, operator and strategy partner" fill priority sizes="(min-width: 1024px) 44vw, 100vw" className="object-cover object-center grayscale-[12%]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#1c1c1c]/15 lg:to-transparent" />
-              <div className="absolute bottom-6 left-6 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-[#1c1c1c] backdrop-blur sm:bottom-8 sm:left-8">
-                {content.seo.personName} · {content.seo.jobTitle}
+            <div className="px-5 pb-0 sm:px-8 lg:px-12">
+            <div className="pt-4">
+              <h2 className="text-2xl font-medium tracking-[-0.03em] sm:text-3xl">What do you need most?</h2>
+              <div className="mt-8 grid border-t border-white/20 sm:grid-cols-2 lg:grid-cols-4">
+                {goals.map((goal) => (
+                  <Link key={goal.title} href={goal.href} className="group flex min-h-[220px] flex-col justify-between border-b border-white/20 p-6 transition-colors hover:bg-white/[0.06] sm:border-l lg:min-h-[260px] lg:p-8 lg:first:border-l-0 sm:first:border-l-0 lg:[&:nth-child(2)]:border-l sm:[&:nth-child(3)]:border-l-0 lg:[&:nth-child(3)]:border-l">
+                    <h3 className="text-2xl font-medium leading-tight tracking-[-0.03em] sm:text-[1.7rem]">{goal.title}</h3>
+                    <div className="mt-10 flex items-end justify-between gap-4 text-sm text-white/65">
+                      <p>{goal.meta}</p>
+                      <ArrowRight className="h-5 w-5 flex-none transition-transform duration-300 group-hover:translate-x-1.5" />
+                    </div>
+                  </Link>
+                ))}
               </div>
+            </div>
             </div>
           </div>
         </section>
@@ -318,19 +336,29 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
-          <div className="mx-auto max-w-[92rem] rounded-[1.5rem] bg-[#1c1c1c] p-8 text-white sm:p-12 lg:grid lg:grid-cols-[1.15fr_.85fr] lg:items-end lg:gap-20 lg:rounded-[2rem] lg:p-20">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/38">The next move</p>
-              <h2 className="closing-display mt-7 max-w-4xl">Bring me the decision that keeps following you home.</h2>
+        <section className="px-5 pb-8 pt-16 sm:px-8 lg:px-12 lg:pb-12 lg:pt-28">
+          <div className="mx-auto max-w-[92rem]">
+            <div className="flex flex-col items-center rounded-[1.5rem] bg-[#1c1c1c] px-6 py-20 text-center text-white sm:px-12 lg:rounded-[2rem] lg:px-20 lg:py-32">
+              <h2 className="closing-display max-w-5xl text-balance">Bring me the decision that keeps following you home.</h2>
+              <p className="mt-8 max-w-xl text-lg leading-8 text-white/70">You don&rsquo;t need a perfect brief. Tell me what is changing and what feels stuck. You leave with the next move named.</p>
+              <Link href="/contact" className="group mt-10 inline-flex items-center gap-3 rounded-full bg-[#f4f2ec] px-8 py-4 text-base font-semibold text-[#1c1c1c] transition-transform active:scale-[0.97]">
+                Start the conversation <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link href="/founder-scorecard" className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-white/65 transition-colors hover:text-white">
+                Or take the four-minute Scorecard first <ArrowUpRight className="h-4 w-4" />
+              </Link>
             </div>
-            <div className="mt-10 lg:mt-0">
-              <p className="max-w-lg text-base leading-7 text-white/58 sm:text-lg sm:leading-8">You don&rsquo;t need a perfect brief. Tell me what is changing, what feels stuck, and why it matters now.</p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <Link href="/contact" className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#f4f2ec] px-6 py-3.5 text-sm font-semibold text-[#1c1c1c] hover:bg-white">
-                  Start the conversation <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-                <Link href="/founder-scorecard" className="inline-flex w-fit items-center gap-2 px-1 py-3 text-sm font-medium text-white/60 hover:text-white">Take the Scorecard <ArrowUpRight className="h-4 w-4" /></Link>
+
+            <div className="mt-16 grid gap-10 lg:mt-24 lg:grid-cols-2 lg:items-center lg:gap-24">
+              <div>
+                <h2 className="section-display max-w-xl">One idea every Thursday.</h2>
+                <p className="mt-5 max-w-md text-lg leading-8 text-black/60">
+                  Master the System: one precise idea each week for building a company that can think, sell and move without waiting for you.
+                </p>
+              </div>
+              <div>
+                <NewsletterInline />
+                <p className="mt-4 text-sm text-black/50">Free. One email a week. Unsubscribe any time.</p>
               </div>
             </div>
           </div>

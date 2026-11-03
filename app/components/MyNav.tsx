@@ -81,7 +81,6 @@ export default function Navbar() {
   const progress = useSpring(scrollYProgress, { stiffness: 220, damping: 34, mass: 0.4 });
 
   const isSpecializedPage =
-    (pathname.startsWith('/insights/') && pathname !== '/insights/') ||
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/bookmarks') ||
     pathname.startsWith('/admin') ||
@@ -197,7 +196,7 @@ export default function Navbar() {
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-none fixed inset-x-0 top-4 z-[100] hidden justify-center px-6 lg:flex"
       >
-        <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-[#f4f2ec]/85 p-2 pl-7 shadow-[0_8px_30px_-12px_rgba(23,23,20,0.35)] ring-1 ring-black/10 backdrop-blur-xl">
+        <div className="pointer-events-auto flex items-center gap-1 rounded-full p-2 pl-7 shadow-[0_8px_30px_-12px_rgba(23,23,20,0.35)] ring-1 ring-black/10 backdrop-blur-xl" style={{ backgroundColor: 'rgba(244, 242, 236, 0.9)' }}>
           <Link href="/" aria-label="BuzzEdison home" className="mr-5 text-xl font-semibold tracking-[-0.04em] text-[#171714] xl:text-2xl">
             BuzzEdison
           </Link>
@@ -255,7 +254,8 @@ export default function Navbar() {
         initial={false}
         animate={{ y: barHidden ? -72 : 0 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed inset-x-0 top-0 z-[100] flex h-14 items-center justify-between bg-[#f4f2ec]/85 px-5 backdrop-blur-xl lg:hidden"
+        style={{ backgroundColor: 'rgba(244, 242, 236, 0.9)' }}
+        className="fixed inset-x-0 top-0 z-[100] flex h-14 items-center justify-between px-5 backdrop-blur-xl lg:hidden"
       >
         <Link href="/" aria-label="BuzzEdison home" className="text-lg font-semibold tracking-[-0.04em] text-[#171714]">
           BuzzEdison

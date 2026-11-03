@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
@@ -35,7 +35,6 @@ const columns = [
 export default function Footer() {
   const pathname = usePathname();
   const isSpecializedPage =
-    (pathname.startsWith('/insights/') && pathname !== '/insights/') ||
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/bookmarks') ||
     pathname.startsWith('/admin') ||
@@ -54,13 +53,7 @@ export default function Footer() {
             <p className="max-w-lg text-3xl font-semibold leading-[1.1] tracking-[-0.045em] sm:text-4xl">
               Build a company that can carry itself.
             </p>
-            <Link
-              href="/contact"
-              className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#f4f2ec] px-6 py-3.5 text-sm font-semibold text-[#1c1c1c] transition-transform active:scale-[0.97]"
-            >
-              Start a conversation <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <a href="mailto:ask@buzzedison.com" className="group mt-6 flex w-fit items-center gap-2 text-lg text-white/70 transition-colors hover:text-white">
+            <a href="mailto:ask@buzzedison.com" className="group mt-8 flex w-fit items-center gap-2 text-lg text-white/70 transition-colors hover:text-white">
               ask@buzzedison.com <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
           </div>
